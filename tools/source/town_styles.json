@@ -1,0 +1,45 @@
+{
+  "_note": "Which people built each settlement, which sets its street plan (tools/towns.mjs). Races: human = medieval sprawl with a French radial plan; atma = Roman grid (Atman humans); egyptian = Nile city (the human nation of north-eastern Curmeah); elf = nature-woven, art nouveau curves in golden ratios; dwarf = carved into the Stone, symmetrical art deco fans and steps; orc = functional brutalist slabs; goblin = random and haphazard. Order of precedence: byName, then the longest matching byRealm entry (matched against the settlement's trail in the notes, e.g. 'Geas > Citadel'), then bySource (the map it came from), then default. Edit, then run towns.mjs.",
+  "default": "human",
+  "bySource": {
+    "tel-tenauril": "elf"
+  },
+  "byRealm": {
+    "Tel-Tenauril": "elf",
+    "Citadel": "dwarf",
+    "Atman Empire": "atma",
+    "Shattered Kingdoms": "atma",
+    "Curmeah > Aljahdahn": "egyptian"
+  },
+  "byName": {
+    "Valkith": "orc",
+    "Gumblegurd": "goblin",
+    "Khayat": "goblin",
+    "Duul-Roerahm": "dwarf",
+    "Guildurunin": "dwarf",
+    "Megamicres": "dwarf",
+    "Topholme": "dwarf",
+    "Settlement Ruins": "atma",
+    "Atma": "atma",
+    "Telos Ruins": "atma",
+    "Thanatos Ruins": "atma"
+  },
+  "ruins": {
+    "Settlement Ruins": 2,
+    "Atma": 3,
+    "Telos Ruins": 2,
+    "Thanatos Ruins": 2
+  },
+  "_ruins": "Ruined settlements that get a plan too (name: size, 1 village, 2 town, 3 city). Drawn broken: most houses gone, walls in pieces.",
+  "ruinSites": [
+    {
+      "name": "Thanatos Ruins",
+      "at": [
+        -236.6,
+        345
+      ],
+      "tier": 2
+    }
+  ],
+  "_ruinSites": "Ruins with no pin of their own: a plan is made at this world-px point (name, size) and labelled on the map."
+}

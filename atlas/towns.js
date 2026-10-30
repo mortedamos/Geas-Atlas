@@ -21,6 +21,9 @@ const startTowns = () => {
     spiral: { house: ['#bccb94', '#b0c186', '#c7d49f'], edge: '#3f5a2c', civic: ['#a9c48a', '#8fb06f'], street: '#fbf5dc', casing: '#a8b08a', wall: '#566f3f', tower: '#6a8a4e', plaza: '#e6efc8' },
     fan: { house: ['#8d867c', '#7d776e', '#9a9388'], edge: '#2e2a26', civic: ['#c9a24a', '#b58f3c'], street: '#efe4c6', casing: '#6e6252', wall: '#3b3631', tower: '#3b3631', plaza: '#e8dcc0' },
     slab: { house: ['#a39f98', '#96928b', '#aeaaa2'], edge: '#2a2724', civic: ['#6f6b66', '#5f5b56'], street: '#e4dccb', casing: '#7a7468', wall: '#4a4742', tower: '#3b3835', plaza: '#d9d2c0' },
+    norse: { house: ['#a87c4e', '#97693c', '#8f9a5c'], edge: '#3d2a16', civic: ['#7a4e2b', '#6a4223'], street: '#e8dcb0', casing: '#8a7340', wall: '#5a3d1e', tower: '#5a3d1e', plaza: '#e2d4a6' },
+    burrow: { house: ['#c8a974', '#b99a63', '#d3b784'], edge: '#5b4a28', civic: ['#8ea35c', '#7a9150'], street: '#efe3b5', casing: '#a58f5a', wall: '#6b5a30', tower: '#6b5a30', plaza: '#cfe0a0' },
+    maze: { house: ['#c9b18a', '#bda47c', '#d4bf9a'], edge: '#4a3826', civic: ['#a8553a', '#8a4a34'], street: '#efe3c4', casing: '#9c8660', wall: '#5a4a38', tower: '#5a4a38', plaza: '#eadfc0' },
     wander: { house: ['#a98b62', '#97794f', '#b79a70'], edge: '#4a3a22', civic: ['#7a5a35', '#6a4c2b'], street: '#d9c79a', casing: '#8c7448', wall: '#5a4326', tower: '#5a4326', plaza: '#cdb985' },
   };
   const byStyle = (fn) => ['match', ['get', 's'], ...Object.keys(PAL).filter((k) => k !== 'radial').flatMap((k) => [k, fn(PAL[k])]), fn(PAL.radial)];
@@ -57,7 +60,7 @@ const startTowns = () => {
     for (const [x, y, w, d, a, kind] of T.dk) add('dock', rect(x, y, w, d, a), { kind });
     for (const [x, y, w, d, a] of T.br) add('bridge', rect(x, y, w, d, a));
     for (const [x, y, w, d, a, c] of T.b) {
-      add('house', s === 'spiral' ? oval(x, y, w, d, a) : rect(x, y, w, d, a), { c });
+      add('house', s === 'spiral' ? oval(x, y, w, d, a) : s === 'burrow' ? oval(x, y, w, w, a) : rect(x, y, w, d, a), { c });
       if (s === 'fan' && w > 30) add('cap', rect(x, y, w, d, a, 0.6)); // dwarven halls step in
     }
     for (const [x, y, w, d, a, kind] of T.civ) {
@@ -109,7 +112,7 @@ const startTowns = () => {
       L('plaza', 'fill', K('plaza'), {}, { 'fill-color': byStyle((p) => p.plaza), 'fill-opacity': fade(), 'fill-outline-color': '#b49a63' });
       L('street-casing', 'line', K('street'), { 'line-cap': 'round', 'line-join': 'round' }, { 'line-color': byStyle((p) => p.casing), 'line-opacity': fade(0.85), 'line-width': widthExpr('w', 1.3) });
       L('street', 'line', K('street'), { 'line-cap': 'round', 'line-join': 'round' }, { 'line-color': byStyle((p) => p.street), 'line-opacity': fade(), 'line-width': widthExpr('w') });
-      L('tree', 'fill', K('tree'), {}, { 'fill-color': ['match', ['get', 'kind'], 1, '#a3b560', 2, '#4f8a4a', '#7fa06a'], 'fill-opacity': fade(0.82), 'fill-outline-color': '#3d5a30' });
+      L('tree', 'fill', K('tree'), {}, { 'fill-color': ['match', ['get', 'kind'], 1, '#a3b560', 2, '#4f8a4a', 3, '#b4cd7a', '#7fa06a'], 'fill-opacity': fade(0.82), 'fill-outline-color': '#3d5a30' });
       L('dock', 'fill', K('dock'), {}, { 'fill-color': '#7a5a37', 'fill-opacity': fade(), 'fill-outline-color': '#3a2a1c' });
       L('bridge', 'fill', K('bridge'), {}, { 'fill-color': '#a58656', 'fill-opacity': fade(), 'fill-outline-color': '#3a2a1c' });
       L('house', 'fill', K('house'), {}, { 'fill-color': byStyle((p) => ['match', ['get', 'c'], 0, p.house[0], 1, p.house[1], p.house[2]]), 'fill-opacity': fade(), 'fill-outline-color': byStyle((p) => p.edge) });

@@ -9,6 +9,9 @@
 //   dwarf    carved into the Stone: a symmetrical sunburst of avenues and terraces, stepped halls, a great gate (art deco)
 //   orc      functional brutalism: a parade ground, rigid avenues, long concrete slabs, a thick bastioned wall
 //   goblin   random and haphazard: crooked paths, heaps of huts at every angle, a broken palisade
+//   viking   a Trelleborg ring fort with pinwheels of longhouses, boat sheds along the shore, a ring of Thing stones
+//   gnome    halfling burrows: winding lanes, round homes with gardens round a party tree
+//   minotaur a labyrinth: the city is a maze of stone blocks round a palace court
 // Where the real coast or a river runs close, the plan keeps off the water and adds a waterfront street, quay and piers (or bridges).
 // All sizes are feet. Output: atlas/data/towns.json (compact: positions in a local east/north frame around the settlement).
 // A hand-made city map can replace a generated one: list it in atlas/data/town_maps.json (see atlas/towns.js).
@@ -24,7 +27,7 @@ const R_TIER = { 1: 420, 2: 1000, 3: 2200 }; // radius of the built-up area, fee
 const CELL = 6; // occupancy grid, feet
 const WIDTH = { main: 26, street: 17, lane: 11 };
 const PHI = 1.618034;
-const STYLE_OF = { human: 'radial', atma: 'grid', egyptian: 'nile', elf: 'spiral', dwarf: 'fan', orc: 'slab', goblin: 'wander' };
+const STYLE_OF = { human: 'radial', atma: 'grid', egyptian: 'nile', elf: 'spiral', dwarf: 'fan', orc: 'slab', goblin: 'wander', viking: 'norse', gnome: 'burrow', minotaur: 'maze' };
 const styles = JSON.parse(fs.readFileSync(path.resolve('source/town_styles.json'), 'utf8'));
 const notes = rd('notes.json');
 
@@ -111,7 +114,7 @@ function layoutTown(f, all) {
   if (coast) { const s = (0 - coast.p[0]) * coast.n[0] + (0 - coast.p[1]) * coast.n[1], need = 0.3 * R + s; if (need > 0 || (p.kind === 'port' && need < 0)) c0 = [c0[0] - coast.n[0] * need, c0[1] - coast.n[1] * need]; }
   if (river) { const sd = (c0[0] - river.p[0]) * river.t[1] - (c0[1] - river.p[1]) * river.t[0], need = river.W / 2 + 0.1 * R - Math.abs(sd); if (need > 0) { const s = sd >= 0 ? 1 : -1; c0 = [c0[0] + s * river.t[1] * need, c0[1] - s * river.t[0] * need]; } }
 
-  const walled = style === 'slab' ? tier >= 2 : style === 'fan' ? tier >= 2 : style === 'spiral' || style === 'wander' ? false : style === 'nile' ? tier === 3 : (tier === 3 || (tier === 2 && rng() < 0.3) || p.kind === 'fort');
+  const walled = style === 'slab' ? tier >= 2 : style === 'fan' ? tier >= 2 : style === 'spiral' || style === 'wander' || style === 'norse' || style === 'burrow' || style === 'maze' ? false : style === 'nile' ? tier === 3 : (tier === 3 || (tier === 2 && rng() < 0.3) || p.kind === 'fort');
   const Rw = 0.9 * R, Rin = walled ? Rw - 20 : R;
   const half = Math.ceil(1.45 * R), N = Math.ceil((2 * half) / CELL);
   const occ = new Uint8Array(N * N); // 0 free, 1 water, 2 street, 3 building, 4 plaza, 5 wall, 6 tree
@@ -427,6 +430,129 @@ function layoutTown(f, all) {
       };
     },
 
+    // ---- viking: ring fort, longhouses, boat sheds ----
+    norse() {
+      const th = coast ? Math.atan2(coast.t[1], coast.t[0]) : pickAngles(1)[0] ?? rng() * 6.283; // the houses run along the shore
+      const e1 = [Math.cos(th), Math.sin(th)], e2 = [-Math.sin(th), Math.cos(th)];
+      const Rr = tier === 3 ? 0.42 * R : tier === 2 ? 0.34 * R : 0; // a Trelleborg ring fort with four gates
+      out.pl.push(plazaPoly(0, 0, hs * 0.9, hs * 0.9, th, 0.3)); rectMark(c0[0], c0[1], 1.8 * hs, 1.8 * hs, th, 4);
+      label(tier === 1 ? 'The Hall Yard' : 'Hall Yard', c0[0], c0[1] + hs * 1.2);
+      addStreet('main', [rotP(-1.3 * R, 0, th), rotP(1.3 * R, 0, th)], { suburb: true, crossRiver: true });
+      addStreet(Rr ? 'main' : 'street', [rotP(0, -(Rr ? 1.0 : 0.6) * R, th), rotP(0, (Rr ? 1.0 : 0.6) * R, th)], { suburb: Rr > 0 });
+      if (Rr) {
+        const loop = []; for (let a = 0; a <= 6.2832 + 0.05; a += 30 / Rr) loop.push([c0[0] + Math.cos(a) * Rr, c0[1] + Math.sin(a) * Rr]);
+        addWall(loop, { gates: [0, 1, 2, 3].map((k) => rotP(Rr * Math.cos((k * Math.PI) / 2), Rr * Math.sin((k * Math.PI) / 2), th)), gap: 20, towerEvery: 0, gateTr: 9, thick: 14 });
+        // each quarter holds four longhouses turned about a yard, the pinwheel of Trelleborg
+        const groups = [[0.58, Math.PI / 4]]; if (tier === 3) groups.push([0.86, Math.PI / 4 + 0.32], [0.86, Math.PI / 4 - 0.32]);
+        for (const [fr, off] of groups) for (let k = 0; k < 4; k++) {
+          const a = off + (k * Math.PI) / 2, qc = [c0[0] + Math.cos(a + th) * fr * Rr, c0[1] + Math.sin(a + th) * fr * Rr], L = lerp(64, 86, rng()), g = 8, d = 22;
+          for (const [dx, dy, ang] of [[e2[0] * (L / 2 + g), e2[1] * (L / 2 + g), th], [-e2[0] * (L / 2 + g), -e2[1] * (L / 2 + g), th], [e1[0] * (L / 2 + g), e1[1] * (L / 2 + g), th + Math.PI / 2], [-e1[0] * (L / 2 + g), -e1[1] * (L / 2 + g), th + Math.PI / 2]]) {
+            if (rectFree(qc[0] + dx, qc[1] + dy, L, d, ang, 2) && !water(qc[0] + dx, qc[1] + dy)) { rectMark(qc[0] + dx, qc[1] + dy, L, d, ang, 3); out.b.push([r0(qc[0] + dx), r0(qc[1] + dy), r0(L), d, deg(ang), 0]); }
+          }
+        }
+      }
+      // farm lanes: a ring road round the fort and spurs out to the farmsteads
+      if (tier >= 2) {
+        const rr = (Rr ? 1.45 * Rr : 0.6 * R); let pts = [];
+        const flushRing = () => { addStreet('lane', pts); pts = []; };
+        for (let a = 0; a <= 6.2832 + 0.1; a += 0.12) { const r = rr * (1 + 0.06 * Math.sin(a * 3 + ph[0])); pts.push([c0[0] + Math.cos(a) * r, c0[1] + Math.sin(a) * r]); if (rng() < 0.03) flushRing(); }
+        flushRing();
+        const nSp = tier === 3 ? 8 : 5;
+        for (let k = 0; k < nSp; k++) { const a = rng() * 6.283, pts2 = [], r1 = rr * 0.95; for (let t = 0; t <= 4; t++) { const r = lerp(r1, 1.05 * R, t / 4), aa = a + 0.05 * Math.sin(t * 2 + k); pts2.push([c0[0] + Math.cos(aa) * r, c0[1] + Math.sin(aa) * r]); } addStreet('lane', pts2); }
+      }
+      // the Thing: a ring of standing stones
+      { const [tx, ty] = rotP(Rr ? 1.22 * Rr : hs * 3, Rr ? 0.5 * Rr : hs * 2, th); for (let i = 0; i < 9; i++) { const a = (i / 9) * 6.2832; out.tw.push([r0(tx + Math.cos(a) * 34), r0(ty + Math.sin(a) * 34), 3]); } label('Thing', tx, ty + 52); stamp(tx, ty, 40, 4); }
+      return {
+        dim: () => [lerp(54, 96, rng()), 0], dd: () => lerp(17, 24, rng()), baseP: tier === 1 ? 0.6 : 0.8, rows: 1, gap: [8, 22], jitter: 0.1, setback: [12, 26], rowP: 0, fall: 0.35,
+        ok: (x, y, sub) => { const rr = Math.hypot(x - c0[0], y - c0[1]); return rr > (Rr ? Rr + 28 : hs * 2) && rr < (sub ? 1.2 : 1.1) * R; },
+        infill: { tries: tier === 3 ? 3500 : tier === 2 ? 1400 : 300, p: 0.4, dist: 160, dim: () => [lerp(12, 22, rng()), lerp(12, 18, rng())] },
+        after() {
+          civicAt(c0[0] + e2[0] * hs * 1.7, c0[1] + e2[1] * hs * 1.7, tier === 3 ? 130 : tier === 2 ? 100 : 80, 34, th, 0, 'Great Hall', false);
+          if (coast) { // boat sheds along the shore
+            const s0 = (c0[0] - coast.p[0]) * coast.n[0] + (c0[1] - coast.p[1]) * coast.n[1], foot = [c0[0] - coast.n[0] * s0, c0[1] - coast.n[1] * s0], ang = Math.atan2(coast.t[1], coast.t[0]);
+            if (-s0 < 0.9 * R) for (let t = -0.6 * R; t <= 0.6 * R; t += 58) {
+              const x = foot[0] + coast.t[0] * t - coast.n[0] * 22, y = foot[1] + coast.t[1] * t - coast.n[1] * 22, w = lerp(32, 46, rng());
+              if (rng() < 0.8 && !water(x, y) && rectFree(x, y, w, 14, ang, 1)) { rectMark(x, y, w, 14, ang, 3); out.b.push([r0(x), r0(y), r0(w), 14, deg(ang), 2]); }
+            }
+          }
+        },
+      };
+    },
+
+    // ---- gnome / halfling: burrows, winding lanes, gardens ----
+    burrow() {
+      out.pl.push(polyOut(Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * 6.2832, rr = hs * (1.15 + 0.25 * Math.sin(i * 2.1 + ph[0])); return [c0[0] + Math.cos(a) * rr, c0[1] + Math.sin(a) * rr]; })));
+      stamp(c0[0], c0[1], hs * 1.1, 4);
+      out.tr.push([r0(c0[0]), r0(c0[1]), r0(hs * 0.45), 2]);
+      label('The Green', c0[0], c0[1] + hs * 1.6);
+      const nL = tier === 3 ? 9 : tier === 2 ? 7 : 4, a0 = rng() * 6.283;
+      for (let i = 0; i < nL; i++) {
+        let a = a0 + (i / nL) * 6.2832 + (rng() - 0.5) * 0.4, x = c0[0] + Math.cos(a) * hs * 1.2, y = c0[1] + Math.sin(a) * hs * 1.2;
+        const pts = [[x, y]], drift = (rng() - 0.5) * 0.18;
+        for (let s = 0; s < 40; s++) { a += drift + (rng() - 0.5) * 0.4; x += Math.cos(a) * 45; y += Math.sin(a) * 45; pts.push([x, y]); if (Math.hypot(x - c0[0], y - c0[1]) > 1.1 * R) break; }
+        addStreet(i % 3 === 0 ? 'street' : 'lane', pts, { limit: 1.15 });
+      }
+      if (tier >= 2) { let pts = []; const flushR = () => { addStreet('lane', pts); pts = []; }; for (let a = 0; a <= 6.2832 + 0.1; a += 0.12) { const rr = 0.55 * R * (1 + 0.1 * Math.sin(a * 3 + ph[0]) + 0.06 * Math.sin(a * 7 + ph[1])); pts.push([c0[0] + Math.cos(a) * rr, c0[1] + Math.sin(a) * rr]); if (rng() < 0.03) flushR(); } flushR(); }
+      for (const a of pickAngles(tier === 3 ? 4 : 3)) addStreet('main', wavyRoad(a, hs * 1.3, 1.3 * R, 0.05), { suburb: true, crossRiver: true });
+      return {
+        dim: () => { const w = lerp(15, 30, rng()); return [w, w]; }, dd: null, baseP: 0.8, rows: tier === 3 ? 2 : 1, gap: [8, 18], jitter: 0.4, setback: [7, 15], rowP: 0.5, fall: 0.3,
+        ok: (x, y, sub) => Math.hypot(x - c0[0], y - c0[1]) < (sub ? 1.2 : 1.08) * R,
+        infill: { tries: tier === 3 ? 2600 : tier === 2 ? 900 : 200, p: 0.35, dist: 130 },
+        post() { // every burrow has its garden
+          for (const [x, y, w] of out.b.slice()) {
+            if (rng() > 0.65) continue;
+            const a = rng() * 6.283, r = lerp(8, 16, rng()), gx = x + Math.cos(a) * (w / 2 + r + 3), gy = y + Math.sin(a) * (w / 2 + r + 3);
+            if (rectFree(gx, gy, 2 * r, 2 * r, 0, 1)) { stamp(gx, gy, r, 6); out.tr.push([r0(gx), r0(gy), r0(r), 3]); }
+          }
+        },
+        after() { civicSearch(40, 28, hs * 1.8, 0.4 * R, 1, 'Mill House', false, () => rng() * 3.14); },
+        trees: { tries: tier === 3 ? 500 : tier === 2 ? 200 : 60, rmin: 0.3 * R, rmax: 1.1 * R, r: [6, 12], p: 0.6, kind: 0 },
+      };
+    },
+
+    // ---- minotaur: a labyrinth city ----
+    maze() {
+      const P = tier === 1 ? 20 : 24, Rl = 0.95 * R, m = 2 * Math.floor(Rl / P / 2), S = 2 * m + 1, c = tier === 3 ? 5 : tier === 2 ? 3 : 1;
+      const st = new Uint8Array(S * S); // 0 outside, 1 block, 2 passage, 3 palace
+      const id = (i, j) => (j + m) * S + (i + m);
+      const cellXY = (i, j) => [c0[0] + i * P, c0[1] + j * P];
+      for (let j = -m; j <= m; j++) for (let i = -m; i <= m; i++) { const [x, y] = cellXY(i, j); if (Math.hypot(i * P, j * P) <= Rl && !water(x, y)) st[id(i, j)] = 1; }
+      const inPalace = (i, j) => Math.abs(i) <= c + 2 && Math.abs(j) <= c + 2;
+      for (let j = -c - 2; j <= c + 2; j++) for (let i = -c - 2; i <= c + 2; i++) if (st[id(i, j)]) st[id(i, j)] = Math.abs(i) <= c && Math.abs(j) <= c ? 2 : 3;
+      // carve: depth-first on the even lattice, then the avenues, a ring road, and a few loops
+      const si = c + 3 + ((c + 3) % 2), stack = [[si, 0]];
+      if (st[id(si, 0)] === 1) st[id(si, 0)] = 2;
+      while (stack.length) {
+        const [i, j] = stack[stack.length - 1], opts = [[2, 0], [-2, 0], [0, 2], [0, -2]].filter(([di, dj]) => { const a = i + di, b = j + dj; return Math.abs(a) <= m && Math.abs(b) <= m && st[id(a, b)] === 1; });
+        if (!opts.length) { stack.pop(); continue; }
+        const [di, dj] = opts[Math.floor(rng() * opts.length)];
+        if (st[id(i + di / 2, j + dj / 2)] === 1 || st[id(i + di / 2, j + dj / 2)] === 2) { st[id(i + di / 2, j + dj / 2)] = 2; st[id(i + di, j + dj)] = 2; stack.push([i + di, j + dj]); } else { st[id(i + di, j + dj)] = 2; }
+      }
+      for (let k = -m; k <= m; k++) for (const [i, j] of [[k, 0], [0, k]]) if (!inPalace(i, j) && st[id(i, j)] === 1) st[id(i, j)] = 2;
+      if (tier >= 2) for (let j = -m; j <= m; j++) for (let i = -m; i <= m; i++) { const rr = Math.hypot(i * P, j * P); if (st[id(i, j)] === 1 && Math.abs(rr - 0.93 * Rl) < P * 0.6) st[id(i, j)] = 2; }
+      for (let j = -m + 1; j < m; j++) for (let i = -m + 1; i < m; i++) { if (st[id(i, j)] !== 1 || (i + j) % 2 === 0) continue; const h = st[id(i - 1, j)] === 2 && st[id(i + 1, j)] === 2, v = st[id(i, j - 1)] === 2 && st[id(i, j + 1)] === 2; if ((h || v) && rng() < 0.07) st[id(i, j)] = 2; }
+      // blocks become buildings, merged along a row
+      for (let j = -m; j <= m; j++) {
+        let i = -m;
+        while (i <= m) {
+          if (st[id(i, j)] !== 1) { i++; continue; }
+          let k = i; while (k + 1 <= m && st[id(k + 1, j)] === 1 && k + 1 - i < 6) k++;
+          const [x, y] = cellXY((i + k) / 2, j);
+          out.b.push([r0(x), r0(y), r0((k - i + 1) * P - 3), P - 3, 0, r0(rng() * 2.99)]);
+          i = k + 1;
+        }
+      }
+      // floor of the labyrinth, palace court and wings
+      out.pl.push(polyOut(Array.from({ length: 40 }, (_, k) => [c0[0] + Math.cos((k / 40) * 6.2832) * (Rl + P * 0.7), c0[1] + Math.sin((k / 40) * 6.2832) * (Rl + P * 0.7)])));
+      out.pl.push(plazaPoly(0, 0, (c + 0.5) * P, (c + 0.5) * P, 0, 0));
+      const wing = (u, v, w, d) => { const [x, y] = cellXY(u, v); out.civ.push([r0(x), r0(y), r0(w * P - 4), r0(d * P - 4), 0, 3]); };
+      wing(0, c + 1.5, 2 * c + 5, 2); wing(0, -(c + 1.5), 2 * c + 5, 2); wing(-(c + 1.5), 0, 2, 2 * c + 1); wing(c + 1.5, 0, 2, 2 * c + 1);
+      label('The Palace', c0[0], c0[1]); label('The Labyrinth', c0[0], c0[1] - 0.45 * R);
+      if (tier >= 2) { const loop = []; for (let a = 0; a <= 6.2832 + 0.05; a += 36 / (Rl + P)) loop.push([c0[0] + Math.cos(a) * (Rl + P), c0[1] + Math.sin(a) * (Rl + P)]); addWall(loop, { gates: [0, 1, 2, 3].map((k) => [c0[0] + Math.cos((k * Math.PI) / 2) * (Rl + P), c0[1] + Math.sin((k * Math.PI) / 2) * (Rl + P)]), gap: 24, towerEvery: 9, tr: 12, gateTr: 15, thick: 10 }); }
+      for (let k = 0; k < 4; k++) addStreet('main', [[c0[0] + Math.cos((k * Math.PI) / 2) * (Rl + P * 1.5), c0[1] + Math.sin((k * Math.PI) / 2) * (Rl + P * 1.5)], [c0[0] + Math.cos((k * Math.PI) / 2) * 1.3 * R, c0[1] + Math.sin((k * Math.PI) / 2) * 1.3 * R]], { suburb: true, crossRiver: true });
+      return { custom: true, fill() {} };
+    },
+
     // ---- goblin: haphazard ----
     wander() {
       const blob = Array.from({ length: 9 }, (_, i) => { const a = (i / 9) * 6.2832, rr = hs * (0.5 + rng() * 0.6); return [c0[0] + Math.cos(a) * rr, c0[1] + Math.sin(a) * rr]; });
@@ -566,11 +692,12 @@ function layoutTown(f, all) {
         const kx = Math.floor(x / BK), ky = Math.floor(y / BK);
         for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) for (const q of bucket.get((kx + dx) + ',' + (ky + dy)) || []) { const d = Math.hypot(q[0] - x, q[1] - y); if (d < bd) { bd = d; best = q; } }
         if (!best || bd > cfg.infill.dist) continue;
-        const [w, d] = dimsOf(), ang = cfg.infill.align ?? (Math.atan2(best[3], best[2]) + (rng() - 0.5) * 0.1);
+        const [w, d] = cfg.infill.dim ? cfg.infill.dim() : dimsOf(), ang = cfg.infill.align ?? (Math.atan2(best[3], best[2]) + (rng() - 0.5) * 0.1);
         if (rng() < cfg.infill.p) place(x, y, w, d, ang, 0, 0, false, []);
       }
     }
   }
+  cfg.post?.();
   // trees (groves, palms)
   if (cfg.trees) {
     const t = cfg.trees;

@@ -188,7 +188,7 @@ const style = {
           'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'icon-ignore-placement': true,
           'symbol-sort-key': ['get', 'sk'],
         },
-        paint: { 'icon-opacity': kind === 'forest' ? 0.92 : kind === 'ruins' ? 0.55 : 1 },
+        paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], 12.5, kind === 'forest' ? 0.92 : kind === 'ruins' ? 0.55 : 1, 14, 0] }, // gone before street plans fade in
       })),
     ),
 
@@ -215,7 +215,7 @@ const style = {
     { id: 'poi-icons', type: 'symbol', source: 'places', minzoom: 5.4, layout: {
         'icon-image': ['concat', 'poi-', ['coalesce', ['get', 'icon'], ['get', 'kind']]], 'icon-size': ['interpolate', ['linear'], ['zoom'], 5, ['*', 0.7, SETTLEMENT_SCALE], 8, SETTLEMENT_SCALE, 11, ['*', 1.375, SETTLEMENT_SCALE]],
         'icon-allow-overlap': true },
-      paint: { 'icon-opacity': ['case', ['==', ['get', 'guess'], true], 0.6, 1] } },
+      paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], 14.5, ['case', ['==', ['get', 'guess'], true], 0.6, 1], 16, ['case', ['has', 'tier'], 0, ['==', ['get', 'guess'], true], 0.6, 1]] } }, // settlements hand over to their street plan
     ...[[1, 5.0], [2, 6.0], [3, 7.0]].map(([rank, minzoom]) => ({
       id: `places-${rank}`, type: 'symbol', source: 'places', minzoom, filter: ['==', ['get', 'rank'], rank],
       layout: {
@@ -272,7 +272,7 @@ const map = new maplibregl.Map({
   bounds: [[-10.5, -6.5], [7.1, 10.6]],
   fitBoundsOptions: { padding: 40 },
   minZoom: 4,
-  maxZoom: 13,
+  maxZoom: 20, // street plans (towns.js) are drawn at true scale and need the extra zoom
   maxBounds: WORLD_BOUNDS,
   renderWorldCopies: false,
   attributionControl: false,
@@ -297,14 +297,14 @@ map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-ri
   try { milesPerWorldPx = (await (await fetch('data/scale.json', { cache: 'no-store' })).json()).milesPerWorldPx; } catch { return; }
   if (!milesPerWorldPx) return;
   const el = document.getElementById('scalebar');
-  const nice = [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000];
+  const nice = [0.0095, 0.019, 0.047, 0.095, 0.19, 0.47, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000]; // the small ones are 50, 100, 250, 500, 1000, 2500 feet
   const update = () => {
     const h = map.getContainer().clientHeight / 2;
     const a = map.unproject([0, h]), b = map.unproject([100, h]);
     const milesPer100 = Math.abs(b.lng - a.lng) * 51.2 * milesPerWorldPx;
     const m = [...nice].reverse().find((n) => n <= milesPer100) || nice[0];
     el.querySelector('i').style.width = `${Math.max(8, (m / milesPer100) * 100)}px`;
-    el.querySelector('span').textContent = `${m} mi`;
+    el.querySelector('span').textContent = m < 1 ? `${Math.round((m * 5280) / 50) * 50} ft` : `${m} mi`;
     el.hidden = false;
   };
   map.on('move', update); update();

@@ -32,7 +32,7 @@ const EDIT_FIELDS = {
 const json = (res, code, body) => res.writeHead(code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify(body));
 const readBody = (req) => new Promise((resolve) => { let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => { try { resolve(JSON.parse(b || '{}')); } catch { resolve({}); } }); });
 // rebuild notes + pins (and the unplaced list) after any change
-const rebuild = () => new Promise((resolve) => execFile('node', ['attach_notes.mjs', '../atlas/data'], { cwd: here }, (e1) => execFile('node', ['gazetteer.mjs', '../atlas/data'], { cwd: here }, (e2) => resolve(!e1 && !e2))));
+const rebuild = () => new Promise((resolve) => execFile('node', ['attach_notes.mjs', '../atlas/data'], { cwd: here }, (e1) => execFile('node', ['gazetteer.mjs', '../atlas/data'], { cwd: here }, (e2) => execFile('node', ['towns.mjs', '../atlas/data'], { cwd: here }, (e3) => resolve(!e1 && !e2 && !e3)))));
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, 'http://x');

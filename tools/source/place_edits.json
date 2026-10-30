@@ -34,6 +34,74 @@
    "rank": 3,
    "lng": -7.7113,
    "lat": 5.24115
+  },
+  "tel-tenauril:place:Athionir": {
+   "lng": -8.10057,
+   "lat": 6.52024
+  },
+  "sellador:place:Port of Nuary": {
+   "lng": -8.93305,
+   "lat": 5.79678
+  },
+  "sellador:place:Port of Garrison": {
+   "lng": -8.2214,
+   "lat": 5.59255
+  },
+  "sellador:place:Allstone": {
+   "lng": -9.19742,
+   "lat": 4.68283
+  },
+  "argusund:place:Targhild": {
+   "lng": -7.24507,
+   "lat": 8.73226
+  },
+  "argusund:place:Idrirstad": {
+   "lng": -7.45683,
+   "lat": 8.37032
+  },
+  "berhagen:place:Hagensport": {
+   "lng": -8.1528,
+   "lat": 4.42006
+  },
+  "curmeah:place:New Sellador Port": {
+   "lng": 0.71339,
+   "lat": -3.70603
+  },
+  "placed:place:Candle Cove": {
+   "lng": -9.30197,
+   "lat": 5.51824
+  },
+  "placed:place:Fallstaff": {
+   "lng": -9.09328,
+   "lat": 4.82237
+  },
+  "placed:place:Seaharrow": {
+   "lng": -7.76121,
+   "lat": 5.01768
+  },
+  "placed:place:Uldras": {
+   "lng": -4.14047,
+   "lat": 5.85938
+  },
+  "placed:place:Heprecon": {
+   "lng": 5.21098,
+   "lat": 1.27518
+  },
+  "tel-tenauril:place:Gailoth": {
+   "lng": -9.50793,
+   "lat": 6.04536
+  },
+  "tel-tenauril:place:Aegilen": {
+   "lng": -8.08667,
+   "lat": 5.85513
+  },
+  "argusund:place:Virnskeggi": {
+   "lng": -7.2645,
+   "lat": 8.94356
+  },
+  "placed:place:Omara": {
+   "lng": 2.78621,
+   "lat": -0.16388
   }
  }
 }

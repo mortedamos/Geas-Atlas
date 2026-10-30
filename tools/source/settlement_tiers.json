@@ -1,0 +1,5 @@
+{
+  "_note": "Settlements come in three sizes: 1 village (small), 2 town (medium), 3 city (large). The size is taken from the entry's kind below, so a pin placed as a 'city' is large. 'overrides' sets a size for one place by its name on the map (use it when the kind is right but the size is not, e.g. a walled town the old notes call a city). Ports have no size of their own and count as medium unless overridden. The size also sets the label level: cities label first (rank 1), towns next (rank 2), villages last (rank 3). Run attach_notes.mjs after editing.",
+  "byKind": { "village": 1, "town": 2, "port": 2, "city": 3 },
+  "overrides": {}
+}

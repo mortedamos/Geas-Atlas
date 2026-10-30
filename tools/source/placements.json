@@ -1,0 +1,95 @@
+{
+ "_note": "Pins placed by hand in the viewer's placement mode: database id + position (lon/lat) + symbol kind. Written by tools/serve.mjs; merged into the map by tools/attach_notes.mjs.",
+ "placements": [
+  {
+   "dbId": 1342,
+   "lng": -6.79111,
+   "lat": 5.30603,
+   "kind": "region"
+  },
+  {
+   "dbId": 205,
+   "lng": -8.15866,
+   "lat": 2.66253,
+   "kind": "island"
+  },
+  {
+   "dbId": 788,
+   "lng": 5.50345,
+   "lat": 1.84497,
+   "kind": "island"
+  },
+  {
+   "dbId": 112,
+   "lng": -1.7087,
+   "lat": 4.026,
+   "kind": "ruin"
+  },
+  {
+   "dbId": 1169,
+   "lng": -4.28507,
+   "lat": 2.97494,
+   "kind": "region"
+  },
+  {
+   "dbId": 192,
+   "lng": -8.98267,
+   "lat": 4.91496,
+   "kind": "region"
+  },
+  {
+   "dbId": 197,
+   "lng": -8.99847,
+   "lat": 6.51024,
+   "kind": "region"
+  },
+  {
+   "dbId": 128,
+   "lng": -1.69289,
+   "lat": 4.04058,
+   "kind": "tower"
+  },
+  {
+   "dbId": 124,
+   "lng": -4.20395,
+   "lat": 5.10419,
+   "kind": "region"
+  },
+  {
+   "dbId": 111,
+   "lng": -2.01839,
+   "lat": 3.86359,
+   "kind": "region"
+  },
+  {
+   "dbId": 162,
+   "lng": -6.70647,
+   "lat": 4.27372,
+   "kind": "region"
+  },
+  {
+   "dbId": 1126,
+   "lng": -6.75866,
+   "lat": 11.27833,
+   "kind": "region"
+  },
+  {
+   "dbId": 151,
+   "lng": -5.20137,
+   "lat": 4.49921,
+   "kind": "forest"
+  },
+  {
+   "dbId": 221,
+   "lng": -6.20703,
+   "lat": 4.43555,
+   "kind": "forest"
+  },
+  {
+   "dbId": 110,
+   "lng": -5.48194,
+   "lat": 3.38938,
+   "kind": "region"
+  }
+ ]
+}

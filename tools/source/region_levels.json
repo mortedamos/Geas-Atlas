@@ -1,0 +1,26 @@
+{
+  "_note": "Label levels for regions: 1 = major realm / sea / pole, 2 = region, 3 = sub-region. attach_notes.mjs derives them from the old notes' hierarchy (depth under 'Geas'); names listed here override that. Entries with no database page keep their drawn rank.",
+  "levels": {
+    "Border Mountains": 2,
+    "Lochlainn": 2,
+    "Phocacia": 2,
+    "Agrea": 2,
+    "Prios": 2,
+    "Thanatos": 2,
+    "Skjard Woods": 2,
+    "Argusund": 1,
+    "Curmeah": 1,
+    "Sellador": 1,
+    "Tel-Tenauril": 1,
+    "Shattered Kingdoms": 1,
+    "Citadel": 1,
+    "Atman Empire": 1,
+    "Plateau Of Lehng": 1,
+    "Inner Sea": 1,
+    "The Arctic Pole": 1,
+    "The Antarctic Pole": 1,
+    "Midland": 2,
+    "Duchy of Gideon": 2,
+    "Selladorian Free Nations": 2
+  }
+}

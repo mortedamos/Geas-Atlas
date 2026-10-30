@@ -1,0 +1,1483 @@
+{
+ "credit": {
+  "text": "Map symbols by Gogots, CC BY 4.0 (trimmed and resized)",
+  "url": "https://www.patreon.com/gogots/posts/cartography-free-154068058",
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+ },
+ "images": {
+  "tree-0": {
+   "file": "tree-0.png",
+   "w": 40,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-1": {
+   "file": "tree-1.png",
+   "w": 33,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-2": {
+   "file": "tree-2.png",
+   "w": 34,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-3": {
+   "file": "tree-3.png",
+   "w": 52,
+   "h": 41,
+   "pr": 0.96
+  },
+  "tree-4": {
+   "file": "tree-4.png",
+   "w": 38,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-5": {
+   "file": "tree-5.png",
+   "w": 40,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-6": {
+   "file": "tree-6.png",
+   "w": 36,
+   "h": 42,
+   "pr": 0.96
+  },
+  "tree-7": {
+   "file": "tree-7.png",
+   "w": 51,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-8": {
+   "file": "tree-8.png",
+   "w": 44,
+   "h": 48,
+   "pr": 0.96
+  },
+  "tree-9": {
+   "file": "tree-9.png",
+   "w": 29,
+   "h": 47,
+   "pr": 0.96
+  },
+  "tree-10": {
+   "file": "tree-10.png",
+   "w": 50,
+   "h": 41,
+   "pr": 0.96
+  },
+  "tree-11": {
+   "file": "tree-11.png",
+   "w": 51,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-12": {
+   "file": "tree-12.png",
+   "w": 38,
+   "h": 46,
+   "pr": 0.96
+  },
+  "tree-13": {
+   "file": "tree-13.png",
+   "w": 23,
+   "h": 47,
+   "pr": 0.96
+  },
+  "tree-14": {
+   "file": "tree-14.png",
+   "w": 50,
+   "h": 42,
+   "pr": 0.96
+  },
+  "tree-15": {
+   "file": "tree-15.png",
+   "w": 51,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-16": {
+   "file": "tree-16.png",
+   "w": 39,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-17": {
+   "file": "tree-17.png",
+   "w": 24,
+   "h": 48,
+   "pr": 0.96
+  },
+  "tree-18": {
+   "file": "tree-18.png",
+   "w": 33,
+   "h": 41,
+   "pr": 0.96
+  },
+  "tree-19": {
+   "file": "tree-19.png",
+   "w": 57,
+   "h": 49,
+   "pr": 0.96
+  },
+  "tree-20": {
+   "file": "tree-20.png",
+   "w": 39,
+   "h": 47,
+   "pr": 0.96
+  },
+  "tree-21": {
+   "file": "tree-21.png",
+   "w": 47,
+   "h": 52,
+   "pr": 0.96
+  },
+  "tree-22": {
+   "file": "tree-22.png",
+   "w": 28,
+   "h": 48,
+   "pr": 0.96
+  },
+  "tree-23": {
+   "file": "tree-23.png",
+   "w": 41,
+   "h": 53,
+   "pr": 0.96
+  },
+  "tree-24": {
+   "file": "tree-24.png",
+   "w": 45,
+   "h": 61,
+   "pr": 0.96
+  },
+  "tree-25": {
+   "file": "tree-25.png",
+   "w": 44,
+   "h": 64,
+   "pr": 0.96
+  },
+  "tree-26": {
+   "file": "tree-26.png",
+   "w": 45,
+   "h": 42,
+   "pr": 0.96
+  },
+  "tree-27": {
+   "file": "tree-27.png",
+   "w": 46,
+   "h": 36,
+   "pr": 0.96
+  },
+  "tree-28": {
+   "file": "tree-28.png",
+   "w": 54,
+   "h": 45,
+   "pr": 0.96
+  },
+  "tree-29": {
+   "file": "tree-29.png",
+   "w": 37,
+   "h": 59,
+   "pr": 0.96
+  },
+  "tree-30": {
+   "file": "tree-30.png",
+   "w": 39,
+   "h": 41,
+   "pr": 0.96
+  },
+  "tree-31": {
+   "file": "tree-31.png",
+   "w": 49,
+   "h": 50,
+   "pr": 0.96
+  },
+  "tree-32": {
+   "file": "tree-32.png",
+   "w": 26,
+   "h": 47,
+   "pr": 0.96
+  },
+  "tree-33": {
+   "file": "tree-33.png",
+   "w": 39,
+   "h": 43,
+   "pr": 0.96
+  },
+  "tree-34": {
+   "file": "tree-34.png",
+   "w": 23,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-35": {
+   "file": "tree-35.png",
+   "w": 49,
+   "h": 47,
+   "pr": 0.96
+  },
+  "tree-36": {
+   "file": "tree-36.png",
+   "w": 41,
+   "h": 44,
+   "pr": 0.96
+  },
+  "tree-37": {
+   "file": "tree-37.png",
+   "w": 52,
+   "h": 49,
+   "pr": 0.96
+  },
+  "tree-38": {
+   "file": "tree-38.png",
+   "w": 54,
+   "h": 51,
+   "pr": 0.96
+  },
+  "tree-39": {
+   "file": "tree-39.png",
+   "w": 44,
+   "h": 51,
+   "pr": 0.96
+  },
+  "mtn-0": {
+   "file": "mtn-0.png",
+   "w": 180,
+   "h": 65,
+   "pr": 4.37
+  },
+  "mtn-1": {
+   "file": "mtn-1.png",
+   "w": 236,
+   "h": 117,
+   "pr": 4.37
+  },
+  "mtn-2": {
+   "file": "mtn-2.png",
+   "w": 327,
+   "h": 217,
+   "pr": 4.37
+  },
+  "mtn-3": {
+   "file": "mtn-3.png",
+   "w": 460,
+   "h": 343,
+   "pr": 4.37
+  },
+  "mtn-4": {
+   "file": "mtn-4.png",
+   "w": 192,
+   "h": 60,
+   "pr": 4.37
+  },
+  "mtn-5": {
+   "file": "mtn-5.png",
+   "w": 245,
+   "h": 107,
+   "pr": 4.37
+  },
+  "mtn-6": {
+   "file": "mtn-6.png",
+   "w": 333,
+   "h": 193,
+   "pr": 4.37
+  },
+  "mtn-7": {
+   "file": "mtn-7.png",
+   "w": 481,
+   "h": 336,
+   "pr": 4.37
+  },
+  "mtn-8": {
+   "file": "mtn-8.png",
+   "w": 124,
+   "h": 44,
+   "pr": 4.37
+  },
+  "mtn-9": {
+   "file": "mtn-9.png",
+   "w": 256,
+   "h": 102,
+   "pr": 4.37
+  },
+  "mtn-10": {
+   "file": "mtn-10.png",
+   "w": 357,
+   "h": 198,
+   "pr": 4.37
+  },
+  "mtn-11": {
+   "file": "mtn-11.png",
+   "w": 536,
+   "h": 346,
+   "pr": 4.37
+  },
+  "mtn-12": {
+   "file": "mtn-12.png",
+   "w": 131,
+   "h": 46,
+   "pr": 4.37
+  },
+  "mtn-13": {
+   "file": "mtn-13.png",
+   "w": 225,
+   "h": 82,
+   "pr": 4.37
+  },
+  "mtn-14": {
+   "file": "mtn-14.png",
+   "w": 374,
+   "h": 259,
+   "pr": 4.37
+  },
+  "mtn-15": {
+   "file": "mtn-15.png",
+   "w": 519,
+   "h": 370,
+   "pr": 4.37
+  },
+  "mtn-16": {
+   "file": "mtn-16.png",
+   "w": 127,
+   "h": 56,
+   "pr": 4.37
+  },
+  "mtn-17": {
+   "file": "mtn-17.png",
+   "w": 202,
+   "h": 101,
+   "pr": 4.37
+  },
+  "mtn-18": {
+   "file": "mtn-18.png",
+   "w": 370,
+   "h": 266,
+   "pr": 4.37
+  },
+  "mtn-19": {
+   "file": "mtn-19.png",
+   "w": 645,
+   "h": 500,
+   "pr": 4.37
+  },
+  "mtn-20": {
+   "file": "mtn-20.png",
+   "w": 155,
+   "h": 41,
+   "pr": 4.37
+  },
+  "mtn-21": {
+   "file": "mtn-21.png",
+   "w": 250,
+   "h": 106,
+   "pr": 4.37
+  },
+  "mtn-22": {
+   "file": "mtn-22.png",
+   "w": 448,
+   "h": 291,
+   "pr": 4.37
+  },
+  "mtn-23": {
+   "file": "mtn-23.png",
+   "w": 571,
+   "h": 483,
+   "pr": 4.37
+  },
+  "mtn-24": {
+   "file": "mtn-24.png",
+   "w": 145,
+   "h": 49,
+   "pr": 4.37
+  },
+  "mtn-25": {
+   "file": "mtn-25.png",
+   "w": 264,
+   "h": 82,
+   "pr": 4.37
+  },
+  "mtn-26": {
+   "file": "mtn-26.png",
+   "w": 377,
+   "h": 255,
+   "pr": 4.37
+  },
+  "mtn-27": {
+   "file": "mtn-27.png",
+   "w": 148,
+   "h": 55,
+   "pr": 4.37
+  },
+  "mtn-28": {
+   "file": "mtn-28.png",
+   "w": 215,
+   "h": 89,
+   "pr": 4.37
+  },
+  "mtn-29": {
+   "file": "mtn-29.png",
+   "w": 385,
+   "h": 283,
+   "pr": 4.37
+  },
+  "mtn-30": {
+   "file": "mtn-30.png",
+   "w": 142,
+   "h": 52,
+   "pr": 4.37
+  },
+  "mtn-31": {
+   "file": "mtn-31.png",
+   "w": 203,
+   "h": 52,
+   "pr": 4.37
+  },
+  "mtn-32": {
+   "file": "mtn-32.png",
+   "w": 309,
+   "h": 212,
+   "pr": 4.37
+  },
+  "mtn-33": {
+   "file": "mtn-33.png",
+   "w": 99,
+   "h": 38,
+   "pr": 4.37
+  },
+  "mtn-34": {
+   "file": "mtn-34.png",
+   "w": 240,
+   "h": 119,
+   "pr": 4.37
+  },
+  "mtn-35": {
+   "file": "mtn-35.png",
+   "w": 335,
+   "h": 237,
+   "pr": 4.37
+  },
+  "mtn-36": {
+   "file": "mtn-36.png",
+   "w": 187,
+   "h": 46,
+   "pr": 4.37
+  },
+  "mtn-37": {
+   "file": "mtn-37.png",
+   "w": 248,
+   "h": 98,
+   "pr": 4.37
+  },
+  "mtn-38": {
+   "file": "mtn-38.png",
+   "w": 180,
+   "h": 56,
+   "pr": 4.37
+  },
+  "mtn-39": {
+   "file": "mtn-39.png",
+   "w": 244,
+   "h": 88,
+   "pr": 4.37
+  },
+  "mtn-40": {
+   "file": "mtn-40.png",
+   "w": 129,
+   "h": 42,
+   "pr": 4.37
+  },
+  "mtn-41": {
+   "file": "mtn-41.png",
+   "w": 173,
+   "h": 86,
+   "pr": 4.37
+  },
+  "mtn-42": {
+   "file": "mtn-42.png",
+   "w": 136,
+   "h": 39,
+   "pr": 4.37
+  },
+  "mtn-43": {
+   "file": "mtn-43.png",
+   "w": 142,
+   "h": 53,
+   "pr": 4.37
+  },
+  "mtn-44": {
+   "file": "mtn-44.png",
+   "w": 167,
+   "h": 43,
+   "pr": 4.37
+  },
+  "mtn-45": {
+   "file": "mtn-45.png",
+   "w": 147,
+   "h": 56,
+   "pr": 4.37
+  },
+  "mtn-46": {
+   "file": "mtn-46.png",
+   "w": 126,
+   "h": 52,
+   "pr": 4.37
+  },
+  "hill-0": {
+   "file": "hill-0.png",
+   "w": 90,
+   "h": 32,
+   "pr": 5.217
+  },
+  "hill-1": {
+   "file": "hill-1.png",
+   "w": 163,
+   "h": 35,
+   "pr": 5.217
+  },
+  "hill-2": {
+   "file": "hill-2.png",
+   "w": 305,
+   "h": 64,
+   "pr": 5.217
+  },
+  "hill-3": {
+   "file": "hill-3.png",
+   "w": 109,
+   "h": 30,
+   "pr": 5.217
+  },
+  "hill-4": {
+   "file": "hill-4.png",
+   "w": 175,
+   "h": 40,
+   "pr": 5.217
+  },
+  "hill-5": {
+   "file": "hill-5.png",
+   "w": 372,
+   "h": 59,
+   "pr": 5.217
+  },
+  "hill-6": {
+   "file": "hill-6.png",
+   "w": 112,
+   "h": 32,
+   "pr": 5.217
+  },
+  "hill-7": {
+   "file": "hill-7.png",
+   "w": 201,
+   "h": 38,
+   "pr": 5.217
+  },
+  "hill-8": {
+   "file": "hill-8.png",
+   "w": 286,
+   "h": 63,
+   "pr": 5.217
+  },
+  "hill-9": {
+   "file": "hill-9.png",
+   "w": 175,
+   "h": 31,
+   "pr": 5.217
+  },
+  "hill-10": {
+   "file": "hill-10.png",
+   "w": 194,
+   "h": 45,
+   "pr": 5.217
+  },
+  "hill-11": {
+   "file": "hill-11.png",
+   "w": 401,
+   "h": 64,
+   "pr": 5.217
+  },
+  "hill-12": {
+   "file": "hill-12.png",
+   "w": 172,
+   "h": 36,
+   "pr": 5.217
+  },
+  "hill-13": {
+   "file": "hill-13.png",
+   "w": 257,
+   "h": 47,
+   "pr": 5.217
+  },
+  "hill-14": {
+   "file": "hill-14.png",
+   "w": 476,
+   "h": 80,
+   "pr": 5.217
+  },
+  "hill-15": {
+   "file": "hill-15.png",
+   "w": 201,
+   "h": 32,
+   "pr": 5.217
+  },
+  "hill-16": {
+   "file": "hill-16.png",
+   "w": 229,
+   "h": 46,
+   "pr": 5.217
+  },
+  "hill-17": {
+   "file": "hill-17.png",
+   "w": 451,
+   "h": 68,
+   "pr": 5.217
+  },
+  "hill-18": {
+   "file": "hill-18.png",
+   "w": 175,
+   "h": 32,
+   "pr": 5.217
+  },
+  "hill-19": {
+   "file": "hill-19.png",
+   "w": 292,
+   "h": 55,
+   "pr": 5.217
+  },
+  "hill-20": {
+   "file": "hill-20.png",
+   "w": 406,
+   "h": 68,
+   "pr": 5.217
+  },
+  "hill-21": {
+   "file": "hill-21.png",
+   "w": 240,
+   "h": 32,
+   "pr": 5.217
+  },
+  "hill-22": {
+   "file": "hill-22.png",
+   "w": 292,
+   "h": 55,
+   "pr": 5.217
+  },
+  "hill-23": {
+   "file": "hill-23.png",
+   "w": 179,
+   "h": 37,
+   "pr": 5.217
+  },
+  "hill-24": {
+   "file": "hill-24.png",
+   "w": 303,
+   "h": 49,
+   "pr": 5.217
+  },
+  "hill-25": {
+   "file": "hill-25.png",
+   "w": 283,
+   "h": 43,
+   "pr": 5.217
+  },
+  "hill-26": {
+   "file": "hill-26.png",
+   "w": 347,
+   "h": 57,
+   "pr": 5.217
+  },
+  "ruinfield-0": {
+   "file": "ruinfield-0.png",
+   "w": 80,
+   "h": 38,
+   "pr": 2.023
+  },
+  "ruinfield-1": {
+   "file": "ruinfield-1.png",
+   "w": 74,
+   "h": 43,
+   "pr": 2.023
+  },
+  "ruinfield-2": {
+   "file": "ruinfield-2.png",
+   "w": 129,
+   "h": 94,
+   "pr": 2.023
+  },
+  "ruinfield-3": {
+   "file": "ruinfield-3.png",
+   "w": 89,
+   "h": 46,
+   "pr": 2.023
+  },
+  "sapling-0": {
+   "file": "sapling-0.png",
+   "w": 26,
+   "h": 17,
+   "pr": 1.231
+  },
+  "sapling-1": {
+   "file": "sapling-1.png",
+   "w": 28,
+   "h": 43,
+   "pr": 1.231
+  },
+  "sapling-2": {
+   "file": "sapling-2.png",
+   "w": 29,
+   "h": 22,
+   "pr": 1.231
+  },
+  "sapling-3": {
+   "file": "sapling-3.png",
+   "w": 26,
+   "h": 28,
+   "pr": 1.231
+  },
+  "sapling-4": {
+   "file": "sapling-4.png",
+   "w": 36,
+   "h": 17,
+   "pr": 1.231
+  },
+  "sapling-5": {
+   "file": "sapling-5.png",
+   "w": 32,
+   "h": 27,
+   "pr": 1.231
+  },
+  "sapling-6": {
+   "file": "sapling-6.png",
+   "w": 21,
+   "h": 15,
+   "pr": 1.231
+  },
+  "sapling-7": {
+   "file": "sapling-7.png",
+   "w": 33,
+   "h": 31,
+   "pr": 1.231
+  },
+  "sapling-8": {
+   "file": "sapling-8.png",
+   "w": 18,
+   "h": 14,
+   "pr": 1.231
+  },
+  "sapling-9": {
+   "file": "sapling-9.png",
+   "w": 31,
+   "h": 21,
+   "pr": 1.231
+  },
+  "sapling-10": {
+   "file": "sapling-10.png",
+   "w": 22,
+   "h": 22,
+   "pr": 1.231
+  },
+  "sapling-11": {
+   "file": "sapling-11.png",
+   "w": 36,
+   "h": 26,
+   "pr": 1.231
+  },
+  "sapling-12": {
+   "file": "sapling-12.png",
+   "w": 30,
+   "h": 16,
+   "pr": 1.231
+  },
+  "sapling-13": {
+   "file": "sapling-13.png",
+   "w": 30,
+   "h": 43,
+   "pr": 1.231
+  },
+  "sapling-14": {
+   "file": "sapling-14.png",
+   "w": 31,
+   "h": 25,
+   "pr": 1.231
+  },
+  "sapling-15": {
+   "file": "sapling-15.png",
+   "w": 52,
+   "h": 31,
+   "pr": 1.231
+  },
+  "sapling-16": {
+   "file": "sapling-16.png",
+   "w": 19,
+   "h": 12,
+   "pr": 1.231
+  },
+  "sapling-17": {
+   "file": "sapling-17.png",
+   "w": 32,
+   "h": 19,
+   "pr": 1.231
+  },
+  "sapling-18": {
+   "file": "sapling-18.png",
+   "w": 38,
+   "h": 30,
+   "pr": 1.231
+  },
+  "sapling-19": {
+   "file": "sapling-19.png",
+   "w": 43,
+   "h": 37,
+   "pr": 1.231
+  },
+  "marsh-0": {
+   "file": "marsh-0.png",
+   "w": 25,
+   "h": 25,
+   "pr": 1.029
+  },
+  "marsh-1": {
+   "file": "marsh-1.png",
+   "w": 12,
+   "h": 16,
+   "pr": 1.029
+  },
+  "marsh-2": {
+   "file": "marsh-2.png",
+   "w": 47,
+   "h": 43,
+   "pr": 1.029
+  },
+  "marsh-3": {
+   "file": "marsh-3.png",
+   "w": 28,
+   "h": 26,
+   "pr": 1.029
+  },
+  "marsh-4": {
+   "file": "marsh-4.png",
+   "w": 13,
+   "h": 12,
+   "pr": 1.029
+  },
+  "marsh-5": {
+   "file": "marsh-5.png",
+   "w": 36,
+   "h": 31,
+   "pr": 1.029
+  },
+  "marsh-6": {
+   "file": "marsh-6.png",
+   "w": 32,
+   "h": 35,
+   "pr": 1.029
+  },
+  "marsh-7": {
+   "file": "marsh-7.png",
+   "w": 20,
+   "h": 14,
+   "pr": 1.029
+  },
+  "marsh-8": {
+   "file": "marsh-8.png",
+   "w": 46,
+   "h": 37,
+   "pr": 1.029
+  },
+  "marsh-9": {
+   "file": "marsh-9.png",
+   "w": 27,
+   "h": 26,
+   "pr": 1.029
+  },
+  "marsh-10": {
+   "file": "marsh-10.png",
+   "w": 16,
+   "h": 16,
+   "pr": 1.029
+  },
+  "marsh-11": {
+   "file": "marsh-11.png",
+   "w": 46,
+   "h": 24,
+   "pr": 1.029
+  },
+  "marsh-12": {
+   "file": "marsh-12.png",
+   "w": 37,
+   "h": 36,
+   "pr": 1.029
+  },
+  "marsh-13": {
+   "file": "marsh-13.png",
+   "w": 16,
+   "h": 15,
+   "pr": 1.029
+  },
+  "marsh-14": {
+   "file": "marsh-14.png",
+   "w": 44,
+   "h": 33,
+   "pr": 1.029
+  },
+  "marsh-15": {
+   "file": "marsh-15.png",
+   "w": 33,
+   "h": 40,
+   "pr": 1.029
+  },
+  "marsh-16": {
+   "file": "marsh-16.png",
+   "w": 18,
+   "h": 11,
+   "pr": 1.029
+  },
+  "marsh-17": {
+   "file": "marsh-17.png",
+   "w": 35,
+   "h": 39,
+   "pr": 1.029
+  },
+  "marsh-18": {
+   "file": "marsh-18.png",
+   "w": 21,
+   "h": 35,
+   "pr": 1.029
+  },
+  "marsh-19": {
+   "file": "marsh-19.png",
+   "w": 18,
+   "h": 14,
+   "pr": 1.029
+  },
+  "marsh-20": {
+   "file": "marsh-20.png",
+   "w": 31,
+   "h": 44,
+   "pr": 1.029
+  },
+  "marsh-21": {
+   "file": "marsh-21.png",
+   "w": 30,
+   "h": 36,
+   "pr": 1.029
+  },
+  "marsh-22": {
+   "file": "marsh-22.png",
+   "w": 15,
+   "h": 18,
+   "pr": 1.029
+  },
+  "marsh-23": {
+   "file": "marsh-23.png",
+   "w": 60,
+   "h": 34,
+   "pr": 1.029
+  },
+  "marsh-24": {
+   "file": "marsh-24.png",
+   "w": 29,
+   "h": 33,
+   "pr": 1.029
+  },
+  "marsh-25": {
+   "file": "marsh-25.png",
+   "w": 13,
+   "h": 16,
+   "pr": 1.029
+  },
+  "marsh-26": {
+   "file": "marsh-26.png",
+   "w": 36,
+   "h": 51,
+   "pr": 1.029
+  },
+  "marsh-27": {
+   "file": "marsh-27.png",
+   "w": 34,
+   "h": 36,
+   "pr": 1.029
+  },
+  "marsh-28": {
+   "file": "marsh-28.png",
+   "w": 9,
+   "h": 13,
+   "pr": 1.029
+  },
+  "marsh-29": {
+   "file": "marsh-29.png",
+   "w": 45,
+   "h": 34,
+   "pr": 1.029
+  },
+  "desert-0": {
+   "file": "desert-0.png",
+   "w": 21,
+   "h": 27,
+   "pr": 1.136
+  },
+  "desert-1": {
+   "file": "desert-1.png",
+   "w": 65,
+   "h": 38,
+   "pr": 1.136
+  },
+  "desert-2": {
+   "file": "desert-2.png",
+   "w": 45,
+   "h": 48,
+   "pr": 1.136
+  },
+  "desert-3": {
+   "file": "desert-3.png",
+   "w": 32,
+   "h": 23,
+   "pr": 1.136
+  },
+  "desert-4": {
+   "file": "desert-4.png",
+   "w": 61,
+   "h": 43,
+   "pr": 1.136
+  },
+  "desert-5": {
+   "file": "desert-5.png",
+   "w": 45,
+   "h": 49,
+   "pr": 1.136
+  },
+  "desert-6": {
+   "file": "desert-6.png",
+   "w": 22,
+   "h": 31,
+   "pr": 1.136
+  },
+  "desert-7": {
+   "file": "desert-7.png",
+   "w": 71,
+   "h": 46,
+   "pr": 1.136
+  },
+  "desert-8": {
+   "file": "desert-8.png",
+   "w": 41,
+   "h": 45,
+   "pr": 1.136
+  },
+  "desert-9": {
+   "file": "desert-9.png",
+   "w": 32,
+   "h": 42,
+   "pr": 1.136
+  },
+  "desert-10": {
+   "file": "desert-10.png",
+   "w": 72,
+   "h": 46,
+   "pr": 1.136
+  },
+  "desert-11": {
+   "file": "desert-11.png",
+   "w": 47,
+   "h": 53,
+   "pr": 1.136
+  },
+  "desert-12": {
+   "file": "desert-12.png",
+   "w": 33,
+   "h": 43,
+   "pr": 1.136
+  },
+  "desert-13": {
+   "file": "desert-13.png",
+   "w": 66,
+   "h": 39,
+   "pr": 1.136
+  },
+  "desert-14": {
+   "file": "desert-14.png",
+   "w": 42,
+   "h": 35,
+   "pr": 1.136
+  },
+  "desert-15": {
+   "file": "desert-15.png",
+   "w": 30,
+   "h": 39,
+   "pr": 1.136
+  },
+  "desert-16": {
+   "file": "desert-16.png",
+   "w": 53,
+   "h": 46,
+   "pr": 1.136
+  },
+  "desert-17": {
+   "file": "desert-17.png",
+   "w": 46,
+   "h": 43,
+   "pr": 1.136
+  },
+  "desert-18": {
+   "file": "desert-18.png",
+   "w": 30,
+   "h": 39,
+   "pr": 1.136
+  },
+  "desert-19": {
+   "file": "desert-19.png",
+   "w": 61,
+   "h": 45,
+   "pr": 1.136
+  },
+  "desert-20": {
+   "file": "desert-20.png",
+   "w": 61,
+   "h": 65,
+   "pr": 1.136
+  },
+  "desert-21": {
+   "file": "desert-21.png",
+   "w": 40,
+   "h": 35,
+   "pr": 1.136
+  },
+  "desert-22": {
+   "file": "desert-22.png",
+   "w": 47,
+   "h": 32,
+   "pr": 1.136
+  },
+  "desert-23": {
+   "file": "desert-23.png",
+   "w": 56,
+   "h": 53,
+   "pr": 1.136
+  },
+  "desert-24": {
+   "file": "desert-24.png",
+   "w": 50,
+   "h": 47,
+   "pr": 1.136
+  },
+  "desert-25": {
+   "file": "desert-25.png",
+   "w": 57,
+   "h": 44,
+   "pr": 1.136
+  },
+  "desert-26": {
+   "file": "desert-26.png",
+   "w": 94,
+   "h": 66,
+   "pr": 1.136
+  },
+  "desert-27": {
+   "file": "desert-27.png",
+   "w": 32,
+   "h": 48,
+   "pr": 1.136
+  },
+  "desert-28": {
+   "file": "desert-28.png",
+   "w": 57,
+   "h": 52,
+   "pr": 1.136
+  },
+  "desert-29": {
+   "file": "desert-29.png",
+   "w": 70,
+   "h": 64,
+   "pr": 1.136
+  },
+  "poi-hamlet": {
+   "file": "poi-hamlet.png",
+   "w": 144,
+   "h": 76,
+   "pr": 1.843
+  },
+  "poi-village": {
+   "file": "poi-village.png",
+   "w": 200,
+   "h": 71,
+   "pr": 1.843
+  },
+  "poi-town": {
+   "file": "poi-town.png",
+   "w": 167,
+   "h": 96,
+   "pr": 1.843
+  },
+  "poi-city": {
+   "file": "poi-city.png",
+   "w": 129,
+   "h": 70,
+   "pr": 1.843
+  },
+  "poi-capital": {
+   "file": "poi-capital.png",
+   "w": 165,
+   "h": 138,
+   "pr": 1.843
+  },
+  "poi-port": {
+   "file": "poi-port.png",
+   "w": 43,
+   "h": 47,
+   "pr": 1.843
+  },
+  "poi-fort": {
+   "file": "poi-fort.png",
+   "w": 95,
+   "h": 51,
+   "pr": 1.843
+  },
+  "poi-castle": {
+   "file": "poi-castle.png",
+   "w": 160,
+   "h": 91,
+   "pr": 1.843
+  },
+  "poi-tower": {
+   "file": "poi-tower.png",
+   "w": 34,
+   "h": 83,
+   "pr": 1.843
+  },
+  "poi-temple": {
+   "file": "poi-temple.png",
+   "w": 89,
+   "h": 46,
+   "pr": 1.843
+  },
+  "poi-mine": {
+   "file": "poi-mine.png",
+   "w": 81,
+   "h": 39,
+   "pr": 1.843
+  },
+  "poi-ruin": {
+   "file": "poi-ruin.png",
+   "w": 74,
+   "h": 43,
+   "pr": 1.843
+  }
+ },
+ "categories": {
+  "tree": [
+   "tree-0",
+   "tree-1",
+   "tree-2",
+   "tree-3",
+   "tree-4",
+   "tree-5",
+   "tree-6",
+   "tree-7",
+   "tree-8",
+   "tree-9",
+   "tree-10",
+   "tree-11",
+   "tree-12",
+   "tree-13",
+   "tree-14",
+   "tree-15",
+   "tree-16",
+   "tree-17",
+   "tree-18",
+   "tree-19",
+   "tree-20",
+   "tree-21",
+   "tree-22",
+   "tree-23",
+   "tree-24",
+   "tree-25",
+   "tree-26",
+   "tree-27",
+   "tree-28",
+   "tree-29",
+   "tree-30",
+   "tree-31",
+   "tree-32",
+   "tree-33",
+   "tree-34",
+   "tree-35",
+   "tree-36",
+   "tree-37",
+   "tree-38",
+   "tree-39"
+  ],
+  "mtn": [
+   "mtn-0",
+   "mtn-1",
+   "mtn-2",
+   "mtn-3",
+   "mtn-4",
+   "mtn-5",
+   "mtn-6",
+   "mtn-7",
+   "mtn-8",
+   "mtn-9",
+   "mtn-10",
+   "mtn-11",
+   "mtn-12",
+   "mtn-13",
+   "mtn-14",
+   "mtn-15",
+   "mtn-16",
+   "mtn-17",
+   "mtn-18",
+   "mtn-19",
+   "mtn-20",
+   "mtn-21",
+   "mtn-22",
+   "mtn-23",
+   "mtn-24",
+   "mtn-25",
+   "mtn-26",
+   "mtn-27",
+   "mtn-28",
+   "mtn-29",
+   "mtn-30",
+   "mtn-31",
+   "mtn-32",
+   "mtn-33",
+   "mtn-34",
+   "mtn-35",
+   "mtn-36",
+   "mtn-37",
+   "mtn-38",
+   "mtn-39",
+   "mtn-40",
+   "mtn-41",
+   "mtn-42",
+   "mtn-43",
+   "mtn-44",
+   "mtn-45",
+   "mtn-46"
+  ],
+  "hill": [
+   "hill-0",
+   "hill-1",
+   "hill-2",
+   "hill-3",
+   "hill-4",
+   "hill-5",
+   "hill-6",
+   "hill-7",
+   "hill-8",
+   "hill-9",
+   "hill-10",
+   "hill-11",
+   "hill-12",
+   "hill-13",
+   "hill-14",
+   "hill-15",
+   "hill-16",
+   "hill-17",
+   "hill-18",
+   "hill-19",
+   "hill-20",
+   "hill-21",
+   "hill-22",
+   "hill-23",
+   "hill-24",
+   "hill-25",
+   "hill-26"
+  ],
+  "ruinfield": [
+   "ruinfield-0",
+   "ruinfield-1",
+   "ruinfield-2",
+   "ruinfield-3"
+  ],
+  "sapling": [
+   "sapling-0",
+   "sapling-1",
+   "sapling-2",
+   "sapling-3",
+   "sapling-4",
+   "sapling-5",
+   "sapling-6",
+   "sapling-7",
+   "sapling-8",
+   "sapling-9",
+   "sapling-10",
+   "sapling-11",
+   "sapling-12",
+   "sapling-13",
+   "sapling-14",
+   "sapling-15",
+   "sapling-16",
+   "sapling-17",
+   "sapling-18",
+   "sapling-19"
+  ],
+  "marsh": [
+   "marsh-0",
+   "marsh-1",
+   "marsh-2",
+   "marsh-3",
+   "marsh-4",
+   "marsh-5",
+   "marsh-6",
+   "marsh-7",
+   "marsh-8",
+   "marsh-9",
+   "marsh-10",
+   "marsh-11",
+   "marsh-12",
+   "marsh-13",
+   "marsh-14",
+   "marsh-15",
+   "marsh-16",
+   "marsh-17",
+   "marsh-18",
+   "marsh-19",
+   "marsh-20",
+   "marsh-21",
+   "marsh-22",
+   "marsh-23",
+   "marsh-24",
+   "marsh-25",
+   "marsh-26",
+   "marsh-27",
+   "marsh-28",
+   "marsh-29"
+  ],
+  "desert": [
+   "desert-0",
+   "desert-1",
+   "desert-2",
+   "desert-3",
+   "desert-4",
+   "desert-5",
+   "desert-6",
+   "desert-7",
+   "desert-8",
+   "desert-9",
+   "desert-10",
+   "desert-11",
+   "desert-12",
+   "desert-13",
+   "desert-14",
+   "desert-15",
+   "desert-16",
+   "desert-17",
+   "desert-18",
+   "desert-19",
+   "desert-20",
+   "desert-21",
+   "desert-22",
+   "desert-23",
+   "desert-24",
+   "desert-25",
+   "desert-26",
+   "desert-27",
+   "desert-28",
+   "desert-29"
+  ]
+ }
+}

@@ -1,0 +1,733 @@
+{
+ "_note": "First-pass guesses for database entries that are written up but not drawn on any map. Positions are pixels on the named source map and come from the entry's own text (directions, neighbours, terrain) where it has any, otherwise they are spread across the region it belongs to. Every one is shown on the atlas as a guess until it is confirmed or moved in the viewer. Entries inside a city (wards, taverns, shops) are not placed; they appear in the city's card.",
+ "placements": [
+  {
+   "id": 1734,
+   "map": "sellador",
+   "x": 250,
+   "y": 170,
+   "kind": "port",
+   "basis": "cove on the north-west inlet; entry only says 'Home to the Skin Taker'"
+  },
+  {
+   "id": 132,
+   "map": "sellador",
+   "x": 350,
+   "y": 562,
+   "kind": "port",
+   "basis": "fishing town by the Bay: used the unlabelled dot on the bay's east shore"
+  },
+  {
+   "id": 316,
+   "map": "sellador",
+   "x": 380,
+   "y": 845,
+   "kind": "town",
+   "basis": "three days south of Tuallen, through marsh between two mountains, in a fertile valley"
+  },
+  {
+   "id": 315,
+   "map": "sellador",
+   "x": 410,
+   "y": 700,
+   "kind": "city",
+   "basis": "Alswer Valley runs west from Tuallen to Khrunos-Dur; Odeth lies far south of it"
+  },
+  {
+   "id": 1112,
+   "map": "sellador",
+   "x": 475,
+   "y": 712,
+   "kind": "region",
+   "basis": "valley between Tuallen and the cave entrance of Khrunos-Dur"
+  },
+  {
+   "id": 165,
+   "map": "sellador",
+   "x": 535,
+   "y": 715,
+   "kind": "mine",
+   "basis": "dwarven outpost 'in the middle of the human lands', next to Duul-Roerahm: the western outlier of the Border Mountains"
+  },
+  {
+   "id": 944,
+   "map": "sellador",
+   "x": 565,
+   "y": 765,
+   "kind": "town",
+   "basis": "lost dwarven settlement in the Border Mountains, near Khrunos-Dur"
+  },
+  {
+   "id": 945,
+   "map": "sellador",
+   "x": 505,
+   "y": 738,
+   "kind": "town",
+   "basis": "trading post between Duul-Roerahm (dwarves) and the human lands"
+  },
+  {
+   "id": 742,
+   "map": "sellador",
+   "x": 548,
+   "y": 835,
+   "kind": "forest",
+   "basis": "last outpost against demons escaping the Wisenwode, a small forest at the base of the Border Mountains"
+  },
+  {
+   "id": 883,
+   "map": "sellador",
+   "x": 470,
+   "y": 745,
+   "kind": "forest",
+   "basis": "no description; placed in Gideon's southern woods near the other grove"
+  },
+  {
+   "id": 249,
+   "map": "sellador",
+   "x": 260,
+   "y": 770,
+   "kind": "village",
+   "basis": "'small, sleepy village in central Gideon'"
+  },
+  {
+   "id": 225,
+   "map": "sellador",
+   "x": 408,
+   "y": 790,
+   "kind": "city",
+   "basis": "capital of Gideon; Verdain Keep, its ancestral home, is on the map just beside it"
+  },
+  {
+   "id": 1394,
+   "map": "sellador",
+   "x": 520,
+   "y": 445,
+   "kind": "region",
+   "rank": 1,
+   "basis": "'heartlands of Sellador': centre of the rendered Sellador map"
+  },
+  {
+   "id": 982,
+   "map": "sellador",
+   "x": 592,
+   "y": 625,
+   "kind": "ruin",
+   "basis": "battlefield at the Pass of the Roerihm in the Border Mountains"
+  },
+  {
+   "id": 105,
+   "map": "sellador",
+   "x": 690,
+   "y": 522,
+   "kind": "temple",
+   "basis": "abbey in the Grimaud area (child of Grimaud)"
+  },
+  {
+   "id": 406,
+   "map": "sellador",
+   "x": 545,
+   "y": 118,
+   "kind": "town",
+   "basis": "'a few miles from the northern coast' of Sellador"
+  },
+  {
+   "id": 1643,
+   "map": "sellador",
+   "x": 520,
+   "y": 500,
+   "kind": "town",
+   "basis": "no description; spread within Midland"
+  },
+  {
+   "id": 740,
+   "map": "sellador",
+   "x": 620,
+   "y": 200,
+   "kind": "fort",
+   "basis": "fortified monastery some miles north-west of Calathor"
+  },
+  {
+   "id": 252,
+   "map": "sellador",
+   "x": 400,
+   "y": 250,
+   "kind": "forest",
+   "rank": 2,
+   "basis": "'largest and oldest forest in Sellador': the great northern forest on the rendered map"
+  },
+  {
+   "id": 1711,
+   "map": "sellador",
+   "x": 705,
+   "y": 320,
+   "kind": "town",
+   "basis": "no description; spread within Midland"
+  },
+  {
+   "id": 843,
+   "map": "free-nations",
+   "x": 222,
+   "y": 264,
+   "kind": "ruin",
+   "basis": "'all that remains' of the Lessten family, beside Lessten"
+  },
+  {
+   "id": 792,
+   "map": "free-nations",
+   "x": 262,
+   "y": 294,
+   "kind": "village",
+   "basis": "hamlet in Lessten"
+  },
+  {
+   "id": 842,
+   "map": "free-nations",
+   "x": 302,
+   "y": 268,
+   "kind": "town",
+   "basis": "town in Lessten"
+  },
+  {
+   "id": 1684,
+   "map": "free-nations",
+   "x": 505,
+   "y": 398,
+   "kind": "town",
+   "basis": "the Dhoesone entry places Fartherwall on Dhoesone's southern side (the tree files it under Massenmarch: worth checking)"
+  },
+  {
+   "id": 1728,
+   "map": "free-nations",
+   "x": 345,
+   "y": 140,
+   "kind": "port",
+   "basis": "city on a hill on Massenmarch's northern coast overlooking the inner sea"
+  },
+  {
+   "id": 1688,
+   "map": "free-nations",
+   "x": 292,
+   "y": 325,
+   "kind": "city",
+   "basis": "city in Berhagen, on the road to Kiergard"
+  },
+  {
+   "id": 1267,
+   "map": "free-nations",
+   "x": 262,
+   "y": 352,
+   "kind": "town",
+   "basis": "no description; spread within Berhagen"
+  },
+  {
+   "id": 1694,
+   "map": "free-nations",
+   "x": 345,
+   "y": 312,
+   "kind": "village",
+   "basis": "trading village on the road from Klienstadt to Kiergard"
+  },
+  {
+   "id": 1244,
+   "map": "free-nations",
+   "x": 388,
+   "y": 302,
+   "kind": "city",
+   "rank": 1,
+   "basis": "fortress city of the Red Legion on Crystal Lake: the lake near the middle of the map"
+  },
+  {
+   "id": 1260,
+   "map": "free-nations",
+   "x": 390,
+   "y": 280,
+   "kind": "lake",
+   "basis": "Crystal Lake: the lake beside Kiergard"
+  },
+  {
+   "id": 1791,
+   "map": "free-nations",
+   "x": 440,
+   "y": 238,
+   "kind": "town",
+   "basis": "town amid the foothills of the Kaldir Crown Mountains"
+  },
+  {
+   "id": 1699,
+   "map": "free-nations",
+   "x": 292,
+   "y": 388,
+   "kind": "village",
+   "basis": "gnoll settlement deep in the Sunken Lands marsh"
+  },
+  {
+   "id": 1653,
+   "map": "free-nations",
+   "x": 500,
+   "y": 205,
+   "kind": "mine",
+   "basis": "kobold mine worked for the Bloodskull Barony: east side of the Kaldir Crown Mountains"
+  },
+  {
+   "id": 1651,
+   "map": "free-nations",
+   "x": 425,
+   "y": 240,
+   "kind": "forest",
+   "basis": "druidic forest beneath the Kaldir Crown Mountains"
+  },
+  {
+   "id": 1736,
+   "map": "free-nations",
+   "x": 458,
+   "y": 172,
+   "kind": "mine",
+   "basis": "no description; Kaldir Crown Mountains"
+  },
+  {
+   "id": 1650,
+   "map": "free-nations",
+   "x": 402,
+   "y": 188,
+   "kind": "village",
+   "basis": "cliffside gnoll village in the Kaldir Crown Mountains"
+  },
+  {
+   "id": 1702,
+   "map": "free-nations",
+   "x": 548,
+   "y": 372,
+   "kind": "town",
+   "basis": "trade town sandwiched between the Winding Wood and the Wooly Swamp"
+  },
+  {
+   "id": 1790,
+   "map": "free-nations",
+   "x": 592,
+   "y": 352,
+   "kind": "village",
+   "basis": "town in Dhoesone, east side"
+  },
+  {
+   "id": 1121,
+   "map": "world",
+   "x": 93,
+   "y": 270,
+   "kind": "city",
+   "basis": "trade city in the pass through the Border Mountains (the notes); the Berhagen map shows it further north than first placed. Moved west along the pass to give Lessten room. About 14 px (~125 miles) from Berhagen in a straight line, a little more than the 105-mile wagon trip that sets the map scale"
+  },
+  {
+   "id": 1727,
+   "map": "free-nations",
+   "x": 205,
+   "y": 250,
+   "kind": "forest",
+   "basis": "fallen druid grove in the Borderwode, near Shotkara Lessteni"
+  },
+  {
+   "id": 841,
+   "map": "free-nations",
+   "x": 232,
+   "y": 376,
+   "kind": "forest",
+   "basis": "druid grove in the Borderwode"
+  },
+  {
+   "id": 1745,
+   "map": "world",
+   "x": 157.2,
+   "y": 271,
+   "kind": "city",
+   "rank": 1,
+   "basis": "the notes: nestled in the crook of two of its range's largest mountains; the author: volcanic mountains, its cliffs overlooking the Inner Sea to the north"
+  },
+  {
+   "id": 1246,
+   "map": "free-nations",
+   "x": 640,
+   "y": 205,
+   "kind": "forest",
+   "basis": "no description; woods in the Bloodskull Barony"
+  },
+  {
+   "id": 1262,
+   "map": "free-nations",
+   "x": 520,
+   "y": 285,
+   "kind": "lake",
+   "basis": "lake inside the Winding Wood"
+  },
+  {
+   "id": 1788,
+   "map": "free-nations",
+   "x": 690,
+   "y": 372,
+   "kind": "tower",
+   "basis": "ruined tower some distance south of Valkith in the wild lands"
+  },
+  {
+   "id": 308,
+   "map": "tel-tenauril",
+   "x": 162,
+   "y": 352,
+   "kind": "town",
+   "basis": "town that arose beside the crater left when Thanandir was destroyed"
+  },
+  {
+   "id": 1168,
+   "map": "tel-tenauril",
+   "x": 985,
+   "y": 115,
+   "kind": "forest",
+   "basis": "remote forest of Tel-Faenanil (north-east of the map)"
+  },
+  {
+   "id": 331,
+   "map": "tel-tenauril",
+   "x": 850,
+   "y": 792,
+   "kind": "temple",
+   "basis": "the Temple of Air on the map's Celembril peninsula (Bladesinger Academy)"
+  },
+  {
+   "id": 155,
+   "map": "tel-tenauril",
+   "x": 745,
+   "y": 692,
+   "kind": "village",
+   "basis": "cove in the wild elven forests of Tel-Ithilien"
+  },
+  {
+   "id": 752,
+   "map": "tel-tenauril",
+   "x": 905,
+   "y": 738,
+   "kind": "village",
+   "basis": "tiny hamlet near Celembril (entry's region is Celembril)"
+  },
+  {
+   "id": 1074,
+   "map": "tel-tenauril",
+   "x": 600,
+   "y": 735,
+   "kind": "forest",
+   "basis": "the same great forest as the Watch Wardens and the Phoenix Fields, on its southern side facing Sellador"
+  },
+  {
+   "id": 1544,
+   "map": "argusund",
+   "x": 1100,
+   "y": 170,
+   "kind": "region",
+   "basis": "empty wilds and remote forests in the far north of Argusund"
+  },
+  {
+   "id": 1163,
+   "map": "argusund",
+   "x": 355,
+   "y": 105,
+   "kind": "fort",
+   "basis": "ice fortress that must stand by a large body of water: placed on one of the Iceflows islands"
+  },
+  {
+   "id": 724,
+   "map": "argusund",
+   "x": 690,
+   "y": 125,
+   "kind": "region",
+   "basis": "deep cliffs north of Virnskeggi"
+  },
+  {
+   "id": 126,
+   "map": "world",
+   "x": 296,
+   "y": 243,
+   "kind": "city",
+   "rank": 2,
+   "basis": "ancient and noble dwarven city at the heart of the Citadel Mountains, around the Citadel pin the author placed"
+  },
+  {
+   "id": 107,
+   "map": "world",
+   "x": 285,
+   "y": 236,
+   "kind": "city",
+   "basis": "a dwarven city of the Citadel Mountains (no further location given)"
+  },
+  {
+   "id": 109,
+   "map": "world",
+   "x": 308,
+   "y": 236,
+   "kind": "city",
+   "basis": "a dwarven city of the Citadel Mountains (no further location given)"
+  },
+  {
+   "id": 114,
+   "map": "world",
+   "x": 288,
+   "y": 252,
+   "kind": "city",
+   "basis": "a dwarven city of the Citadel Mountains (no further location given)"
+  },
+  {
+   "id": 1337,
+   "map": "world",
+   "x": 305,
+   "y": 250,
+   "kind": "tower",
+   "basis": "towering vertical cavern, centre of portal-driven trade, inside the Citadel Mountains"
+  },
+  {
+   "id": 1730,
+   "map": "world",
+   "x": 279,
+   "y": 245,
+   "kind": "mine",
+   "basis": "a cave in the Citadel Mountains (no description)"
+  },
+  {
+   "id": 1336,
+   "map": "world",
+   "x": 297,
+   "y": 270,
+   "kind": "town",
+   "basis": "trade centre between the surface lands and the city of Citadel: placed on the southern edge of the mountains"
+  },
+  {
+   "id": 1341,
+   "map": "world",
+   "x": 297,
+   "y": 212,
+   "kind": "port",
+   "basis": "northern port city of Citadel: on the north coast of the Citadel peninsula"
+  },
+  {
+   "id": 1182,
+   "map": "world",
+   "x": 372,
+   "y": 316,
+   "kind": "region",
+   "rank": 2,
+   "basis": "empty plains where mighty sorcerer kings once dwelt: moved by the author to just west of the Atman Empire"
+  },
+  {
+   "id": 1183,
+   "map": "world",
+   "x": 366,
+   "y": 329,
+   "kind": "village",
+   "basis": "the valley of the diseased, within Arkhos (moved by the author with Arkhos, west of the Atman Empire)"
+  },
+  {
+   "id": 1558,
+   "map": "world",
+   "x": 381,
+   "y": 323,
+   "kind": "village",
+   "basis": "the barest vestiges of civilization within Arkhos (moved with Arkhos, west of the Atman Empire)"
+  },
+  {
+   "id": 110,
+   "map": "world",
+   "x": 322,
+   "y": 372,
+   "kind": "region",
+   "rank": 2,
+   "basis": "the vast wild home of scattered human cultures, east of the Shattered Kingdoms pin"
+  },
+  {
+   "id": 1202,
+   "map": "world",
+   "x": 300,
+   "y": 393,
+   "kind": "region",
+   "rank": 2,
+   "basis": "a kingdom of rolling hills and long roads, in the south of the Shattered Kingdoms"
+  },
+  {
+   "id": 1203,
+   "map": "world",
+   "x": 306,
+   "y": 399,
+   "kind": "village",
+   "basis": "small village in Aundar"
+  },
+  {
+   "id": 1073,
+   "map": "world",
+   "x": 334,
+   "y": 346,
+   "kind": "region",
+   "rank": 2,
+   "basis": "savage plains where barbarians roam, on the north-east of the Shattered Kingdoms"
+  },
+  {
+   "id": 1568,
+   "map": "world",
+   "x": 276,
+   "y": 383,
+   "kind": "town",
+   "basis": "no description; spread within the Shattered Kingdoms"
+  },
+  {
+   "id": 146,
+   "map": "world",
+   "x": 422,
+   "y": 309,
+   "kind": "town",
+   "basis": "the goblin city built within the ruins of Atma"
+  },
+  {
+   "id": 153,
+   "map": "world",
+   "x": 419,
+   "y": 302,
+   "kind": "tower",
+   "basis": "former home of Mallant, inside Atma"
+  },
+  {
+   "id": 200,
+   "map": "world",
+   "x": 421.5,
+   "y": 295.5,
+   "kind": "ruin",
+   "basis": "the eastern-most outpost of the Atman Empire, built into a mountainside overlooking the ocean (destroyed by a tidal wave): moved by the author to just north of Atma, in the mountains along the coast"
+  },
+  {
+   "id": 1127,
+   "map": "world",
+   "x": 172,
+   "y": 297,
+   "kind": "temple",
+   "rank": 2,
+   "basis": "mountain oasis and shrine to a fallen goddess, in the desert ruin of Kharse"
+  },
+  {
+   "id": 1128,
+   "map": "world",
+   "x": 173.6,
+   "y": 298.4,
+   "kind": "mine",
+   "basis": "the heart of Aradt, where the waterfalls end"
+  },
+  {
+   "id": 1125,
+   "map": "world",
+   "x": 136.4,
+   "y": -75.5,
+   "kind": "mountain",
+   "rank": 2,
+   "rename": "Arrokoth",
+   "confirmed": true,
+   "basis": "renamed Arrokoth by the author, and moved to the largest mountain north of the Plateau of Lehng (the old notes call it Ultima Thule, the northernmost mountain of Geas)"
+  },
+  {
+   "id": 1178,
+   "map": "world",
+   "x": 794.98,
+   "y": 421.19,
+   "kind": "city",
+   "rank": 2,
+   "basis": "trade hub of the Phocacian islands: centre of the island the author placed Phocacia on"
+  },
+  {
+   "id": 1585,
+   "map": "world",
+   "x": 788.98,
+   "y": 413.19,
+   "kind": "village",
+   "basis": "small dwarven trade town in the heart of Phocacia"
+  },
+  {
+   "id": 1175,
+   "map": "world",
+   "x": 777.98,
+   "y": 447.19,
+   "kind": "port",
+   "basis": "sea-fearing city state: south coast of the island"
+  },
+  {
+   "id": 1177,
+   "map": "world",
+   "x": 812.98,
+   "y": 400.19,
+   "kind": "town",
+   "basis": "the Phocacian warriors: north-east of the island"
+  },
+  {
+   "id": 1176,
+   "map": "world",
+   "x": 776.98,
+   "y": 402.19,
+   "kind": "town",
+   "basis": "the wizards on the river: on the river the map draws across the west of the island"
+  },
+  {
+   "id": 120,
+   "map": "lochlainn",
+   "x": 745,
+   "y": 635,
+   "kind": "ruin",
+   "basis": "the square mark inside The Waste on the Lochlainn drawing, confirmed by the author as Caer Fid-Nemith"
+  },
+  {
+   "id": 106,
+   "map": "curmeah",
+   "x": 1250,
+   "y": 540,
+   "kind": "region",
+   "rank": 2,
+   "basis": "Aljahdahn is the city of El-Alahd and its surroundings: the eastern end of Curmeah"
+  },
+  {
+   "id": 900,
+   "map": "curmeah",
+   "x": 905,
+   "y": 575,
+   "kind": "region",
+   "rank": 2,
+   "basis": "Khadith owns Aljidan, its eastern-most slave city"
+  },
+  {
+   "id": 1397,
+   "map": "curmeah",
+   "x": 1010,
+   "y": 735,
+   "kind": "city",
+   "basis": "great city of red dragons on Umberflame Ridge, in the Khoria range"
+  },
+  {
+   "id": 1644,
+   "map": "curmeah",
+   "x": 1235,
+   "y": 525,
+   "kind": "town",
+   "basis": "no description; spread within Aljahdahn"
+  },
+  {
+   "id": 1683,
+   "map": "curmeah",
+   "x": 1295,
+   "y": 480,
+   "kind": "town",
+   "basis": "no description; spread within Aljahdahn"
+  },
+  {
+   "id": 1206,
+   "map": "curmeah",
+   "x": 1175,
+   "y": 575,
+   "kind": "village",
+   "basis": "a stop along the roads of Aljahdahn"
+  },
+  {
+   "id": 1205,
+   "map": "curmeah",
+   "x": 1190,
+   "y": 772,
+   "kind": "port",
+   "basis": "sea town of western Aljahdahn: on the shore of the eastern bay"
+  }
+ ]
+}

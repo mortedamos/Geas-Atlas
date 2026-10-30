@@ -1,0 +1,8 @@
+{
+  "_note": "The author drew a line on the atlas from Berhagen to Drachenhorn: a party took one week by wagon, mostly uphill into the mountains. Paces are assumptions: a loaded wagon manages about 15 miles a day uphill (20-24 on the flat); a sailing ship about 72 miles a day (3 mph around the clock).",
+  "from": "Berhagen",
+  "to": "Drachenhorn",
+  "days": 7,
+  "wagonMilesPerDay": 15,
+  "shipMilesPerDay": 72
+}

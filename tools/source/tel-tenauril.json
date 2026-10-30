@@ -1,0 +1,80 @@
+{
+  "_note": "Hand-transcribed from 'tel-tenauril map big.jpg' (1253x955). Coordinates are source-image pixels. Names are read from hand lettering and need checking against the old database (confidence 'low' = guessed).",
+  "map": "tel-tenauril map big.jpg",
+  "scale": 0.122, "ox": 5, "oy": 111,
+  "forestSeeds": [
+    { "name": "Halriel Forest", "x": 130, "y": 650 },
+    { "name": "Britheleien Forest", "x": 330, "y": 205 },
+    { "name": "Edhelas Forest", "x": 245, "y": 395 },
+    { "name": "Mirthule Forest", "x": 400, "y": 470 }
+  ],
+  "woods": [
+    { "name": "The Great Forest (Watch Wardens and Forbidden Wood)", "kind": "forest", "minus": "The Phoenix Fields", "poly": [[305,670],[350,650],[420,640],[500,650],[580,645],[640,665],[645,720],[640,780],[620,805],[560,815],[480,805],[420,800],[350,795],[310,760]] },
+    { "name": "Caer Airbhe-Fal clearing", "kind": "none", "poly": [[1078,462],[1103,440],[1128,462],[1103,486]] },
+    { "name": "Wood of Caer Airbhe-Fal", "kind": "forest", "minus": "Caer Airbhe-Fal clearing", "carves": ["mountain", "hills"], "poly": [[1020,462],[1040,408],[1085,380],[1140,378],[1185,410],[1198,462],[1185,515],[1140,545],[1085,547],[1040,516]] },
+    { "name": "The Phoenix Fields", "kind": "newgrowth", "poly": [[350,745],[430,740],[480,760],[470,795],[400,802],[350,792]] }
+  ],
+  "mountains": [
+    { "name": "Anoril Mountains", "kind": "mountain", "poly": [[32,132],[120,116],[245,132],[250,290],[222,332],[218,402],[130,416],[62,412],[30,380],[26,200]] },
+    { "name": "Ambras Peaks", "kind": "mountain", "poly": [[322,258],[408,248],[414,302],[352,338],[326,318]] },
+    { "name": "Aulandineth", "kind": "mountain", "poly": [[408,590],[428,548],[446,505],[472,545],[486,590]] },
+    { "name": "Temple Hills", "kind": "mountain", "poly": [[800,742],[815,718],[850,706],[888,716],[892,752],[850,764]] },
+    { "name": "Andras Mountains", "kind": "mountain", "poly": [[796,238],[925,236],[962,300],[930,372],[832,388],[800,330]] },
+    { "name": "Eastern Range", "kind": "mountain", "poly": [[1016,332],[1110,322],[1253,334],[1253,500],[1150,522],[1052,502],[1012,430]] },
+    { "name": "Northern Hills", "kind": "hills", "poly": [[860,222],[1000,226],[1010,262],[900,272]] },
+    { "name": "Far Hills", "kind": "hills", "poly": [[1100,262],[1253,262],[1253,300],[1110,300]] }
+  ],
+  "rivers": [
+    { "name": "River Ambras", "pts": [[368,213],[355,245],[342,272],[330,293],[316,310],[309,340],[306,375],[305,410],[303,440],[305,470]] },
+    { "name": "River Armor", "pts": [[305,470],[308,500],[305,530],[300,560],[296,590],[290,620],[282,650],[272,680],[262,697]] },
+    { "name": "River Berthorn", "pts": [[715,405],[720,440],[725,480],[728,515]] },
+    { "name": "River Elbarn", "pts": [[690,605],[685,630],[678,660],[668,700],[660,740],[652,775],[645,812]] },
+    { "name": "River Aranelorith", "pts": [[772,533],[810,521],[850,509],[900,497],[950,480],[995,462],[1010,455]] }
+  ],
+  "places": [
+    { "name": "Anduriñar", "x": 193, "y": 204, "kind": "town", "rank": 2 },
+    { "name": "Hanandir", "x": 140, "y": 330, "kind": "fort", "rank": 2 },
+    { "name": "Aelbeth", "x": 264, "y": 425, "kind": "village", "rank": 3 },
+    { "name": "Ardenath", "x": 487, "y": 411, "kind": "town", "rank": 2 },
+    { "name": "Alreth", "x": 512, "y": 484, "kind": "town", "rank": 2 },
+    { "name": "Tilavamé", "x": 145, "y": 491, "kind": "town", "rank": 2 },
+    { "name": "Gailoth", "x": 190, "y": 733, "kind": "port", "rank": 2 },
+    { "name": "Halandir", "x": 302, "y": 535, "kind": "town", "rank": 2 },
+    { "name": "Minath", "x": 381, "y": 640, "kind": "village", "rank": 3 },
+    { "name": "Rinath", "x": 535, "y": 625, "kind": "village", "rank": 3 },
+    { "name": "Nuary", "x": 415, "y": 848, "kind": "port", "rank": 2 },
+    { "name": "Lúnonest", "x": 632, "y": 437, "kind": "port", "rank": 2 },
+    { "name": "Aglathôr", "x": 1013, "y": 358, "kind": "town", "rank": 2 },
+    { "name": "Mégoreth", "x": 905, "y": 436, "kind": "town", "rank": 2 },
+    { "name": "Athionir", "x": 747, "y": 545, "kind": "city", "rank": 1 },
+    { "name": "Indinathi", "x": 923, "y": 520, "kind": "village", "rank": 3 },
+    { "name": "Genthael", "x": 985, "y": 622, "kind": "town", "rank": 2 },
+    { "name": "Thoronor", "x": 850, "y": 653, "kind": "village", "rank": 3 },
+    { "name": "Celembril", "x": 945, "y": 762, "kind": "city", "rank": 1 },
+    { "name": "Aegilen", "x": 762, "y": 865, "kind": "port", "rank": 2 },
+    { "name": "Ilishinzur", "x": 1080, "y": 830, "kind": "town", "rank": 2 },
+    { "name": "Thalfaenoril", "x": 1170, "y": 547, "kind": "town", "rank": 2 },
+    { "name": "Caer Airbhe-Fál", "x": 1103, "y": 462, "kind": "fort", "rank": 2 },
+    { "name": "Tower of Iraal", "x": 698, "y": 258, "kind": "tower", "rank": 3 },
+    { "name": "Temple of Deep Waters", "x": 556, "y": 217, "kind": "temple", "rank": 3 }
+  ],
+  "regions": [
+    { "name": "Faenanil", "x": 870, "y": 45, "rank": 1, "kind": "region" },
+    { "name": "Anoril", "x": 130, "y": 457, "rank": 1, "kind": "region" },
+    { "name": "Elaemir", "x": 470, "y": 441, "rank": 1, "kind": "region" },
+    { "name": "Eldienath", "x": 840, "y": 430, "rank": 1, "kind": "region" },
+    { "name": "Ithilenar", "x": 790, "y": 640, "rank": 1, "kind": "region" },
+    { "name": "The Watch Wardens", "x": 495, "y": 703, "rank": 2, "kind": "forest" },
+    { "name": "The Phoenix Fields", "x": 415, "y": 775, "rank": 3, "kind": "forest" },
+    { "name": "Halriel Forest", "x": 200, "y": 585, "rank": 2, "kind": "forest" },
+    { "name": "Britheleien Forest", "x": 310, "y": 222, "rank": 3, "kind": "forest" },
+    { "name": "Edhelas Forest", "x": 232, "y": 362, "rank": 3, "kind": "forest" },
+    { "name": "Mirthule Forest", "x": 385, "y": 490, "rank": 3, "kind": "forest" },
+    { "name": "Caldor Forest", "x": 755, "y": 735, "rank": 3, "kind": "forest" },
+    { "name": "Celedhwen", "x": 440, "y": 170, "rank": 2, "kind": "island" },
+    { "name": "Haelerhwen", "x": 560, "y": 100, "rank": 2, "kind": "island" },
+    { "name": "Oronir", "x": 545, "y": 240, "rank": 3, "kind": "island" },
+    { "name": "Enroth", "x": 703, "y": 305, "rank": 3, "kind": "island" },
+    { "name": "Lake Melendoth", "x": 692, "y": 566, "rank": 2, "kind": "lake" }
+  ]
+}

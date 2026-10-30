@@ -1,0 +1,29 @@
+{
+  "_note": "Hand-transcribed from 'sellador map big.jpg' (1268x951). Coordinates are source-image pixels. Biomes (forest / mountain / desert) are classified from the rendered colours, not listed here.",
+  "map": "sellador map big.jpg",
+  "scale": 0.096, "ox": 13, "oy": 211,
+  "places": [
+    { "name": "Port of Nuary", "x": 437, "y": 50, "kind": "port", "rank": 2 },
+    { "name": "Port of Garrison", "x": 808, "y": 158, "kind": "port", "rank": 2 },
+    { "name": "Calathor", "x": 672, "y": 251, "kind": "town", "rank": 2 },
+    { "name": "Braes", "x": 277, "y": 277, "kind": "town", "rank": 2 },
+    { "name": "Caer Duhl-Darah", "x": 431, "y": 368, "kind": "fort", "rank": 2 },
+    { "name": "Faunwaite", "x": 602, "y": 396, "kind": "town", "rank": 2 },
+    { "name": "Grimaud", "x": 643, "y": 503, "kind": "town", "rank": 2 },
+    { "name": "Allstone", "x": 291, "y": 636, "kind": "town", "rank": 2 },
+    { "name": "Verdain Keep", "x": 428, "y": 805, "kind": "fort", "rank": 2 },
+    { "name": "Morrudan", "x": 1213, "y": 52, "kind": "town", "rank": 3 }
+  ],
+  "regions": [
+    { "name": "Duchy of Gideon", "x": 300, "y": 740, "rank": 1, "kind": "region" },
+    { "name": "The Untamed Lands", "x": 1013, "y": 665, "rank": 1, "kind": "region" },
+    { "name": "Dynestra Wood", "x": 800, "y": 560, "rank": 2, "kind": "forest" },
+    { "name": "Border Mountains", "x": 612, "y": 705, "rank": 2, "kind": "mountain" },
+    { "name": "Pass of Verihm", "x": 575, "y": 590, "rank": 3, "kind": "mountain" },
+    { "name": "Lloleyn Lake", "x": 525, "y": 258, "rank": 3, "kind": "lake" },
+    { "name": "Isle of the Lich King", "x": 1145, "y": 105, "rank": 2, "kind": "island" }
+  ],
+  "lakes": [
+    { "name": "Lloleyn Lake", "x": 490, "y": 232, "r": 9 }
+  ]
+}

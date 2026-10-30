@@ -1,0 +1,71 @@
+{
+  "_note": "Places or regions whose climate is shaped by magic rather than latitude, geography or currents. Shown in the details pane when you click the place (and everything listed under it), and carried into the climate model (tools/climate.mjs) so later models can treat them as special cases instead of 'correcting' them. Match by map name or old-notes name; 'inherit' also tags the places and regions filed under that entry in the old notes (their breadcrumb) and map features drawn from the listed map sources. 'onMap: false' = tracked but not placed yet (it will show as soon as it is).",
+  "kinds": {
+    "cold": {
+      "label": "Supernatural cold",
+      "icon": "❄"
+    },
+    "temperate": {
+      "label": "Magically temperate",
+      "icon": "🌿"
+    },
+    "storms": {
+      "label": "Magical storms",
+      "icon": "⛈"
+    }
+  },
+  "effects": [
+    {
+      "name": "Thanatos",
+      "kind": "cold",
+      "summary": "Supernaturally chilly, even for its latitude: Thanatos is an island of undeath, and magical cold seems to permeate it.",
+      "source": "the author (nautical campaign)",
+      "inherit": {
+        "maps": [
+          "thanatos"
+        ]
+      },
+      "model": {
+        "effect": "cooling",
+        "scope": "island",
+        "strength": "strong",
+        "note": "treat as a cold anomaly of roughly 8-15 C below the latitude climate, strongest in winter and at night"
+      }
+    },
+    {
+      "name": "Tel-Tenauril",
+      "kind": "temperate",
+      "summary": "Temperate owing to the druidic magic of the elves, whatever its latitude would otherwise give it.",
+      "source": "the author",
+      "inherit": {
+        "maps": [
+          "tel-tenauril"
+        ],
+        "children": true
+      },
+      "model": {
+        "effect": "warming and moderating",
+        "scope": "realm",
+        "strength": "strong",
+        "note": "hold the whole realm near a mild oceanic climate (winters above about -3 C, summers 14-20 C) whatever the natural model says; the natural model puts it at tundra or subarctic"
+      }
+    },
+    {
+      "name": "Enaria",
+      "kind": "storms",
+      "dbId": 1316,
+      "onMap": false,
+      "summary": "Wracked with magical storms: the island is in temporal flux, its time-magic gone mad.",
+      "source": "the author",
+      "inherit": {
+        "children": true
+      },
+      "model": {
+        "effect": "violent, erratic weather",
+        "scope": "island",
+        "strength": "extreme",
+        "note": "storm belt around the island unrelated to latitude or season; local weather may jump between seasons (time flux)"
+      }
+    }
+  ]
+}

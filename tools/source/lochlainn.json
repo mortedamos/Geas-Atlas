@@ -1,0 +1,450 @@
+{
+  "_note": "Hand-transcribed from the drawing 'lochlainn.jpg' (original_data/maps/lochlainn_ink.jpg, 1410x2000 after cleaning). Coordinates are pixels of that image. The drawing's island has a different shape from the blob in the old world map, so it replaces it: it is placed over the blob's centre at a uniform scale and everything inside the 'erase' box that the drawing does not show as land becomes sea. Terrain areas were read by eye; the large enclosed highland in the north is taken to be The Waste (the database puts Caer Fid-Nemith, 'the spiritual centre of Lochlainn', in The Waste, and the drawing's lone square sits inside it).",
+  "map": "lochlainn_ink.jpg",
+  "scale": 0.046,
+  "ox": 63.537,
+  "oy": 329.134,
+  "erase": {
+    "x0": 68,
+    "y0": 338,
+    "x1": 142,
+    "y1": 436
+  },
+  "ignore": [
+    [
+      30,
+      30,
+      580,
+      220
+    ],
+    [
+      800,
+      0,
+      1110,
+      160
+    ],
+    [
+      40,
+      410,
+      170,
+      500
+    ]
+  ],
+  "features": [
+    {
+      "name": "The Waste",
+      "kind": "waste",
+      "poly": [
+        [
+          530,
+          610
+        ],
+        [
+          600,
+          578
+        ],
+        [
+          700,
+          570
+        ],
+        [
+          740,
+          520
+        ],
+        [
+          800,
+          468
+        ],
+        [
+          900,
+          452
+        ],
+        [
+          1000,
+          468
+        ],
+        [
+          1072,
+          540
+        ],
+        [
+          1092,
+          640
+        ],
+        [
+          1040,
+          742
+        ],
+        [
+          960,
+          792
+        ],
+        [
+          880,
+          782
+        ],
+        [
+          830,
+          822
+        ],
+        [
+          760,
+          852
+        ],
+        [
+          690,
+          812
+        ],
+        [
+          620,
+          772
+        ],
+        [
+          560,
+          702
+        ]
+      ]
+    },
+    {
+      "name": "Lonial Mountains",
+      "kind": "mountain",
+      "poly": [
+        [
+          560,
+          832
+        ],
+        [
+          700,
+          826
+        ],
+        [
+          900,
+          838
+        ],
+        [
+          1060,
+          828
+        ],
+        [
+          1052,
+          930
+        ],
+        [
+          962,
+          1030
+        ],
+        [
+          900,
+          1064
+        ],
+        [
+          800,
+          1150
+        ],
+        [
+          700,
+          1160
+        ],
+        [
+          622,
+          1062
+        ],
+        [
+          572,
+          950
+        ]
+      ]
+    },
+    {
+      "name": "Northern Hills",
+      "kind": "hills",
+      "poly": [
+        [
+          395,
+          490
+        ],
+        [
+          480,
+          490
+        ],
+        [
+          480,
+          545
+        ],
+        [
+          395,
+          545
+        ]
+      ]
+    },
+    {
+      "name": "Northern Hills (2)",
+      "kind": "hills",
+      "poly": [
+        [
+          515,
+          505
+        ],
+        [
+          610,
+          505
+        ],
+        [
+          610,
+          550
+        ],
+        [
+          515,
+          550
+        ]
+      ]
+    },
+    {
+      "name": "Northern Hills (3)",
+      "kind": "hills",
+      "poly": [
+        [
+          700,
+          425
+        ],
+        [
+          790,
+          425
+        ],
+        [
+          790,
+          478
+        ],
+        [
+          700,
+          478
+        ]
+      ]
+    },
+    {
+      "name": "Western Hills",
+      "kind": "hills",
+      "poly": [
+        [
+          380,
+          905
+        ],
+        [
+          505,
+          905
+        ],
+        [
+          505,
+          960
+        ],
+        [
+          380,
+          960
+        ]
+      ]
+    },
+    {
+      "name": "Western Hills (2)",
+      "kind": "hills",
+      "poly": [
+        [
+          450,
+          1000
+        ],
+        [
+          575,
+          1000
+        ],
+        [
+          575,
+          1048
+        ],
+        [
+          450,
+          1048
+        ]
+      ]
+    },
+    {
+      "name": "Eastern Hills",
+      "kind": "hills",
+      "poly": [
+        [
+          855,
+          770
+        ],
+        [
+          960,
+          770
+        ],
+        [
+          960,
+          812
+        ],
+        [
+          855,
+          812
+        ]
+      ]
+    },
+    {
+      "name": "Eastern Hills (2)",
+      "kind": "hills",
+      "poly": [
+        [
+          1060,
+          755
+        ],
+        [
+          1150,
+          755
+        ],
+        [
+          1150,
+          810
+        ],
+        [
+          1060,
+          810
+        ]
+      ]
+    },
+    {
+      "name": "Eastern Hills (3)",
+      "kind": "hills",
+      "poly": [
+        [
+          1085,
+          862
+        ],
+        [
+          1170,
+          862
+        ],
+        [
+          1170,
+          905
+        ],
+        [
+          1085,
+          905
+        ]
+      ]
+    },
+    {
+      "name": "Eastern Hills (4)",
+      "kind": "hills",
+      "poly": [
+        [
+          958,
+          950
+        ],
+        [
+          1038,
+          950
+        ],
+        [
+          1038,
+          990
+        ],
+        [
+          958,
+          990
+        ]
+      ]
+    },
+    {
+      "name": "Southern Hills",
+      "kind": "hills",
+      "poly": [
+        [
+          855,
+          1112
+        ],
+        [
+          940,
+          1112
+        ],
+        [
+          940,
+          1155
+        ],
+        [
+          855,
+          1155
+        ]
+      ]
+    },
+    {
+      "name": "Southern Hills (2)",
+      "kind": "hills",
+      "poly": [
+        [
+          672,
+          1205
+        ],
+        [
+          760,
+          1205
+        ],
+        [
+          760,
+          1252
+        ],
+        [
+          672,
+          1252
+        ]
+      ]
+    },
+    {
+      "name": "Island Peak",
+      "kind": "mountain",
+      "poly": [
+        [
+          1150,
+          1160
+        ],
+        [
+          1215,
+          1160
+        ],
+        [
+          1215,
+          1230
+        ],
+        [
+          1150,
+          1230
+        ]
+      ]
+    }
+  ],
+  "lakes": [],
+  "rivers": [],
+  "places": [
+    {
+      "name": "Cuan Karig",
+      "x": 474,
+      "y": 382,
+      "kind": "town",
+      "rank": 2
+    }
+  ],
+  "regions": [
+    {
+      "name": "The Waste",
+      "x": 800,
+      "y": 640,
+      "rank": 2,
+      "kind": "region"
+    },
+    {
+      "name": "Lonial Mountains",
+      "x": 810,
+      "y": 990,
+      "rank": 2,
+      "kind": "mountain"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "_note": "Hand-checked links from names read off the maps to old-database entries (id). 'rename' replaces the map-read spelling with the database spelling. 'skip' drops a duplicate pin.",
+  "links": {
+    "sellador:place:Morrudan": {
+      "id": 172,
+      "rename": true
+    },
+    "sellador:region:Isle of the Lich King": {
+      "id": 160
+    },
+    "sellador:region:Pass of Verihm": {
+      "id": 178,
+      "rename": "Pass of the Roerihm"
+    },
+    "sellador:place:Port of Nuary": {
+      "id": 174
+    },
+    "sellador:region:Duchy of Gideon": {
+      "id": 186
+    },
+    "sellador:region:Lloleyn Lake": {
+      "id": 167
+    },
+    "sellador:place:Port of Garrison": {
+      "id": 12
+    },
+    "tel-tenauril:place:Hanandir": {
+      "id": 204,
+      "rename": true
+    },
+    "tel-tenauril:place:Alreth": {
+      "id": 333,
+      "rename": true
+    },
+    "tel-tenauril:region:Eldienath": {
+      "id": 370
+    },
+    "tel-tenauril:region:Ithilenar": {
+      "id": 334
+    },
+    "tel-tenauril:region:Edhelas Forest": {
+      "id": 940
+    },
+    "tel-tenauril:region:Mirthule Forest": {
+      "id": 307
+    },
+    "argusund:region:Mountain of Magmar": {
+      "id": 946
+    },
+    "free-nations:region:Lessten Lake": {
+      "id": 839,
+      "rename": "Loch Lessten"
+    },
+    "argusund:place:Undergaard": {
+      "id": 1596
+    },
+    "baratoria:region:Baratoria": {
+      "id": 1439
+    },
+    "adjust:region:Border Mountains": {
+      "id": 116
+    },
+    "curmeah:place:Ruins of Tachtekmet": {
+      "id": 948
+    },
+    "curmeah:region:Allwraith's Island": {
+      "id": 1024
+    },
+    "berhagen:region:Berhagen": {
+      "id": 1249
+    },
+    "berhagen:region:Borderwode": {
+      "id": 840
+    },
+    "berhagen:region:Sunken Lands": {
+      "id": 1240
+    },
+    "berhagen:region:Crow Fells": {
+      "id": 1241
+    }
+  },
+  "reject": [
+    "tel-tenauril:place:Aglathôr",
+    "tel-tenauril:place:Halandir",
+    "tel-tenauril:place:Minath",
+    "tel-tenauril:place:Arangil",
+    "tel-tenauril:place:Temple of Deep Waters"
+  ],
+  "skip": [
+    "tel-tenauril:place:Nuary"
+  ]
+}

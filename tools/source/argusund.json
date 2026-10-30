@@ -1,0 +1,37 @@
+{
+  "_note": "Hand-transcribed from 'argusund map big.jpg' (1485x1050). Coordinates are source-image pixels. Names are read from hand lettering and need checking against the old database.",
+  "map": "argusund map big.jpg",
+  "scale": 0.058, "ox": 99, "oy": 41,
+  "features": [
+    { "name": "Skjard Woods", "kind": "forest", "poly": [[630,570],[700,555],[820,545],[900,565],[990,600],[1040,640],[1050,760],[1048,850],[1010,930],[960,985],[900,1040],[800,1050],[700,1015],[650,960],[632,900],[660,800],[640,720],[620,640]] },
+    { "name": "Korstag Mountains", "kind": "mountain", "rough": 70, "poly": [[1030,40],[1440,10],[1450,300],[1440,600],[1450,900],[1430,1050],[1030,1050],[1010,820],[1060,560],[1100,420],[1040,300]] },
+    { "name": "Magmar Peaks", "kind": "mountain", "poly": [[820,5],[1010,0],[1030,95],[950,140],[880,150],[840,100]] },
+    { "name": "Northern Foothills", "kind": "mountain", "poly": [[755,35],[855,12],[850,85],[765,95]] },
+    { "name": "Western Hills", "kind": "hills", "poly": [[500,455],[690,455],[690,505],[500,505]] },
+    { "name": "Vale Hills", "kind": "hills", "poly": [[905,118],[985,118],[985,152],[905,152]] },
+    { "name": "Fjonnar Hills", "kind": "hills", "poly": [[1030,198],[1110,198],[1110,252],[1030,252]] },
+    { "name": "Targhild Hills", "kind": "hills", "poly": [[825,355],[1000,355],[1000,412],[825,412]] },
+    { "name": "Fjonnar Fen", "kind": "marsh", "poly": [[985,330],[1055,330],[1055,382],[985,382]] },
+    { "name": "Korstag Fen", "kind": "marsh", "poly": [[1190,432],[1300,432],[1300,538],[1190,538]] }
+  ],
+  "rivers": [
+    { "name": "Fjönnar River", "pts": [[838,288],[870,280],[903,279],[940,293],[969,304],[1005,310],[1036,308],[1070,308],[1097,314],[1125,332],[1152,348],[1185,364]] }
+  ],
+  "places": [
+    { "name": "Virnskeggi", "x": 643, "y": 195, "kind": "port", "rank": 2 },
+    { "name": "Huld", "x": 847, "y": 258, "kind": "town", "rank": 2 },
+    { "name": "Targhild", "x": 727, "y": 409, "kind": "town", "rank": 2 },
+    { "name": "Idrirstad", "x": 524, "y": 741, "kind": "port", "rank": 2 },
+    { "name": "Undergaard", "x": 1090, "y": 841, "kind": "mine", "rank": 2 }
+  ],
+  "regions": [
+    { "name": "Inham Badur", "x": 730, "y": 235, "rank": 2, "kind": "lake" },
+    { "name": "The Iceflows", "x": 440, "y": 155, "rank": 2, "kind": "island" },
+    { "name": "Heiggmer", "x": 575, "y": 665, "rank": 3, "kind": "lake" },
+    { "name": "Skjard Woods", "x": 955, "y": 590, "rank": 1, "kind": "forest" },
+    { "name": "Korstag Mountains", "x": 1245, "y": 640, "rank": 1, "kind": "mountain" },
+    { "name": "Mountain of Magmar", "x": 1000, "y": 40, "rank": 3, "kind": "mountain" },
+    { "name": "Vale of Cairs", "x": 870, "y": 105, "rank": 3, "kind": "region" },
+    { "name": "Argusund", "x": 830, "y": 470, "rank": 1, "kind": "region" }
+  ]
+}

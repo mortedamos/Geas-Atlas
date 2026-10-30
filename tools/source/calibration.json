@@ -1,0 +1,12 @@
+{
+ "from": "Berhagen",
+ "to": "Drachenhorn",
+ "days": 7,
+ "wagonMilesPerDay": 15,
+ "shipMilesPerDay": 72,
+ "straightLinePx": 12.04,
+ "tripMiles": 105,
+ "milesPerPx": 8.724,
+ "shipPxPerDay": 8.25,
+ "worldWidthMiles": 8933
+}

@@ -1,0 +1,1453 @@
+{
+  "_note": "Author-directed edits to the composed world, in world pixels (1024 px wide = 20 degrees). Applied by compose_world.mjs (island move) and interior.mjs (mountain range, labels).",
+  "removeIslands": [
+    [
+      58,
+      298,
+      112,
+      338
+    ]
+  ],
+  "promoteMountains": [
+    {
+      "name": "Arrokoth",
+      "at": [
+        136.4,
+        -75.5
+      ],
+      "scale": 1.15
+    }
+  ],
+  "arcticCap": {
+    "_why": "The widening at the top of the northern continent represents map distortion: the land joins a vast arctic pole. It is drawn as land that flares out and runs off the top of the map into the ice.",
+    "measureAtY": 3,
+    "xRange": [
+      100,
+      460
+    ],
+    "overlapY": 6,
+    "ragged": 14,
+    "flare": [],
+    "fullWidth": {
+      "xMin": -800,
+      "xMax": 1150,
+      "top": -140,
+      "edgeY": 2,
+      "join": {
+        "x0": -20,
+        "x1": 390,
+        "minY": 10,
+        "blend": 55
+      },
+      "octaves": [
+        [
+          150,
+          13
+        ],
+        [
+          62,
+          9
+        ],
+        [
+          27,
+          8
+        ],
+        [
+          11,
+          4.6
+        ],
+        [
+          5,
+          2.4
+        ]
+      ],
+      "bays": [
+        [
+          -300,
+          95,
+          46
+        ],
+        [
+          600,
+          120,
+          52
+        ],
+        [
+          790,
+          45,
+          24
+        ],
+        [
+          -560,
+          55,
+          26
+        ]
+      ],
+      "peninsulas": [
+        [
+          930,
+          38,
+          64
+        ],
+        [
+          -480,
+          22,
+          40
+        ],
+        [
+          1080,
+          30,
+          36
+        ],
+        [
+          470,
+          26,
+          30
+        ],
+        [
+          -120,
+          18,
+          22
+        ]
+      ],
+      "islands": [
+        [
+          960,
+          80,
+          3.2
+        ],
+        [
+          900,
+          96,
+          2.2
+        ],
+        [
+          -470,
+          52,
+          3.4
+        ],
+        [
+          -520,
+          60,
+          1.8
+        ],
+        [
+          -260,
+          28,
+          2.4
+        ],
+        [
+          700,
+          34,
+          2.6
+        ],
+        [
+          650,
+          22,
+          1.8
+        ],
+        [
+          1050,
+          62,
+          2.5
+        ],
+        [
+          -640,
+          14,
+          2.2
+        ]
+      ]
+    }
+  },
+  "arcticLabels": [
+    {
+      "name": "The Arctic Pole",
+      "at": [
+        400,
+        -58
+      ],
+      "kind": "region",
+      "rank": 1,
+      "note": "Map distortion: a flat map cannot show a pole without stretching it, so the whole top of the map is the polar ice, smeared from edge to edge (and cut off here). The northern continent widens because it joins it. Distances this far north are not to scale."
+    },
+    {
+      "name": "The Antarctic Pole",
+      "at": [
+        400,
+        1315
+      ],
+      "kind": "region",
+      "rank": 1,
+      "note": "Map distortion again: the whole bottom of the map is the southern polar ice, smeared from edge to edge (and cut off here). It is smaller than the arctic cap, and its coast reaches out in long curving peninsulas. Distances this far south are not to scale."
+    }
+  ],
+  "terrain": [
+    {
+      "name": "Citadel Mountains",
+      "kind": "mountain",
+      "source": "citadel",
+      "ellipse": [
+        296,
+        244,
+        25,
+        22
+      ]
+    },
+    {
+      "name": "Aradt",
+      "kind": "mountain",
+      "source": "kharse",
+      "ellipse": [
+        172,
+        297,
+        4.5,
+        3.5
+      ]
+    },
+    {
+      "name": "Plateau of Lehng (ice)",
+      "kind": "ice",
+      "source": "lehng",
+      "poly": [
+        [
+          60,
+          14
+        ],
+        [
+          275,
+          14
+        ],
+        [
+          275,
+          46
+        ],
+        [
+          205,
+          50
+        ],
+        [
+          135,
+          41
+        ],
+        [
+          60,
+          47
+        ]
+      ]
+    },
+    {
+      "name": "The Arctic Pole (ice)",
+      "kind": "ice",
+      "source": "lehng",
+      "poly": [
+        [
+          -800,
+          -150
+        ],
+        [
+          1150,
+          -150
+        ],
+        [
+          1150,
+          14
+        ],
+        [
+          -800,
+          14
+        ]
+      ]
+    },
+    {
+      "name": "Polar ice (east of the continent)",
+      "kind": "ice",
+      "source": "lehng",
+      "poly": [
+        [
+          420,
+          14
+        ],
+        [
+          1150,
+          14
+        ],
+        [
+          1150,
+          150
+        ],
+        [
+          420,
+          150
+        ]
+      ]
+    },
+    {
+      "name": "Polar ice (west of the continent)",
+      "kind": "ice",
+      "source": "lehng",
+      "poly": [
+        [
+          -800,
+          14
+        ],
+        [
+          60,
+          14
+        ],
+        [
+          60,
+          150
+        ],
+        [
+          -800,
+          150
+        ]
+      ]
+    },
+    {
+      "name": "Polar peninsula range (east)",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        930,
+        28,
+        7,
+        38
+      ]
+    },
+    {
+      "name": "Polar peninsula range (west)",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        -480,
+        15,
+        5,
+        24
+      ]
+    },
+    {
+      "name": "Transpolar range (east)",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        610,
+        -48,
+        70,
+        8
+      ]
+    },
+    {
+      "name": "Transpolar range (west)",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        -310,
+        -42,
+        58,
+        7
+      ]
+    },
+    {
+      "name": "Polar nunataks",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        180,
+        -75,
+        90,
+        5
+      ]
+    },
+    {
+      "name": "Polar nunataks (2)",
+      "kind": "mountain",
+      "source": "polar",
+      "ellipse": [
+        880,
+        -85,
+        70,
+        5
+      ]
+    },
+    {
+      "name": "Aundar hills",
+      "kind": "hills",
+      "source": "shattered",
+      "ellipse": [
+        300,
+        394,
+        17,
+        11
+      ]
+    },
+    {
+      "name": "Henom, the valley of the diseased",
+      "kind": "waste",
+      "source": "shattered",
+      "ellipse": [
+        366,
+        329,
+        6.5,
+        5
+      ]
+    },
+    {
+      "name": "Telos mountain",
+      "kind": "mountain",
+      "source": "atma",
+      "ellipse": [
+        431,
+        334,
+        6,
+        5
+      ]
+    },
+    {
+      "name": "Phocacian hills",
+      "kind": "hills",
+      "source": "phocacia",
+      "ellipse": [
+        804.98,
+        427.19,
+        10,
+        8
+      ]
+    },
+    {
+      "name": "Phocacian woods",
+      "kind": "forest",
+      "source": "phocacia",
+      "ellipse": [
+        780.98,
+        427.19,
+        10,
+        12
+      ]
+    },
+    {
+      "name": "Phocacian north woods",
+      "kind": "forest",
+      "source": "phocacia",
+      "ellipse": [
+        794.98,
+        401.19,
+        11,
+        8
+      ]
+    },
+    {
+      "name": "The Antarctic Pole (ice)",
+      "kind": "ice",
+      "source": "antarctic",
+      "poly": [
+        [
+          -800,
+          1040
+        ],
+        [
+          1150,
+          1040
+        ],
+        [
+          1150,
+          1520
+        ],
+        [
+          -800,
+          1520
+        ]
+      ]
+    },
+    {
+      "name": "Valkith volcanic mountains (west)",
+      "kind": "mountain",
+      "source": "valkith",
+      "poly": [
+        [
+          146,
+          266
+        ],
+        [
+          153,
+          266.5
+        ],
+        [
+          154.6,
+          270
+        ],
+        [
+          154.4,
+          276
+        ],
+        [
+          152,
+          283
+        ],
+        [
+          146,
+          281
+        ],
+        [
+          144,
+          272
+        ]
+      ]
+    },
+    {
+      "name": "Valkith volcanic mountains (east)",
+      "kind": "mountain",
+      "source": "valkith",
+      "poly": [
+        [
+          159.6,
+          272.4
+        ],
+        [
+          164,
+          270.4
+        ],
+        [
+          171,
+          271.5
+        ],
+        [
+          173,
+          278
+        ],
+        [
+          170,
+          284
+        ],
+        [
+          162,
+          283
+        ],
+        [
+          159.6,
+          277
+        ]
+      ]
+    },
+    {
+      "name": "Valkith volcanic mountains (south ridge)",
+      "kind": "mountain",
+      "source": "valkith",
+      "poly": [
+        [
+          148,
+          284
+        ],
+        [
+          160,
+          287
+        ],
+        [
+          172,
+          285
+        ],
+        [
+          173,
+          291
+        ],
+        [
+          160,
+          293
+        ],
+        [
+          148,
+          290
+        ]
+      ]
+    }
+  ],
+  "atmaMountains": {
+    "dbId": 112,
+    "fallbackAt": [
+      424.5,
+      305.9
+    ],
+    "inner": 6.5,
+    "outer": 15
+  },
+  "rivers": [
+    {
+      "from": [
+        778.98,
+        399.19
+      ],
+      "to": [
+        798.98,
+        463.19
+      ],
+      "delta": false
+    }
+  ],
+  "coastWarp": {
+    "_why": "Coasts outside the hand-drawn maps were soft blobs from the old world picture. They are warped with multi-scale noise: each octave is [wavelength in world px, displacement in world px]. keepClear = distance (world px) from a hand-drawn map's footprint inside which nothing moves.",
+    "octaves": [
+      [
+        80,
+        11
+      ],
+      [
+        38,
+        6.5
+      ],
+      [
+        17,
+        3.6
+      ],
+      [
+        8,
+        1.9
+      ],
+      [
+        4,
+        0.9
+      ]
+    ],
+    "keepClear": 7,
+    "edgeFade": 16
+  },
+  "islandMove": {
+    "_why": "The Isle of the Lich King belongs just north of Seaharrow, not off the coast of Garrison.",
+    "from": [
+      129.7,
+      216
+    ],
+    "to": [
+      115,
+      246
+    ],
+    "labels": [
+      "Morrudan",
+      "Isle of the Lich King"
+    ]
+  },
+  "borderMountains": {
+    "_why": "The Border Mountains run from sea to sea east of Dynestra Wood and west of Caer Aisling, Lessten Manor, Borderwode and the Deeproot grove.",
+    "line": [
+      [
+        92,
+        257
+      ],
+      [
+        92.7,
+        263
+      ],
+      [
+        92.2,
+        269
+      ],
+      [
+        92.8,
+        275
+      ],
+      [
+        92.3,
+        281
+      ],
+      [
+        92.6,
+        288
+      ]
+    ],
+    "halfWidth": 3.9,
+    "pass": {
+      "y0": 267.5,
+      "y1": 272.5,
+      "x0": 84,
+      "x1": 101,
+      "road": [
+        [
+          85.5,
+          271.4
+        ],
+        [
+          88.5,
+          270.8
+        ],
+        [
+          91,
+          270.3
+        ],
+        [
+          93,
+          270
+        ],
+        [
+          95.5,
+          269.6
+        ],
+        [
+          98.5,
+          269.8
+        ],
+        [
+          102,
+          270.6
+        ],
+        [
+          105,
+          270.2
+        ]
+      ]
+    },
+    "moveLabels": {
+      "Dynestra Wood": [
+        -5.5,
+        0
+      ]
+    },
+    "dropSelladorMountainsIn": [
+      [
+        60,
+        272,
+        92,
+        300
+      ]
+    ],
+    "dropLabels": [
+      "Border Mountains"
+    ],
+    "label": {
+      "name": "Border Mountains",
+      "at": [
+        92.5,
+        266
+      ],
+      "dbId": 116
+    },
+    "carves": [
+      "forest",
+      "hills",
+      "mountain"
+    ],
+    "_passNote": "The pass (and Drachenhorn, just east of it) moved north with the Drachenhorn pin once the author's Berhagen map showed it further north (about 8.5 px up from y 277)."
+  },
+  "carveSea": [
+    {
+      "name": "North-eastern arm of the Inner Sea",
+      "_why": "The author drew a red line (screenshot 2026-10-29) from the south coast near Ilishinzur up to the east coast: it is the new north-eastern coast of the Inner Sea, so the land south-east of it, down to the sea gap above the Citadel peninsula, is cut away. Coordinates are world pixels.",
+      "extend": 5,
+      "smooth": 2,
+      "line": [
+        [
+          181.6,
+          216.9
+        ],
+        [
+          184.9,
+          213.2
+        ],
+        [
+          188.2,
+          209.1
+        ],
+        [
+          189.8,
+          201.8
+        ],
+        [
+          187.7,
+          195.2
+        ],
+        [
+          188.6,
+          187
+        ],
+        [
+          188.2,
+          179.6
+        ],
+        [
+          190.6,
+          172.3
+        ],
+        [
+          197.6,
+          165.7
+        ],
+        [
+          203.3,
+          160
+        ],
+        [
+          205.8,
+          151.8
+        ],
+        [
+          205.4,
+          136.2
+        ],
+        [
+          213.6,
+          128.8
+        ],
+        [
+          223.9,
+          120.6
+        ],
+        [
+          231.7,
+          114.9
+        ],
+        [
+          232.9,
+          109.2
+        ],
+        [
+          238.2,
+          110.4
+        ],
+        [
+          245.2,
+          115.7
+        ],
+        [
+          249.7,
+          123.9
+        ],
+        [
+          254.7,
+          131.3
+        ],
+        [
+          261.2,
+          134.6
+        ],
+        [
+          268.6,
+          134.6
+        ],
+        [
+          274.8,
+          129.7
+        ],
+        [
+          283,
+          126.4
+        ],
+        [
+          292,
+          125.6
+        ],
+        [
+          302.7,
+          126.8
+        ]
+      ],
+      "closing": [
+        [
+          315,
+          127
+        ],
+        [
+          315,
+          150
+        ],
+        [
+          300,
+          152
+        ],
+        [
+          300,
+          222
+        ],
+        [
+          178.5,
+          222
+        ]
+      ]
+    }
+  ],
+  "currents": [
+    {
+      "name": "The Mild Current",
+      "warm": true,
+      "_why": "A warm ocean current (like the Gulf Stream) flows north-east across the western ocean from the subtropics, past the western isles and up the west coast of Sellador, then (author: it does not split) straight through the strait between Tel-Tenauril (north) and Sellador (south) into the Inner Sea, ending near Baratoria. It is why Sellador, Gideon and Midland have an English/French climate at that latitude, why Lochlainn is lush, and why the western isles are subtropical. The strait runs along world y~214-218 from x~10 to x~120.",
+      "pts": [
+        [
+          -345,
+          478
+        ],
+        [
+          -295,
+          438
+        ],
+        [
+          -240,
+          392
+        ],
+        [
+          -190,
+          356
+        ],
+        [
+          -130,
+          330
+        ],
+        [
+          -70,
+          316
+        ],
+        [
+          -22,
+          304
+        ],
+        [
+          4,
+          282
+        ],
+        [
+          6,
+          250
+        ],
+        [
+          4,
+          236
+        ],
+        [
+          9,
+          224
+        ],
+        [
+          20,
+          215.5
+        ],
+        [
+          44,
+          214
+        ],
+        [
+          70,
+          214.5
+        ],
+        [
+          94,
+          216.5
+        ],
+        [
+          118,
+          218.5
+        ],
+        [
+          146,
+          223.5
+        ],
+        [
+          176,
+          231
+        ],
+        [
+          206,
+          238
+        ]
+      ]
+    }
+  ],
+  "islets": [
+    [
+      752.98,
+      427.19,
+      1.8
+    ],
+    [
+      834.98,
+      450.19,
+      2.4
+    ],
+    [
+      782.98,
+      375.19,
+      1.6
+    ],
+    [
+      817.98,
+      468.19,
+      2
+    ],
+    [
+      843.98,
+      404.19,
+      1.5
+    ],
+    [
+      754.98,
+      455.19,
+      1.4
+    ]
+  ],
+  "straits": [
+    {
+      "name": "Phocacia west strait",
+      "width": 2,
+      "line": [
+        [
+          782,
+          371
+        ],
+        [
+          786,
+          390
+        ],
+        [
+          784,
+          410
+        ],
+        [
+          788,
+          430
+        ],
+        [
+          791,
+          447
+        ]
+      ]
+    },
+    {
+      "name": "Phocacia south strait",
+      "width": 2.2,
+      "line": [
+        [
+          774,
+          429
+        ],
+        [
+          795,
+          425
+        ],
+        [
+          815,
+          431
+        ],
+        [
+          835,
+          428
+        ],
+        [
+          850,
+          432
+        ]
+      ]
+    },
+    {
+      "name": "Phocacia north-east strait",
+      "width": 2.2,
+      "line": [
+        [
+          805,
+          372
+        ],
+        [
+          818,
+          386
+        ],
+        [
+          834,
+          397
+        ],
+        [
+          851,
+          402
+        ]
+      ]
+    }
+  ],
+  "ridges": [],
+  "ridgesParked": [
+    {
+      "name": "Citadel-Atma cordillera",
+      "half": 4.2,
+      "pts": [
+        [
+          316,
+          262
+        ],
+        [
+          338,
+          284
+        ],
+        [
+          364,
+          300
+        ],
+        [
+          392,
+          306
+        ],
+        [
+          410,
+          306
+        ]
+      ]
+    },
+    {
+      "name": "Kharse-Citadel range",
+      "half": 3.6,
+      "pts": [
+        [
+          176,
+          297
+        ],
+        [
+          202,
+          286
+        ],
+        [
+          232,
+          271
+        ],
+        [
+          260,
+          257
+        ],
+        [
+          273,
+          247
+        ]
+      ]
+    },
+    {
+      "name": "Atman uplands",
+      "half": 3.4,
+      "pts": [
+        [
+          308,
+          384
+        ],
+        [
+          344,
+          372
+        ],
+        [
+          384,
+          355
+        ],
+        [
+          421,
+          340
+        ]
+      ]
+    },
+    {
+      "name": "North-eastern spine",
+      "half": 4,
+      "pts": [
+        [
+          186,
+          62
+        ],
+        [
+          214,
+          70
+        ],
+        [
+          244,
+          82
+        ],
+        [
+          274,
+          95
+        ],
+        [
+          296,
+          108
+        ]
+      ]
+    }
+  ],
+  "_ridgesNote": "Linked mountain ranges were tried on 2026-10-29 and the author found them too much; they are parked in ridgesParked (move back to ridges to restore).",
+  "curmeahMove": {
+    "_why": "Author: move Curmeah about 300 miles south and 50 miles west (8.724 mi per world px), then shrink it by 25% (linear) keeping its northern tip (drawing px 984,129 = world 620.3,397.5) fixed. Applied by editing scale/ox/oy in curmeah.json (originally scale 0.25, ox 380, oy 331; erase box unchanged).",
+    "dx": -5.73,
+    "dy": 34.39,
+    "scale": 0.1875
+  },
+  "phociaMove": {
+    "_why": "Author: keep the Phocacian islands east of El-Alahd (they follow it as Curmeah moves/shrinks), but 50 mi further north and 100 mi further east than before. Total shift from the original position (original El-Alahd at world 717,441; now 688.5,455.9). compose_world.mjs shifts the land polygons inside box after the straits are cut; the islets, terrain ellipses, river, pins and auto_placements were shifted in their files by the same amount.",
+    "box": [
+      764,
+      355,
+      880,
+      475
+    ],
+    "dx": -17.02,
+    "dy": 9.19
+  },
+  "antarcticCap": {
+    "_why": "The author asked for an Antarctic pole, smaller than the arctic one, with a rough coast and a few arcing peninsulas. Like the arctic it is smeared across the whole bottom edge of the chart (map distortion); the coast sits near 74 S, further from the equator than the arctic coast (72 N), so the southern cap is the smaller one on the globe too. Coast = whole-number harmonics of the chart width, so the left and right edges meet on the globe. Shrunk 25% (author): coast now near 78 S (cap radius 16 -> 12 degrees), peninsulas, bays and roughness x0.75; chart bounds extended south (world y 1340) so it still shows.",
+    "xMin": -800,
+    "xMax": 1150,
+    "edgeY": 1267,
+    "bottom": 1500,
+    "harmonics": [
+      [
+        2,
+        10.5
+      ],
+      [
+        3,
+        11.25
+      ],
+      [
+        5,
+        8.25
+      ],
+      [
+        8,
+        5.25
+      ],
+      [
+        13,
+        3.75
+      ],
+      [
+        21,
+        2.55
+      ],
+      [
+        34,
+        1.65
+      ],
+      [
+        55,
+        1.05
+      ],
+      [
+        90,
+        0.68
+      ]
+    ],
+    "bays": [
+      [
+        130,
+        83,
+        23
+      ],
+      [
+        640,
+        64,
+        18
+      ],
+      [
+        -330,
+        53,
+        15
+      ]
+    ],
+    "peninsulas": [
+      {
+        "x": -600,
+        "len": 69,
+        "bend": 1.15,
+        "width": 20
+      },
+      {
+        "x": -90,
+        "len": 59,
+        "bend": -1,
+        "width": 17
+      },
+      {
+        "x": 330,
+        "len": 84,
+        "bend": 1.35,
+        "width": 21
+      },
+      {
+        "x": 790,
+        "len": 63,
+        "bend": -1.1,
+        "width": 17
+      },
+      {
+        "x": 1000,
+        "len": 44,
+        "bend": 0.8,
+        "width": 14
+      }
+    ],
+    "islands": [
+      [
+        -450,
+        1187,
+        2.6
+      ],
+      [
+        -300,
+        1210,
+        1.8
+      ],
+      [
+        60,
+        1172,
+        2.1
+      ],
+      [
+        120,
+        1200,
+        1.4
+      ],
+      [
+        560,
+        1194,
+        2.4
+      ],
+      [
+        880,
+        1187,
+        1.9
+      ],
+      [
+        620,
+        1172,
+        1.3
+      ]
+    ]
+  },
+  "_valkith": "Valkith lies in the crook of two of the largest mountains of its range (the notes) and the author says they are volcanic, with cliffs over the Inner Sea to the north: two masses on the coast either side of the city and a ridge behind it (world px).",
+  "extraLabels": [
+    {
+      "name": "Volcanic Mountains",
+      "kind": "mountain",
+      "rank": 3,
+      "at": [
+        158,
+        280
+      ],
+      "note": "The volcanic mountains in whose crook Valkith lies; their cliffs fall to the Inner Sea in the north."
+    },
+    {
+      "name": "Peregrine's Islet",
+      "kind": "island",
+      "rank": 3,
+      "at": [
+        -54,
+        284
+      ]
+    }
+  ],
+  "seaCuts": [
+    {
+      "name": "Spit south of the Kharse peninsula",
+      "_why": "The author asked for this strip of land south of Dhoesone / west of the Kharse desert to be sea (screenshot 2026-10-30). Polygon in world px: the spit outline, closed along its landward end; grown by `grow` px so no sliver of the old coast is left.",
+      "grow": 0.4,
+      "poly": [
+        [
+          150,
+          308.82
+        ],
+        [
+          143.5,
+          308.37
+        ],
+        [
+          130.25,
+          306.75
+        ],
+        [
+          122.56,
+          305.91
+        ],
+        [
+          120.44,
+          305.83
+        ],
+        [
+          119,
+          306
+        ],
+        [
+          118.25,
+          306.42
+        ],
+        [
+          118.02,
+          307.25
+        ],
+        [
+          118.31,
+          308.5
+        ],
+        [
+          118.81,
+          309.47
+        ],
+        [
+          119.52,
+          310.16
+        ],
+        [
+          122.87,
+          311.66
+        ],
+        [
+          128.87,
+          313.97
+        ],
+        [
+          133.5,
+          315.4
+        ],
+        [
+          136.75,
+          315.96
+        ],
+        [
+          139.38,
+          316.24
+        ],
+        [
+          141.37,
+          316.25
+        ],
+        [
+          143,
+          316.05
+        ],
+        [
+          144.25,
+          315.64
+        ],
+        [
+          145.75,
+          314.9
+        ],
+        [
+          147.5,
+          313.82
+        ],
+        [
+          148.94,
+          313.22
+        ],
+        [
+          150.06,
+          313.1
+        ],
+        [
+          151.56,
+          313.44
+        ],
+        [
+          153.44,
+          314.25
+        ],
+        [
+          155.69,
+          315.72
+        ],
+        [
+          158.31,
+          317.84
+        ],
+        [
+          159.85,
+          318.52
+        ]
+      ]
+    }
+  ]
+}

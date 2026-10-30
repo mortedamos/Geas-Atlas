@@ -1,0 +1,398 @@
+{
+ "tel-tenauril:place:Hanandir": {
+  "id": 204,
+  "db_name": "Thanandir",
+  "confidence": "close",
+  "score": 0.89
+ },
+ "tel-tenauril:place:Aelbeth": {
+  "id": 368,
+  "db_name": "Aelbeth",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:place:Alreth": {
+  "id": 333,
+  "db_name": "Aldreth",
+  "confidence": "close",
+  "score": 0.86
+ },
+ "tel-tenauril:place:Halandir": {
+  "id": 204,
+  "db_name": "Thanandir",
+  "confidence": "close",
+  "score": 0.78
+ },
+ "tel-tenauril:place:Minath": {
+  "id": 752,
+  "db_name": "Miriath",
+  "confidence": "close",
+  "score": 0.71
+ },
+ "tel-tenauril:place:Aglathôr": {
+  "id": 121,
+  "db_name": "Calathor",
+  "confidence": "close",
+  "score": 0.75
+ },
+ "tel-tenauril:place:Celembril": {
+  "id": 318,
+  "db_name": "Celembril",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:place:Caer Airbhe-Fál": {
+  "id": 118,
+  "db_name": "Caer Airbhe-Fal",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:place:Temple of Deep Waters": {
+  "id": 1778,
+  "db_name": "Temple Of The Betrayers",
+  "confidence": "close",
+  "score": 0.72
+ },
+ "tel-tenauril:region:Faenanil": {
+  "id": 376,
+  "db_name": "Tel-Faenanil",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:region:Anoril": {
+  "id": 367,
+  "db_name": "Tel-Anoril",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:region:Elaemir": {
+  "id": 363,
+  "db_name": "Tel-Elaemir",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:region:The Watch Wardens": {
+  "id": 229,
+  "db_name": "Watch Wardens",
+  "confidence": "exact",
+  "score": 1
+ },
+ "tel-tenauril:region:Enroth": {
+  "id": 1141,
+  "db_name": "Enroth",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Port of Garrison": {
+  "id": 12,
+  "db_name": "Garrison",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Calathor": {
+  "id": 121,
+  "db_name": "Calathor",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Braes": {
+  "id": 117,
+  "db_name": "Braes",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Caer Duhl-Darah": {
+  "id": 119,
+  "db_name": "Caer Duhl-Darah",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Faunwaite": {
+  "id": 133,
+  "db_name": "Faunwaite",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Grimaud": {
+  "id": 140,
+  "db_name": "Grimaud",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Allstone": {
+  "id": 108,
+  "db_name": "Allstone",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Verdain Keep": {
+  "id": 227,
+  "db_name": "Verdain Keep",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:place:Morrudan": {
+  "id": 172,
+  "db_name": "Mohrudan",
+  "confidence": "close",
+  "score": 0.88
+ },
+ "sellador:region:Dynestra Wood": {
+  "id": 130,
+  "db_name": "Dynestra Wood",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:region:Border Mountains": {
+  "id": 116,
+  "db_name": "Border Mountains",
+  "confidence": "exact",
+  "score": 1
+ },
+ "sellador:region:Pass of Verihm": {
+  "id": 178,
+  "db_name": "Pass Of The Roerihm",
+  "confidence": "close",
+  "score": 0.85
+ },
+ "argusund:place:Virnskeggi": {
+  "id": 723,
+  "db_name": "Virnskeggi",
+  "confidence": "exact",
+  "score": 1
+ },
+ "argusund:place:Huld": {
+  "id": 482,
+  "db_name": "Huld",
+  "confidence": "exact",
+  "score": 1
+ },
+ "argusund:place:Undergaard": {
+  "id": 214,
+  "db_name": "Underdark",
+  "confidence": "close",
+  "score": 0.7
+ },
+ "argusund:region:Inham Badur": {
+  "id": 1054,
+  "db_name": "Inham Badur",
+  "confidence": "exact",
+  "score": 1
+ },
+ "argusund:region:Korstag Mountains": {
+  "id": 458,
+  "db_name": "Korstag Mountains",
+  "confidence": "exact",
+  "score": 1
+ },
+ "argusund:region:Argusund": {
+  "id": 480,
+  "db_name": "Argusund",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:place:Lessten": {
+  "id": 943,
+  "db_name": "Lessten",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Selladorian Free Nations": {
+  "id": 209,
+  "db_name": "Selladorian Free Nations",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Massenmarch": {
+  "id": 1239,
+  "db_name": "Massenmarch",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Berhagen": {
+  "id": 1249,
+  "db_name": "Berhagen",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Innishiere": {
+  "id": 1250,
+  "db_name": "Innishiere",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Dhoesone": {
+  "id": 4,
+  "db_name": "Dhoesone",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Taelshore": {
+  "id": 1251,
+  "db_name": "Taelshore",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Sunken Lands": {
+  "id": 1240,
+  "db_name": "Sunken Lands",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Crow Fells": {
+  "id": 1241,
+  "db_name": "Crow Fells",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Three Peaks": {
+  "id": 1256,
+  "db_name": "Three Peaks",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Dust Fens": {
+  "id": 1257,
+  "db_name": "Dust Fens",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Bloodskull Barony": {
+  "id": 1258,
+  "db_name": "Bloodskull Barony",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Kaldir Crown Mountains": {
+  "id": 1245,
+  "db_name": "Kaldir Crown Mountains",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Tuornen Valley": {
+  "id": 1248,
+  "db_name": "Tuornen Valley",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Winding Wood": {
+  "id": 1243,
+  "db_name": "Winding Wood",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Wooly Swamp": {
+  "id": 1242,
+  "db_name": "Wooly Swamp",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Broken Peaks": {
+  "id": 1247,
+  "db_name": "Broken Peaks",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Border Mountains": {
+  "id": 116,
+  "db_name": "Border Mountains",
+  "confidence": "exact",
+  "score": 1
+ },
+ "free-nations:region:Borderwode": {
+  "id": 840,
+  "db_name": "Borderwode",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:Aljidan": {
+  "id": 901,
+  "db_name": "Aljidan",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:Orovalis": {
+  "id": 1313,
+  "db_name": "Orovalis",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:Temple of Harmony": {
+  "id": 950,
+  "db_name": "Temple Of Harmony",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:Selbur's Tower": {
+  "id": 947,
+  "db_name": "Selburs Tower",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:El-Alahd": {
+  "id": 7,
+  "db_name": "El-Alahd",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:place:New Sellador Port": {
+  "id": 937,
+  "db_name": "New Sellador Port",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Krar-Ek": {
+  "id": 834,
+  "db_name": "Krar-Ek",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Khoria": {
+  "id": 1312,
+  "db_name": "Khoria",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Kesh": {
+  "id": 1307,
+  "db_name": "Kesh",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Alwayeth": {
+  "id": 1023,
+  "db_name": "Alwayeth",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Uruluk": {
+  "id": 239,
+  "db_name": "Uruluk",
+  "confidence": "exact",
+  "score": 1
+ },
+ "curmeah:region:Allwraith's Island": {
+  "id": 1024,
+  "db_name": "Allswraith Island",
+  "confidence": "close",
+  "score": 0.88
+ },
+ "curmeah:region:Curmeah": {
+  "id": 757,
+  "db_name": "Curmeah",
+  "confidence": "exact",
+  "score": 1
+ },
+ "lochlainn:region:The Waste": {
+  "id": 1071,
+  "db_name": "The Waste",
+  "confidence": "exact",
+  "score": 1
+ },
+ "lochlainn:region:Lonial Mountains": {
+  "id": 1065,
+  "db_name": "Lonial Mountains",
+  "confidence": "exact",
+  "score": 1
+ }
+}

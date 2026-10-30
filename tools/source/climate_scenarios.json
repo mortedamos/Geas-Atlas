@@ -1,0 +1,106 @@
+{
+  "_note": "Hypothetical land to test with MODE=west node climate.mjs ../atlas/data. Polygons in world px. 'west' = a continent in the western ocean (x -570..-390, y 170..485, about 1500 x 2700 mi) so the ocean west of Sellador has a western shore: wind-driven water piles up against it and runs north along its east coast (a Gulf Stream), then east to Sellador (a North Atlantic Drift).",
+  "west": {
+    "elev": 0.35,
+    "polys": [
+      [
+        [
+          -545,
+          205
+        ],
+        [
+          -490,
+          172
+        ],
+        [
+          -425,
+          190
+        ],
+        [
+          -392,
+          255
+        ],
+        [
+          -398,
+          335
+        ],
+        [
+          -420,
+          400
+        ],
+        [
+          -450,
+          455
+        ],
+        [
+          -505,
+          482
+        ],
+        [
+          -550,
+          445
+        ],
+        [
+          -568,
+          370
+        ],
+        [
+          -560,
+          285
+        ]
+      ]
+    ],
+    "mountains": [
+      [
+        [
+          -545,
+          250
+        ],
+        [
+          -520,
+          245
+        ],
+        [
+          -500,
+          330
+        ],
+        [
+          -505,
+          420
+        ],
+        [
+          -530,
+          430
+        ],
+        [
+          -548,
+          340
+        ]
+      ]
+    ]
+  },
+  "wall": {
+    "_note": "A high coastal range on the east edge of Curmeah (world x 690-712, y 428-520, just inland of El-Alahd), to strip the north-east trade winds. The first try, an island chain 150-250 mi offshore, did nothing: the warm sea re-moistens the air within a few hundred miles.",
+    "elev": 2.6,
+    "polys": [
+      [
+        [
+          688,
+          428
+        ],
+        [
+          712,
+          428
+        ],
+        [
+          712,
+          520
+        ],
+        [
+          688,
+          520
+        ]
+      ]
+    ]
+  }
+}

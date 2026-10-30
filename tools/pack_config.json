@@ -1,0 +1,35 @@
+{
+  "_note": "Maps the Gogots 'Cartography' free pack (CC BY 4.0) onto the atlas symbol categories. 'target' is the on-screen size (CSS px of the median symbol's longest side) at icon-size 1.",
+  "source": "../original_data/symbols",
+  "credit": {
+    "text": "Map symbols by Gogots, CC BY 4.0 (trimmed and resized)",
+    "url": "https://www.patreon.com/gogots/posts/cartography-free-154068058",
+    "license": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "categories": {
+    "tree": { "target": 50, "groups": ["trees/Tree-A", "trees/Tree-B", "trees/Tree-C", "trees/Tree-D"] },
+    "mtn": { "target": 54, "groups": ["mountains/Mountain-A", "mountains/Mountain-B", "mountains/Mountain-C", "mountains/Mountain-D"] },
+    "hill": { "target": 46, "groups": ["mountains/Hill-A", "mountains/Hill-B", "mountains/Hill-C"] },
+    "ruinfield": { "target": 44, "files": ["Symbols/Icons/Icon-33.png", "Symbols/Icons/Icon-34.png", "Symbols/Icons/Icon-35.png", "Symbols/Icons/Icon-36.png"] },
+    "sapling": { "target": 26, "groups": ["trees/Bush-A", "trees/Bush-E"] },
+    "marsh": { "target": 34, "groups": ["trees/Bush-F", "trees/Ground-C", "trees/Bush-C"] },
+    "desert": { "target": 44, "groups": ["trees/Tree-I", "trees/Tree-H", "trees/Tree-J"] }
+  },
+  "named": {
+    "target": 70,
+    "files": {
+      "poi-hamlet": "Symbols/Icons/Icon-20.png",
+      "poi-village": "Symbols/Icons/Icon-44.png",
+      "poi-town": "Symbols/Icons/Icon-41.png",
+      "poi-city": "Symbols/Icons/Icon-38.png",
+      "poi-capital": "Symbols/Icons/Icon-43.png",
+      "poi-port": "Symbols/Icons/Icon-07.png",
+      "poi-fort": "Symbols/Icons/Icon-37.png",
+      "poi-castle": "Symbols/Icons/Icon-42.png",
+      "poi-tower": "Symbols/Icons/Icon-24.png",
+      "poi-temple": "Symbols/Icons/Icon-36.png",
+      "poi-mine": "Symbols/Icons/Icon-30.png",
+      "poi-ruin": "Symbols/Icons/Icon-34.png"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"x0":-840,"y0":-180,"cell":1,"w":2030,"h":1720,"hMin":-0.5,"hMax":1.1,"note":"Uint16 LE, row-major from the north edge; height = hMin + v/65535*(hMax-hMin). Relative elevation, 1.0 = the highest peaks."}

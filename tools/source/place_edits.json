@@ -1,0 +1,39 @@
+{
+ "_note": "Hand edits made in the viewer's side pane (tools/serve.mjs writes this). Key = \"<source>:<place|region>:<name on the map>\". Fields: name, lng, lat, kind, tier (1 village, 2 town, 3 city), rank (region label level 1-3), note, hidden (removed). Delete an entry to undo it, then run attach_notes.mjs.",
+ "edits": {
+  "baratoria:place:The Wailing Rock": {
+   "kind": "ruin"
+  },
+  "placed:place:Valkith": {
+   "note": "Built among volcanic mountains; its cliffs look out over the Inner Sea to the north."
+  },
+  "adjust:region:Volcanic Mountains": {
+   "hidden": true
+  },
+  "berhagen:region:New Sellador": {
+   "hidden": true
+  },
+  "curmeah:region:Curmeah": {
+   "lng": 1.12337,
+   "lat": -1.36811
+  },
+  "argusund:region:Argusund": {
+   "rank": 2
+  },
+  "placed:region:Boddendell": {
+   "rank": 1
+  },
+  "placed:region:Plateau Of Lehng": {
+   "rank": 2
+  },
+  "argusund:region:Inham Badur": {
+   "lng": -7.25226,
+   "lat": 8.83682
+  },
+  "sellador:region:Isle of the Lich King": {
+   "rank": 3,
+   "lng": -7.7113,
+   "lat": 5.24115
+  }
+ }
+}

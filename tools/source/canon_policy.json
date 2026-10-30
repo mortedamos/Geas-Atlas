@@ -1,0 +1,13 @@
+{
+  "_note": "Which old-database contributions count as canon for the atlas. Only canon notes are published into atlas/data/notes.json; everything else is held back and listed in tools/source/canon_review.md. Owner ids come from the old site's users table (1 = Shawn Nicolen, 2 = Jacob McDonald). Decision 2026-10-19: Shawn's and Jacob's entries are canon; every other contributor is ignored.",
+  "canonOwners": [1, 2],
+  "thirdPartyOwners": {
+    "_why": "Published game-system content (WotC, Malhavoc, Sean K. Reynolds, Ironsoul, ...). Never published on the atlas.",
+    "ids": [23, 25, 31, 32, 33, 34]
+  },
+  "includeIfLastEditedBy": [1, 2],
+  "overrides": {
+    "_why": "Per-entry decisions by database id: \"canon\" forces inclusion, \"exclude\" forces omission.",
+    "byId": {}
+  }
+}

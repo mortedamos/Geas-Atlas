@@ -1,0 +1,57 @@
+{
+  "_note": "Hand-transcribed from the drawing 'curmeah.jpg' (two sheets taped together; the overlap seam is removed and the linework cleaned in original_data/maps/curmeah_ink.jpg, 1430x2000). Coordinates are pixels of that cleaned image. The copy of Curmeah pasted into the old world map is a differently-proportioned redraw, so no exact fit exists: this drawing is placed over that island's footprint at a uniform scale, and everything of the old island outside the drawing's coastline is cleared. Names are read from hand lettering.",
+  "map": "curmeah_ink.jpg",
+  "scale": 0.1875, "ox": 435.77, "oy": 373.43,
+  "erase": { "x0": 362, "y0": 358, "x1": 772, "y1": 836 },
+  "seam": [1062, 1108],
+  "ignore": [[280, 80, 620, 200], [1250, 100, 1430, 170]],
+  "forceSea": [ [[1330,300],[1430,300],[1430,486],[1405,462],[1388,436],[1368,408],[1346,384],[1326,366]] ],
+  "features": [
+    { "name": "Uruluk Mountains", "kind": "mountain", "poly": [[150,380],[250,340],[400,330],[520,380],[560,470],[520,560],[380,640],[230,620],[150,520]] },
+    { "name": "Krar-Ek Ridge", "kind": "mountain", "poly": [[560,560],[640,500],[780,470],[900,480],[930,540],[860,600],[720,640],[580,640]] },
+    { "name": "Western Hills", "kind": "hills", "poly": [[220,640],[420,640],[460,800],[330,840],[230,760]] },
+    { "name": "Keshk Heights", "kind": "mountain", "poly": [[530,800],[700,780],[760,860],[740,980],[600,1020],[520,1000],[500,900]] },
+    { "name": "Khoria Range", "kind": "mountain", "poly": [[870,690],[1040,650],[1160,720],[1060,830],[940,870],[850,780]] },
+    { "name": "Khoria Hills", "kind": "hills", "poly": [[960,560],[1160,540],[1200,620],[1040,650],[960,620]] },
+    { "name": "Eastern Spurs", "kind": "mountain", "poly": [[860,960],[1000,950],[1000,1040],[860,1040]] },
+    { "name": "Tachtekmet Heights", "kind": "mountain", "poly": [[470,1200],[600,1180],[620,1300],[600,1400],[480,1360]] },
+    { "name": "Central Spurs", "kind": "mountain", "poly": [[700,1230],[840,1220],[930,1300],[860,1340],[720,1320]] },
+    { "name": "Southern Range", "kind": "mountain", "poly": [[760,1420],[1000,1380],[1100,1500],[1050,1700],[860,1740],[740,1600]] },
+    { "name": "Southern Hills", "kind": "hills", "poly": [[740,1740],[960,1760],[900,1850],[780,1830]] }
+  ],
+  "lakes": [
+    { "name": "", "x": 1018, "y": 1562, "rx": 38, "ry": 30 },
+    { "name": "", "x": 545, "y": 1272, "rx": 28, "ry": 14 }
+  ],
+  "rivers": [
+    { "name": "River Neph", "pts": [[702,1000],[730,940],[748,860],[790,780],[808,700],[830,648],[850,628],[907,610],[987,621],[1047,607],[1093,571],[1133,573],[1207,560],[1247,523],[1307,497],[1327,470],[1330,447]] },
+    { "name": "", "pts": [[1330,447],[1335,415],[1342,385],[1348,372]] },
+    { "name": "", "pts": [[1330,447],[1345,420],[1362,395],[1372,380]] },
+    { "name": "", "pts": [[1330,447],[1355,430],[1380,410],[1392,395]] },
+    { "name": "", "pts": [[1330,447],[1360,445],[1385,440],[1398,432]] }
+  ],
+  "places": [
+    { "name": "El-Ashur", "x": 577, "y": 703, "kind": "town", "rank": 2 },
+    { "name": "Segmuhd", "x": 703, "y": 707, "kind": "town", "rank": 2 },
+    { "name": "Aljidan", "x": 910, "y": 610, "kind": "port", "rank": 2 },
+    { "name": "Tsulan's Camp", "x": 1105, "y": 590, "kind": "village", "rank": 3 },
+    { "name": "Orovalis", "x": 930, "y": 662, "kind": "ruin", "rank": 3 },
+    { "name": "Kossoth's Hut", "x": 680, "y": 945, "kind": "village", "rank": 3 },
+    { "name": "Temple of Harmony", "x": 627, "y": 950, "kind": "temple", "rank": 3 },
+    { "name": "Selbur's Tower", "x": 742, "y": 885, "kind": "tower", "rank": 3 },
+    { "name": "El-Alahd", "x": 1348, "y": 440, "kind": "city", "rank": 1 },
+    { "name": "Ruins of Tachtekmet", "x": 658, "y": 1370, "kind": "ruin", "rank": 3 },
+    { "name": "Watchtree Ruins", "x": 487, "y": 1773, "kind": "ruin", "rank": 3 },
+    { "name": "New Sellador Port", "x": 607, "y": 1742, "kind": "port", "rank": 2 }
+  ],
+  "regions": [
+    { "name": "Krar-Ek", "x": 740, "y": 468, "rank": 1, "kind": "region" },
+    { "name": "Khoria", "x": 905, "y": 825, "rank": 2, "kind": "region" },
+    { "name": "Kesh", "x": 760, "y": 1000, "rank": 2, "kind": "region" },
+    { "name": "Alwayeth", "x": 535, "y": 1668, "rank": 2, "kind": "region" },
+    { "name": "Uruluk", "x": 330, "y": 470, "rank": 1, "kind": "region" },
+    { "name": "Allwraith's Island", "x": 472, "y": 1712, "rank": 3, "kind": "island" },
+    { "name": "Stormwatch Islands", "x": 580, "y": 1930, "rank": 3, "kind": "island" },
+    { "name": "Curmeah", "x": 780, "y": 1300, "rank": 1, "kind": "region" }
+  ]
+}

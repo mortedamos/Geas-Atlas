@@ -57,4 +57,5 @@ From the author's Google Docs (Drachenhorn arc; "3121 AA"; chapters 4, 6, 7, 8, 
 
 ## Placed on the atlas (2026-11-01, guesses marked on the map)
 Lenarte Farmstead (89, 279), Hearthden (93, 278; gnoll plan), Caer Yar-Ahn-Og (97, 276), Aillfar (92, 344), Caer Ordaich-Uaine (94, 355), Galiad (96, 382; ruined plan), Castle McKrae (99, 372), Skellig Rath (86, 338; a new islet), Chaos Gate (98, 358, at Caer Fid-Nemith). Rivers: Highriver (new, from the Border Mountains through Drachenhorn into the Berhagen river network at 107, 271) and Thalweg Wyne (the Berhagen river at Alderford). Lochlainn's note carries Arandir. Drachenhorn now has its own pass-city plan.
-Still unplaced: Akanos / Stormtower / Aramantha (flying kingdom, far out in the western sea), the Collapse (under the sea-floor ruins of the Akanosi Library District), the Umbral Isle (far north), and the planar places (Shadowfell Alalomë and Unthelas, Feywild Kopuri).
+Author-placed by sailing time (ship speed 8.25 px a day): **The Collapse** (-333, 472) 4 days west and slightly south of Agrea (an underwater ruin pin); **Umbral Isle** (-318, 449) 3 days north-west of Agrea (a new islet).
+Still unplaced: Akanos / Stormtower / Aramantha (flying kingdom, far out in the western sea) and the planar places (Shadowfell Alalomë and Unthelas, Feywild Kopuri).

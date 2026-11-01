@@ -982,6 +982,11 @@
       86,
       338,
       1.3
+    ],
+    [
+      -318,
+      448.8,
+      1.5
     ]
   ],
   "straits": [
@@ -1342,6 +1347,16 @@
         338
       ],
       "note": "A bleak spire of rock in an angry sea, about a day's sail from Aillfar. Lair of the formorian Elgol."
+    },
+    {
+      "name": "Umbral Isle",
+      "kind": "island",
+      "rank": 3,
+      "at": [
+        -318,
+        448.8
+      ],
+      "note": "A lonely island of lingering shadow, about three days' sailing north-west of Agrea. No animals or people live here. A cave guarded by two bronze dragon statues leads to The Three, who ask each visitor a truth in exchange for passage into Shadow."
     }
   ],
   "seaCuts": [
@@ -1623,6 +1638,16 @@
       "guess": true,
       "basis": "on a mountain of the Lonial range, the old lands of Clan McKrae (campaign chapters 6 and 7)",
       "note": "Also called the Devil's Ruin. The castle stood on a mountain of the Lonial range, in the old lands of Clan McKrae, both in this world and in hell. Its ruined halls lead down to an underground lake where the young green dragon Kozgoroth lived. The ruined streets of Daerunbrae lie below it. The first key to Storm Tower was kept here."
+    },
+    {
+      "name": "The Collapse",
+      "kind": "ruin",
+      "rank": 3,
+      "at": [
+        -333,
+        472
+      ],
+      "note": "An underwater place about four days' sailing west and a little south of Agrea. The ruined Akanosi Library District lies on the sea floor above it, and caves below hold the Aboleth Ubel'gorath, its skum, and Tola of the council, taken prisoner. The sleeping Embrian lies in the depths beside the time-lost ruins."
     }
   ]
 }

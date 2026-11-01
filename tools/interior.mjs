@@ -358,7 +358,7 @@ const MARGIN = { mountain: 1.5, hills: 1.1, forest: 0.9, marsh: 0.7, desert: 0.8
 const SIZE_RANGE = { mountain: [0.45, 1.3], hills: [0.55, 1.2], forest: [0.6, 1.2], marsh: [0.65, 1.15], desert: [0.7, 1.15], newgrowth: [0.7, 1.1], ruins: [0.75, 1.2] };
 // extra spacing for one kind on one map: Lochlainn is covered in forest, which needs a lot fewer trees than a small woodland
 const SPACING_KIND = { 'lochlainn:forest': 2.3 };
-const SPACING_SCALE = { curmeah: 1.9, lochlainn: 0.55, borderrange: 0.5, atma: 0.5, citadel: 0.55, range: 0.6, polar: 0.7, kharse: 0.8, valkith: 0.5, lehng: 1, shattered: 0.7, phocacia: 0.6, prios: 0.2, thanatos: 0.22, agrea: 0.2, umbral: 0.08, isle: 0.2, baratoria: 0.2 }; // Lochlainn is drawn small in world px, so its symbols pack closer
+const SPACING_SCALE = { curmeah: 1.9, lochlainn: 0.55, borderrange: 0.5, atma: 0.5, citadel: 0.55, range: 0.6, polar: 0.7, kharse: 0.8, valkith: 0.5, lehng: 1, shattered: 0.7, phocacia: 0.6, prios: 0.2, thanatos: 0.22, agrea: 0.2, umbral: 0.055, isle: 0.11, baratoria: 0.2 }; // Lochlainn is drawn small in world px, so its symbols pack closer
 const rand = rng(1337);
 const icons = [];
 const STAGES = {

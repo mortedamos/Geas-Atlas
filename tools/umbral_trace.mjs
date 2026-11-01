@@ -55,7 +55,7 @@ console.log('wrote tools/_umbral_trace.png');
 
 if (WRITE) {
   const F = 'source/islands.json', cfg = JSON.parse(fs.readFileSync(F, 'utf8'));
-  const SCALE = 0.0073; // world px per picture px: the main island comes out about 27 miles across (the author gave no size)
+  const SCALE = 0.0049; // world px per picture px: the main island comes out about 18 miles across (the author gave no size; first drawn 27 miles, then made a third smaller)
   const main = rings[0].pts, xs = main.map((p) => p[0]), ys = main.map((p) => p[1]);
   const entry = {
     id: 'umbral', title: 'The Umbral Isle', map: 'umbral.png (illustrated map)', scale: SCALE, at: [-318.5, 448.8],
@@ -67,8 +67,8 @@ if (WRITE) {
       { name: 'Umbral woods (south)', kind: 'forest', poly: [[230, 245], [280, 240], [340, 235], [385, 250], [395, 285], [340, 292], [270, 285]] },
       { name: 'Umbral islet wood', kind: 'forest', poly: [[480, 175], [510, 175], [515, 205], [485, 205]] },
     ],
-    places: [], regions: [], bandScale: 0.15, wobble: 0,
-    _note: 'Traced from the author\'s illustrated map original_data/maps/umbral.png (tools/umbral_trace.mjs): the island, the north-western tip, and the little isle to the east. Where clouds hide the coast it is drawn halfway across them. Terrain areas are outlined by eye. No size was given, so the island is drawn about 27 miles across (SCALE in the tracer); centred three days\' sailing north-west of Agrea.',
+    places: [], regions: [], bandScale: 0.06, wobble: 0,
+    _note: 'Traced from the author\'s illustrated map original_data/maps/umbral.png (tools/umbral_trace.mjs): the island, the north-western tip, and the little isle to the east. Where clouds hide the coast it is drawn halfway across them. Terrain areas are outlined by eye. No size was given, so the island is drawn about 18 miles across (SCALE in the tracer); centred three days\' sailing north-west of Agrea.',
   };
   const i = cfg.islands.findIndex((x) => x.id === 'umbral');
   if (i >= 0) cfg.islands[i] = entry; else cfg.islands.push(entry);

@@ -79,11 +79,14 @@ async function paintTexture() {
 
   // sea: depth bands, shallowest on top (same order as the map's layers)
   for (const band of ['coast', 'shelf', 'shallows']) fillPolys(bands.features.filter((f) => f.properties.band === band), PALETTE[band]);
-  // warm current
-  g.strokeStyle = '#b8452a'; g.globalAlpha = 0.5; g.lineWidth = 7 * K / 2;
-  for (const f of currents.features) for (const l of lines(f)) for (const ox of WRAPS) { traceLine(l, ox); g.stroke(); }
-  g.strokeStyle = '#e6bd62'; g.globalAlpha = 0.85; g.lineWidth = 1.6 * K / 2; g.setLineDash([6 * K, 6 * K]);
-  for (const f of currents.features) for (const l of lines(f)) for (const ox of WRAPS) { traceLine(l, ox); g.stroke(); }
+  // warm and cold currents
+  for (const [warm, wide, dash] of [[true, '#b8452a', '#e6bd62'], [false, '#2f6f93', '#bfe3ef']]) {
+    const fs_ = currents.features.filter((f) => !!f.properties.warm === warm);
+    g.strokeStyle = wide; g.globalAlpha = 0.5; g.lineWidth = 7 * K / 2; g.setLineDash([]);
+    for (const f of fs_) for (const l of lines(f)) for (const ox of WRAPS) { traceLine(l, ox); g.stroke(); }
+    g.strokeStyle = dash; g.globalAlpha = 0.85; g.lineWidth = 1.6 * K / 2; g.setLineDash([6 * K, 6 * K]);
+    for (const f of fs_) for (const l of lines(f)) for (const ox of WRAPS) { traceLine(l, ox); g.stroke(); }
+  }
   g.setLineDash([]); g.globalAlpha = 1;
   // land shadow, land, terrain
   g.strokeStyle = '#2a1a0c'; g.globalAlpha = 0.35; g.lineWidth = 9 * K; g.filter = 'blur(5px)';

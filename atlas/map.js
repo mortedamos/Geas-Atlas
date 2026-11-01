@@ -102,7 +102,7 @@ function drawIcon(name) {
     g.fillStyle = '#d8cb9d'; g.beginPath(); g.moveTo(32 - w / 2, 52); g.quadraticCurveTo(32, 52 - h * 2, 32 + w / 2, 52); g.closePath(); g.fill();
     g.strokeStyle = ink; g.lineWidth = 1.8; g.beginPath(); g.moveTo(32 - w / 2, 52); g.quadraticCurveTo(32, 52 - h * 2, 32 + w / 2, 52); g.stroke();
   } else if (kind === 'arrow') {
-    g.fillStyle = '#f6c58f'; g.strokeStyle = '#8a4a1c'; g.lineWidth = 3;
+    g.fillStyle = v === 1 ? '#bfe3ef' : '#f6c58f'; g.strokeStyle = v === 1 ? '#1c4a6a' : '#8a4a1c'; g.lineWidth = 3; // arrow-1 is the cold current's
     g.beginPath(); g.moveTo(48, 32); g.lineTo(18, 14); g.lineTo(26, 32); g.lineTo(18, 50); g.closePath(); g.fill(); g.stroke();
   } else if (kind === 'marsh') {
     // reed tufts over a short water dash
@@ -151,10 +151,10 @@ const style = {
     })),
     { id: 'band-lines', type: 'line', source: 'bands', paint: { 'line-color': '#f3e8c8', 'line-opacity': 0.26, 'line-width': 0.8 } },
     // warm ocean current: a dashed band with arrows and its name running along it
-    { id: 'currents-line', type: 'line', source: 'currents', layout: { 'line-cap': 'round' }, paint: { 'line-color': '#b8452a', 'line-opacity': 0.5, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 3, 6, 6, 9, 10], 'line-blur': 2.5 } },
-    { id: 'currents-dash', type: 'line', source: 'currents', paint: { 'line-color': '#e6bd62', 'line-opacity': 0.85, 'line-dasharray': [3, 3], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.8, 8, 1.6] } },
-    { id: 'currents-arrows', type: 'symbol', source: 'currents', layout: { 'symbol-placement': 'line', 'symbol-spacing': 170, 'icon-image': 'arrow-0', 'icon-size': ['interpolate', ['linear'], ['zoom'], 3, 0.45, 8, 0.8], 'icon-rotation-alignment': 'map', 'icon-allow-overlap': true, 'icon-ignore-placement': true } },
-    { id: 'currents-name', type: 'symbol', source: 'currents', minzoom: 4.8, layout: { 'symbol-placement': 'line', 'symbol-spacing': 520, 'text-field': ['get', 'name'], 'text-font': ['IM Fell English Italic'], 'text-size': ['interpolate', ['linear'], ['zoom'], 5, 11, 9, 16], 'text-letter-spacing': 0.12, 'text-offset': [0, -1] }, paint: { 'text-color': '#f3dca0', 'text-halo-color': '#5a1f12', 'text-halo-width': 1.6 } },
+    { id: 'currents-line', type: 'line', source: 'currents', layout: { 'line-cap': 'round' }, paint: { 'line-color': ['case', ['get', 'warm'], '#b8452a', '#2f6f93'], 'line-opacity': 0.5, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 3, 6, 6, 9, 10], 'line-blur': 2.5 } },
+    { id: 'currents-dash', type: 'line', source: 'currents', paint: { 'line-color': ['case', ['get', 'warm'], '#e6bd62', '#bfe3ef'], 'line-opacity': 0.85, 'line-dasharray': [3, 3], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.8, 8, 1.6] } },
+    { id: 'currents-arrows', type: 'symbol', source: 'currents', layout: { 'symbol-placement': 'line', 'symbol-spacing': 170, 'icon-image': ['case', ['get', 'warm'], 'arrow-0', 'arrow-1'], 'icon-size': ['interpolate', ['linear'], ['zoom'], 3, 0.45, 8, 0.8], 'icon-rotation-alignment': 'map', 'icon-allow-overlap': true, 'icon-ignore-placement': true } },
+    { id: 'currents-name', type: 'symbol', source: 'currents', minzoom: 4.8, layout: { 'symbol-placement': 'line', 'symbol-spacing': 520, 'text-field': ['get', 'name'], 'text-font': ['IM Fell English Italic'], 'text-size': ['interpolate', ['linear'], ['zoom'], 5, 11, 9, 16], 'text-letter-spacing': 0.12, 'text-offset': [0, -1] }, paint: { 'text-color': ['case', ['get', 'warm'], '#f3dca0', '#d6eef7'], 'text-halo-color': ['case', ['get', 'warm'], '#5a1f12', '#12384f'], 'text-halo-width': 1.6 } },
     { id: 'land-shadow', type: 'line', source: 'land', paint: { 'line-color': '#2a1a0c', 'line-opacity': 0.4, 'line-width': zoomSize(3, 8, 14), 'line-blur': 6 } },
     { id: 'land-fill', type: 'fill', source: 'land', paint: { 'fill-color': PALETTE.land } },
     ...Object.entries(TERRAIN_FILL).map(([kind, [color, opacity]]) => ({

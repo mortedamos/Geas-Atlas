@@ -12,6 +12,10 @@
     "storms": {
       "label": "Magical storms",
       "icon": "⛈"
+    },
+    "warm": {
+      "label": "Volcanically warm",
+      "icon": "🌋"
     }
   },
   "effects": [
@@ -65,6 +69,21 @@
         "scope": "island",
         "strength": "extreme",
         "note": "storm belt around the island unrelated to latitude or season; local weather may jump between seasons (time flux)"
+      }
+    },
+    {
+      "name": "Valkith",
+      "kind": "warm",
+      "summary": "Much warmer than its latitude and mountains would suggest: active volcanoes and hot springs heat the city and the land around it, so the ground steams, snow does not lie, and winters are mild.",
+      "source": "the author",
+      "inherit": {
+        "children": true
+      },
+      "model": {
+        "effect": "warming",
+        "scope": "local",
+        "strength": "strong",
+        "note": "treat as a warm anomaly of roughly 8-12 C above the surrounding climate, strongest in winter; hot springs and steam vents, ice-free harbour and valleys"
       }
     }
   ]

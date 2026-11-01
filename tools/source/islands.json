@@ -10,9 +10,9 @@
    "id": "isle",
    "title": "Peregrine's Table",
    "map": "peregrine_hex.webp (hex-tile map)",
-   "sizeRatio": 0.41071,
+   "sizeRatio": 0.27518,
    "yCenter": 284,
-   "sailDays": 10.5,
+   "sailDays": 10.5548,
    "coast": [
     [
      393,
@@ -5847,7 +5847,7 @@
    ],
    "regions": [],
    "wobble": 0,
-   "bandScale": 0.08,
+   "bandScale": 0.055,
    "_note": "Redrawn from the author's hex-tile map original_data/maps/peregrine_hex.webp (tools/peregrine_trace.mjs): the coast, the jungle, scrub, highland, dunes and marsh hexes, the four mountain glyphs, the rivers (the blue lines on the hex borders) and the two sand islets to the north-east. sizeRatio keeps the island the width the old invented outline had, so the western island chain stays where it was."
   },
   {
@@ -5857,7 +5857,7 @@
    "map": "prios.jpg",
    "scale": 0.032,
    "yCenter": 302,
-   "sailDays": 14,
+   "sailDays": 14.0548,
    "coast": [
     [
      545,
@@ -9939,7 +9939,7 @@
    "id": "umbral",
    "title": "The Umbral Isle",
    "map": "umbral.png (illustrated map)",
-   "scale": 0.0049,
+   "scale": 0.0033,
    "at": [
     -318.5,
     448.8
@@ -11102,9 +11102,9 @@
    ],
    "places": [],
    "regions": [],
-   "bandScale": 0.06,
+   "bandScale": 0.04,
    "wobble": 0,
-   "_note": "Traced from the author's illustrated map original_data/maps/umbral.png (tools/umbral_trace.mjs): the island, the north-western tip, and the little isle to the east. Where clouds hide the coast it is drawn halfway across them. Terrain areas are outlined by eye. No size was given, so the island is drawn about 18 miles across (SCALE in the tracer); centred three days' sailing north-west of Agrea."
+   "_note": "Traced from the author's illustrated map original_data/maps/umbral.png (tools/umbral_trace.mjs): the island, the north-western tip, and the little isle to the east. Where clouds hide the coast it is drawn halfway across them. Terrain areas are outlined by eye. No size was given, so the island is drawn about 12 miles across (SCALE in the tracer); centred three days' sailing north-west of Agrea."
   }
  ],
  "_latitude": "Latitude model (2026-10-29, Mercator reading, see tools/climate.mjs): Sellador is centred on y~262 = 49 N and the equator is at y~567. Author (2026-10-29): Agrea is the most tropical (yCenter 465 = ~18 N), Thanatos is chilly at times (a magical cold of undeath; yCenter 345 = ~37 N), and Prios is the most temperate and the most northerly of the three (yCenter 302 = ~45 N).",

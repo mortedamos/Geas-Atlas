@@ -866,7 +866,7 @@
     {
       "name": "The Mild Current",
       "warm": true,
-      "_why": "A warm ocean current (like the Gulf Stream) flows north-east across the western ocean from the subtropics, past the western isles and up the west coast of Sellador, then (author: it does not split) straight through the strait between Tel-Tenauril (north) and Sellador (south) into the Inner Sea, ending near Baratoria. It is why Sellador, Gideon and Midland have an English/French climate at that latitude, why Lochlainn is lush, and why the western isles are subtropical. The strait runs along world y~214-218 from x~10 to x~120.",
+      "_why": "A warm ocean current (like the Gulf Stream) flows north-east across the western ocean from the subtropics, past the western isles, then (author, 2026-11-01) turns north well before Sellador, passes north of Peregrine's Table, and curves gently, without sharp turns, north-east then east through the strait between Tel-Tenauril (north) and Sellador (south) into the Inner Sea, ending near Baratoria (it does not split). It is why Sellador, Gideon and Midland have an English/French climate at that latitude, why Lochlainn is lush, and why the western isles are subtropical. The strait runs along world y~212-218 from x~25 to x~120.",
       "pts": [
         [
           -345,
@@ -885,44 +885,48 @@
           356
         ],
         [
-          -130,
-          330
+          -140,
+          326
         ],
         [
-          -70,
-          316
+          -112,
+          302
         ],
         [
-          -22,
-          304
+          -92,
+          280
         ],
         [
-          4,
-          282
+          -72,
+          266
         ],
         [
-          6,
-          250
+          -52,
+          258
         ],
         [
-          4,
-          236
+          -30,
+          248
         ],
         [
-          9,
-          224
+          -8,
+          234
         ],
         [
-          20,
-          215.5
+          10,
+          221
         ],
         [
-          44,
-          214
+          30,
+          213
+        ],
+        [
+          50,
+          212.5
         ],
         [
           70,
-          214.5
+          213.5
         ],
         [
           94,

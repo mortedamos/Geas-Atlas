@@ -502,6 +502,15 @@ const rivers = [['tel-tenauril', tt], ['argusund', arg], ['free-nations', fn], [
       }
     }
   }
+  // rivers drawn by hand through points in world px (adjustments.riverLines: name, w, pts)
+  for (const r of adj.riverLines || []) { const f = line(r.pts, r.name || ''); f.properties = { name: r.name || '', source: 'hand', ...(r.w > 1 ? { w: r.w } : {}) }; rivers.push(f); }
+  // names for rivers already drawn: every segment with a point within `radius` world px of `at` (adjustments.riverNames)
+  for (const n of adj.riverNames || []) {
+    for (const f of rivers) {
+      const ls = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
+      if (!f.properties.name && ls.some((l) => l.some(([lng, lat]) => Math.hypot(lng * 51.2 + 512 - n.at[0], 512 - lat * 51.2 - n.at[1]) <= n.radius))) f.properties.name = n.name;
+    }
+  }
 }
 
 const pt =(props, m, x, y) => ({ type: 'Feature', properties: props, geometry: { type: 'Point', coordinates: lonlat(m)([x, y]).map((v) => +v.toFixed(5)) } });
@@ -525,6 +534,9 @@ for (const [src, m] of [['tel-tenauril', tt], ['sellador', sel], ['argusund', ar
 }
 for (const l of adj.arcticLabels || []) {
   regions.push({ type: 'Feature', properties: { name: l.name, kind: l.kind, rank: l.rank, source: 'adjust', note: l.note }, geometry: { type: 'Point', coordinates: [+((l.at[0] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5), +(-(l.at[1] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5)] } });
+}
+for (const l of adj.extraPlaces || []) {
+  places.push({ type: 'Feature', properties: { name: l.name, kind: l.kind, rank: l.rank ?? 3, source: 'campaign', verified: false, ...(l.guess ? { guess: true, basis: l.basis } : {}), ...(l.note ? { note: l.note } : {}) }, geometry: { type: 'Point', coordinates: [+((l.at[0] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5), +(-(l.at[1] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5)] } });
 }
 for (const l of adj.extraLabels || []) {
   regions.push({ type: 'Feature', properties: { name: l.name, kind: l.kind, rank: l.rank, source: 'adjust', note: l.note }, geometry: { type: 'Point', coordinates: [+((l.at[0] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5), +(-(l.at[1] - WORLD / 2) * DEG_PER_WORLD_PX).toFixed(5)] } });

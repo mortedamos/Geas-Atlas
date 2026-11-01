@@ -12,6 +12,7 @@
 //   viking   a Trelleborg ring fort with pinwheels of longhouses, boat sheds along the shore, a ring of Thing stones
 //   gnome    halfling burrows: winding lanes, round homes with gardens round a party tree
 //   minotaur a labyrinth: the city is a maze of stone blocks round a palace court
+//   pass     a city in a mountain pass (Drachenhorn): a Trade Road between cliffs, a market square, an arena, a river through the town
 // Where the real coast or a river runs close, the plan keeps off the water and adds a waterfront street, quay and piers (or bridges).
 // All sizes are feet. Output: atlas/data/towns.json (compact: positions in a local east/north frame around the settlement).
 // A hand-made city map can replace a generated one: list it in atlas/data/town_maps.json (see atlas/towns.js).
@@ -29,7 +30,7 @@ const R_TIER = { 1: 420, 2: 1000, 3: 2200 }; // radius of the built-up area, fee
 const CELL = 6; // occupancy grid, feet
 const WIDTH = { main: 26, street: 17, lane: 11 };
 const PHI = 1.618034;
-const STYLE_OF = { human: 'radial', atma: 'grid', egyptian: 'nile', elf: 'spiral', dwarf: 'fan', orc: 'slab', goblin: 'wander', viking: 'norse', gnome: 'burrow', minotaur: 'maze' };
+const STYLE_OF = { human: 'radial', atma: 'grid', egyptian: 'nile', elf: 'spiral', dwarf: 'fan', orc: 'slab', goblin: 'wander', viking: 'norse', gnome: 'burrow', minotaur: 'maze', pass: 'pass' };
 const styles = JSON.parse(fs.readFileSync(path.resolve('source/town_styles.json'), 'utf8'));
 const notes = rd('notes.json');
 
@@ -44,6 +45,8 @@ function raceOf(p) {
 }
 
 // ---------- geometry of the real map (world px) ----------
+const highriver = (() => { const f = rd('rivers.geojson').features.find((r) => r.properties.name === 'Highriver'); return f ? (f.geometry.type === 'LineString' ? f.geometry.coordinates : f.geometry.coordinates[0]).map(px) : null; })();
+const segDist = (x, y, pts) => { let b = 1e9; for (let i = 0; i + 1 < pts.length; i++) { const [ax, ay] = pts[i], [bx, by] = pts[i + 1], dx = bx - ax, dy = by - ay, t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy || 1))), d = Math.hypot(ax + dx * t - x, ay + dy * t - y); if (d < b) b = d; } return b; };
 const landG = rd('land.geojson').features[0].geometry;
 const landPolys = (landG.type === 'Polygon' ? [landG.coordinates] : landG.coordinates).map((p) => {
   const rings = p.map((r) => r.map(px)), xs = rings[0].map((c) => c[0]), ys = rings[0].map((c) => c[1]);
@@ -110,15 +113,17 @@ function layoutTown(f, all) {
     if (c.d * FT < 1.5 * R) river = { p: toL(c.qx, c.qy), t: [c.ux, -c.uy], W: { 1: 36, 2: 55, 3: 80, 4: 110 }[Math.max(1, Math.min(4, Math.round(c.w)))] }; }
   let seaMask = null; // the sea on the grid, from the fractal coast (below); until then the traced coast as a straight line
   const sea = (x, y) => { if (!coast) return false; if (seaMask) { const i = gi(x), j = gi(y); if (i >= 0 && j >= 0 && i < N && j < N) return seaMask[j * N + i] === 1; } return (x - coast.p[0]) * coast.n[0] + (y - coast.p[1]) * coast.n[1] > 0; };
+  let hr = null, customWater = null; // the Highriver through a pass city, as a local polyline
+  if (style === 'pass' && highriver) { river = null; hr = highriver.map(([x, y]) => toL(x, y)); customWater = (x, y) => segDist(x, y, hr) < 26; }
   const riverDist = (x, y) => (river ? Math.abs((x - river.p[0]) * river.t[1] - (y - river.p[1]) * river.t[0]) : 1e9);
-  const water = (x, y) => sea(x, y) || riverDist(x, y) < river?.W / 2 + 4;
+  const water = (x, y) => sea(x, y) || riverDist(x, y) < river?.W / 2 + 4 || (customWater ? customWater(x, y) : false);
 
   // centre of the plan: kept off the shore and off the river
   let c0 = [0, 0];
   if (coast) { const s = (0 - coast.p[0]) * coast.n[0] + (0 - coast.p[1]) * coast.n[1], need = 0.3 * R + s; if (need > 0 || (p.kind === 'port' && need < 0)) c0 = [c0[0] - coast.n[0] * need, c0[1] - coast.n[1] * need]; }
   if (river) { const sd = (c0[0] - river.p[0]) * river.t[1] - (c0[1] - river.p[1]) * river.t[0], need = river.W / 2 + 0.1 * R - Math.abs(sd); if (need > 0) { const s = sd >= 0 ? 1 : -1; c0 = [c0[0] + s * river.t[1] * need, c0[1] - s * river.t[0] * need]; } }
 
-  const walled = style === 'slab' ? tier >= 2 : style === 'fan' ? tier >= 2 : style === 'spiral' || style === 'wander' || style === 'norse' || style === 'burrow' || style === 'maze' ? false : style === 'nile' ? tier === 3 : (tier === 3 || (tier === 2 && rng() < 0.3) || p.kind === 'fort');
+  const walled = style === 'slab' ? tier >= 2 : style === 'fan' ? tier >= 2 : style === 'spiral' || style === 'wander' || style === 'norse' || style === 'burrow' || style === 'maze' || style === 'pass' ? false : style === 'nile' ? tier === 3 : (tier === 3 || (tier === 2 && rng() < 0.3) || p.kind === 'fort');
   const Rw = 0.9 * R, Rin = walled ? Rw - 20 : R;
   const half = Math.ceil(1.45 * R), N = Math.ceil((2 * half) / CELL);
   const occ = new Uint8Array(N * N); // 0 free, 1 water, 2 street, 3 building, 4 plaza, 5 wall, 6 tree
@@ -161,7 +166,7 @@ function layoutTown(f, all) {
   const rectFree = (x, y, w, d, a, m = 2) => rectCells(x, y, w, d, a, m, (i, j) => i >= 0 && j >= 0 && i < N && j < N && occ[j * N + i] === 0);
   const rectMark = (x, y, w, d, a, val) => rectCells(x, y, w, d, a, 0, (i, j) => { if (i >= 0 && j >= 0 && i < N && j < N) occ[j * N + i] = val; });
 
-  const out = { st: [], b: [], civ: [], pl: [], wl: [], tw: [], wa: [], dk: [], br: [], lb: [], tr: [] };
+  const out = { st: [], b: [], civ: [], pl: [], wl: [], tw: [], wa: [], dk: [], br: [], lb: [], tr: [], cl: [] };
   const rotP = (u, v, th) => [c0[0] + u * Math.cos(th) - v * Math.sin(th), c0[1] + u * Math.sin(th) + v * Math.cos(th)];
   const toUV = (x, y, th) => { const dx = x - c0[0], dy = y - c0[1]; return [dx * Math.cos(th) + dy * Math.sin(th), -dx * Math.sin(th) + dy * Math.cos(th)]; };
   const ph = [rng() * 6.28, rng() * 6.28, rng() * 6.28, rng() * 6.28];
@@ -172,13 +177,13 @@ function layoutTown(f, all) {
 
   // ---------- streets: densify, keep the dry runs, stamp them into the grid ----------
   const streets = [];
-  function addStreet(cls, pts, { suburb = false, crossRiver = false, limit = 1.3 } = {}) {
+  function addStreet(cls, pts, { suburb = false, crossRiver = false, limit = 1.3, tag = '' } = {}) {
     if (pts.length < 2) return;
     const dense = [];
     for (let i = 0; i < pts.length - 1; i++) { const [ax, ay] = pts[i], [bx, by] = pts[i + 1], L = Math.hypot(bx - ax, by - ay), n = Math.max(1, Math.ceil(L / 30)); for (let k = 0; k < n; k++) dense.push([lerp(ax, bx, k / n), lerp(ay, by, k / n)]); }
     dense.push(pts[pts.length - 1]);
     let run = [];
-    const flush = () => { if (run.length >= 2) { let L = 0; for (let i = 1; i < run.length; i++) L += Math.hypot(run[i][0] - run[i - 1][0], run[i][1] - run[i - 1][1]); if (L >= 24) streets.push({ cls, pts: run, w: WIDTH[cls], suburb, L }); } run = []; };
+    const flush = () => { if (run.length >= 2) { let L = 0; for (let i = 1; i < run.length; i++) L += Math.hypot(run[i][0] - run[i - 1][0], run[i][1] - run[i - 1][1]); if (L >= 24) streets.push({ cls, pts: run, w: WIDTH[cls], suburb, L, tag }); } run = []; };
     for (const q of dense) {
       const rr = Math.hypot(q[0] - c0[0], q[1] - c0[1]);
       const wet = crossRiver ? sea(q[0], q[1]) : water(q[0], q[1]);
@@ -580,6 +585,83 @@ function layoutTown(f, all) {
       return { custom: true, fill() {} };
     },
 
+    // ---- a city in a mountain pass (Drachenhorn): Swiss stone and timber, Gothic gables ----
+    pass() {
+      const GX = 1.12 * R, jag = (x) => 38 * Math.sin(x / 170 + ph[0]) + 24 * Math.sin(x / 63 + ph[1]);
+      const Wv = (x) => 880 + 260 * Math.cos((Math.max(-1, Math.min(1, x / GX)) * Math.PI) / 2); // half-width of the valley floor: wide in the middle, a throat at each gate
+      const edge = (x) => Wv(x) + jag(x) * 0.3, inValley = (x, y, m = 14) => Math.abs(y) < edge(x) - m;
+      const roadY = (x) => 14 * Math.sin(x / 640 + ph[2]);
+      // the mountain walls north and south
+      for (const sgn of [1, -1]) {
+        const bot = [], top = [];
+        for (let x = -GX - 900; x <= GX + 900; x += 110) { const e = edge(x); bot.push([x, sgn * e]); top.push([x, sgn * (e + 650 + 90 * Math.sin(x / 210 + ph[3]))]); }
+        out.cl.push(polyOut([...bot, ...top.reverse()]));
+      }
+      // the Highriver, from the north-west
+      if (hr) {
+        const keep = []; hr.forEach((q, i) => { if (Math.abs(q[0]) < half + 400 && Math.abs(q[1]) < half + 400) keep.push(i); });
+        if (keep.length) {
+          const a = Math.max(0, keep[0] - 1), b = Math.min(hr.length - 1, keep[keep.length - 1] + 1), line = hr.slice(a, b + 1), L = [], Rr = [];
+          line.forEach((q, i) => { const p0 = line[Math.max(0, i - 1)], p1 = line[Math.min(line.length - 1, i + 1)], dx = p1[0] - p0[0], dy = p1[1] - p0[1], l = Math.hypot(dx, dy) || 1; L.push([q[0] - (dy / l) * 22, q[1] + (dx / l) * 22]); Rr.push([q[0] + (dy / l) * 22, q[1] - (dx / l) * 22]); });
+          out.wa.push(polyOut([...L, ...Rr.reverse()]));
+        }
+      }
+      // Marktplatz, with its fountain, and the Grand Crucible against its east edge
+      out.pl.push(plazaPoly(0, 0, 180, 112, 0, 0.12)); rectMark(c0[0], c0[1], 360, 224, 0, 4);
+      out.tw.push([0, 0, 8]); label('Marktplatz', 0, 138);
+      // streets, clipped to the valley floor
+      const pv = (cls, pts, o = {}) => { let run = []; for (const q of pts) { if (inValley(q[0], q[1], 8)) run.push(q); else { addStreet(cls, run, o); run = []; } } addStreet(cls, run, o); };
+      const trade = [[-GX - 500, roadY(-GX - 500)]]; for (let x = -GX - 300; x <= -250; x += 250) trade.push([x, roadY(x)]);
+      trade.push([-200, 0], [170, -12], [225, -190], [310, -236], [500, -244], [720, -216], [920, -150], [1150, -66], [1500, -24]); for (let x = 1800; x <= GX + 500; x += 300) trade.push([x, roadY(x)]);
+      addStreet('main', trade, { suburb: true, crossRiver: true, tag: 'trade' });
+      const nsAlley = (x, cls, sgn, tag) => pv(cls, [[x, sgn * 16], [x + (rng() - 0.5) * 30, sgn * ((edge(x) - 90) * 0.5)], [x + (rng() - 0.5) * 40, sgn * (edge(x) - 90)]], { tag, crossRiver: true });
+      nsAlley(-560, 'lane', 1, 'upper'); // the lane the Glass Spider stands on, three blocks west of the Marktplatz
+      for (let x = -GX + 140; x < GX - 140;) { x += lerp(120, 210, rng()); if (Math.abs(x + 560) < 70 || (x > 120 && x < 640)) continue; if (x < 1450) nsAlley(x, 'lane', 1, 'upper'); if (rng() < 0.75) nsAlley(x, 'lane', -1, 'work'); }
+      // Upper Quarter: terraces on the north slope; Work Quarter: wider streets on the flat south side
+      const ew = (y, cls, tag, x0, x1) => { const pts = []; for (let x = x0; x <= x1; x += 160) pts.push([x, y + 14 * Math.sin(x / 300 + y)]); pv(cls, pts, { tag, crossRiver: true }); };
+      ew(300, 'street', 'upper', -GX + 60, 1500); ew(560, 'lane', 'upper', -GX + 60, 1500); ew(800, 'lane', 'upper', -GX + 60, 1400); ew(1010, 'lane', 'upper', -GX + 120, 1000);
+      ew(-330, 'street', 'work', -GX + 60, 1500); ew(-620, 'street', 'work', -GX + 60, 1500); ew(-860, 'lane', 'work', -GX + 100, 1300);
+      for (let x = -GX + 200; x < 1450; x += lerp(220, 300, rng())) pv('street', [[x, x > 120 && x < 640 ? -240 : -40], [x + (rng() - 0.5) * 30, -(edge(x) - 60)]], { tag: 'work' });
+      // Niederwald, the Low District against the east wall: lanes that bend for no reason
+      for (let k = 0; k < 11; k++) {
+        let x = lerp(1500, GX - 120, rng()), y = (k % 2 ? 1 : -1) * 30, a = (k % 2 ? 1 : -1) * (Math.PI / 2) + (rng() - 0.5) * 0.7;
+        const pts = [[x, y]]; for (let q = 0; q < 14; q++) { a += (rng() - 0.5) * 0.9; x += Math.cos(a) * 45; y += Math.sin(a) * 45; pts.push([x, y]); }
+        pv(rng() < 0.3 ? 'street' : 'lane', pts, { tag: 'low' });
+      }
+      // gate walls across the pass, with towers
+      for (const gx of [-GX, GX]) addWall([[gx, -edge(gx) - 90], [gx, edge(gx) + 90]], { gates: [[gx, roadY(gx)]], gap: 28, towerEvery: 5, tr: 11, gateTr: 15, thick: 12 });
+      label('West Gate', -GX + 60, 60); label('East Gate', GX - 60, 60); label('Upper Quarter', -900, 640); label('Work Quarter', -900, -480); label('Niederwald', 1950, -230);
+      // bridges where a street crosses the river
+      if (hr) {
+        const seen = [];
+        for (const st of streets) for (let i = 0; i + 1 < st.pts.length; i++) for (let j = 0; j + 1 < hr.length; j++) {
+          const p = st.pts[i], q = st.pts[i + 1], r = hr[j], t = hr[j + 1], d = (q[0] - p[0]) * (t[1] - r[1]) - (q[1] - p[1]) * (t[0] - r[0]);
+          if (!d) continue;
+          const u = ((r[0] - p[0]) * (t[1] - r[1]) - (r[1] - p[1]) * (t[0] - r[0])) / d, v = ((r[0] - p[0]) * (q[1] - p[1]) - (r[1] - p[1]) * (q[0] - p[0])) / d;
+          if (u < 0 || u > 1 || v < 0 || v > 1) continue;
+          const x = p[0] + u * (q[0] - p[0]), y = p[1] + u * (q[1] - p[1]);
+          if (seen.some((o) => Math.hypot(o[0] - x, o[1] - y) < 40)) continue;
+          seen.push([x, y]); out.br.push([r0(x), r0(y), 84, st.w + 8, deg(Math.atan2(q[1] - p[1], q[0] - p[0])), 0]);
+        }
+      }
+      return {
+        dim: (tag) => [tag === 'upper' ? lerp(18, 34, rng()) : tag === 'work' ? lerp(34, 80, rng()) : tag === 'low' ? lerp(12, 24, rng()) : lerp(16, 30, rng()), 0],
+        dd: (tag) => (tag === 'upper' ? lerp(26, 44, rng()) : tag === 'work' ? lerp(28, 52, rng()) : tag === 'low' ? lerp(12, 22, rng()) : lerp(26, 40, rng())),
+        baseP: 0.92, rows: 3, gap: [0.5, 2], jitter: 0.04, setback: [1, 2], rowP: 0.85, fall: 0.12,
+        ok: (x, y, sub) => inValley(x, y, 18) && (Math.abs(x) < GX - 26 || (sub && Math.abs(x) < GX + 420 && Math.abs(y) < 150)),
+        infill: { tries: 4500, p: 0.25, dist: 120 },
+        after() {
+          // each landmark takes the nearest clear site to where the document puts it
+          const near = (x, y, w, d, kind, text) => { for (let r = 0; r <= 420; r += 28) for (let k = 0; k < (r ? 14 : 1); k++) { const ang = (k / 14) * 6.283, px_ = x + Math.cos(ang) * r, py_ = y + Math.sin(ang) * r; if (civicAt(px_, py_, w, d, 0, kind, text, false)) return [px_, py_]; } return null; };
+          near(400, 50, 380, 280, 2, 'The Grand Crucible');
+          near(-GX + 330, 110, 150, 90, 0, "Governor's Residence"); near(-GX + 330, 215, 120, 50, 1, '');
+          const ch = near(-250, 660, 66, 118, 0, 'Church of the Eternal Sacred Light'); if (ch) out.tw.push([r0(ch[0]), r0(ch[1] + 66), 9]);
+          near(-600, 150, 40, 30, 1, 'The Glass Spider');
+          near(340, -440, 160, 70, 1, 'Charnel Market'); near(640, -420, 90, 60, 1, 'The Last Round');
+        },
+      };
+    },
+
     // ---- goblin: haphazard ----
     wander() {
       const blob = Array.from({ length: 9 }, (_, i) => { const a = (i / 9) * 6.2832, rr = hs * (0.5 + rng() * 0.6); return [c0[0] + Math.cos(a) * rr, c0[1] + Math.sin(a) * rr]; });
@@ -657,25 +739,25 @@ function layoutTown(f, all) {
   if (p.source === 'ruin-site') label(p.name, c0[0], c0[1] - 0.25 * R);
 
   // houses: rows along every street (or the style's own fill)
-  const dimsOf = () => { const [w, d] = cfg.dim(); return [w, d || (cfg.dd ? cfg.dd() : w * 0.8)]; };
+  const dimsOf = (tag) => { const [w, d] = cfg.dim(tag); return [w, d || (cfg.dd ? cfg.dd(tag) : w * 0.8)]; };
   const dflt = (x, y, sub) => { const rr = Math.hypot(x - c0[0], y - c0[1]); return walled ? rr < Rw - 18 || (sub && rr > Rw + 18 && rr < 1.2 * R) : rr <= (sub ? 1.22 : 1.1) * R; };
   const ok = cfg.ok || dflt;
   const pFill = (x, y, sub) => { const rr = Math.hypot(x - c0[0], y - c0[1]) / R; return cfg.baseP * (1 - (cfg.fall ?? 0.45) * Math.min(1, rr * rr)) * (walled && rr > 0.9 && !cfg.ok ? 0.5 : 1) * (sub && rr > 0.95 ? 0.7 : 1); };
-  const place = (x, y, w, d, a, nx, ny, sub, queue, force = false) => {
+  const place = (x, y, w, d, a, nx, ny, sub, queue, force = false, tag = '') => {
     if (!ok(x, y, sub) || (!force && rng() > pFill(x, y, sub)) || !rectFree(x, y, w, d, a)) return false;
     rectMark(x, y, w, d, a, 3);
     out.b.push([r0(x), r0(y), r0(w), r0(d), deg(a), r0(rng() * 2.99)]);
-    queue.push({ x, y, a, nx, ny, d, sub });
+    queue.push({ x, y, a, nx, ny, d, sub, tag });
     return true;
   };
   // mirrored placement for the dwarf fan: only the left of the axis is searched, each house gets its twin
-  const placeSym = (x, y, w, d, a, nx, ny, sub, queue) => {
+  const placeSym = (x, y, w, d, a, nx, ny, sub, queue, force0, tag) => {
     const [, v] = toUV(x, y, cfg.mirror);
     if (v < -2) return;
-    if (!place(x, y, w, d, a, nx, ny, sub, queue)) return;
+    if (!place(x, y, w, d, a, nx, ny, sub, queue, false, tag)) return;
     if (Math.abs(v) < 2) return;
     const [u, vv] = toUV(x, y, cfg.mirror), [mx, my] = rotP(u, -vv, cfg.mirror), ma = 2 * cfg.mirror - a, [mnx, mny] = [nx, ny];
-    place(mx, my, w, d, ma, mnx, mny, sub, queue, true);
+    place(mx, my, w, d, ma, mnx, mny, sub, queue, true, tag);
   };
   if (cfg.custom) cfg.fill();
   else {
@@ -689,9 +771,9 @@ function layoutTown(f, all) {
       for (const side of [1, -1]) {
         let t = rng() * 8;
         while (t < L) {
-          const [bw, bd] = dimsOf(), q = at(Math.min(L, t + bw / 2));
+          const [bw, bd] = dimsOf(s.tag), q = at(Math.min(L, t + bw / 2));
           const nx = -q.ty * side, ny = q.tx * side, off = s.w / 2 + bd / 2 + lerp(cfg.setback[0], cfg.setback[1], rng());
-          put(q.x + nx * off, q.y + ny * off, bw, bd, Math.atan2(q.ty, q.tx) + (rng() - 0.5) * cfg.jitter, nx, ny, s.suburb, row);
+          put(q.x + nx * off, q.y + ny * off, bw, bd, Math.atan2(q.ty, q.tx) + (rng() - 0.5) * cfg.jitter, nx, ny, s.suburb, row, false, s.tag);
           t += bw + lerp(cfg.gap[0], cfg.gap[1], rng());
         }
       }
@@ -699,8 +781,8 @@ function layoutTown(f, all) {
     for (let rIdx = 1; rIdx < cfg.rows; rIdx++) {
       const next = [];
       for (const q of row) {
-        const [bw, bd] = dimsOf();
-        if (rng() < cfg.rowP) put(q.x + q.nx * (q.d / 2 + bd / 2 + 2.5), q.y + q.ny * (q.d / 2 + bd / 2 + 2.5), bw, bd, q.a, q.nx, q.ny, q.sub, next);
+        const [bw, bd] = dimsOf(q.tag);
+        if (rng() < cfg.rowP) put(q.x + q.nx * (q.d / 2 + bd / 2 + 2.5), q.y + q.ny * (q.d / 2 + bd / 2 + 2.5), bw, bd, q.a, q.nx, q.ny, q.sub, next, false, q.tag);
       }
       row = next;
     }
@@ -740,7 +822,7 @@ function layoutTown(f, all) {
     out.tw = out.tw.filter(() => rng() < 0.5);
     out.wl = out.wl.flatMap(([thick, ...c]) => { const pieces = []; for (let i = 0; i + 3 < c.length; i += 8) if (rng() < 0.5) pieces.push([thick, ...c.slice(i, i + 8)]); return pieces; });
   }
-  const rec = { x: +cx.toFixed(3), y: +cy.toFixed(3), t: tier, s: style, ...(ruinTier ? { ru: 1 } : {}), r: r0(R), st: streets.map((s) => [s.cls === 'main' ? 0 : s.cls === 'street' ? 1 : 2, s.pts.flat().map(r0)]), b: out.b, civ: out.civ, pl: out.pl, wl: out.wl, tw: out.tw, wa: out.wa, dk: out.dk, br: out.br, tr: out.tr, lb: out.lb };
+  const rec = { x: +cx.toFixed(3), y: +cy.toFixed(3), t: tier, s: style, ...(ruinTier ? { ru: 1 } : {}), r: r0(R), st: streets.map((s) => [s.cls === 'main' ? 0 : s.cls === 'street' ? 1 : 2, s.pts.flat().map(r0)]), b: out.b, civ: out.civ, pl: out.pl, wl: out.wl, tw: out.tw, wa: out.wa, dk: out.dk, br: out.br, tr: out.tr, cl: out.cl, lb: out.lb };
   return { rec, stats: { b: out.b.length, st: streets.length, coast: !!coast, river: !!river, walled, race, style, ...note } };
 }
 

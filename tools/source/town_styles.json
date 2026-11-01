@@ -1,5 +1,5 @@
 {
-  "_note": "Which people built each settlement, which sets its street plan (tools/towns.mjs). Races: human = medieval sprawl with a French radial plan; atma = Roman grid (Atman humans); egyptian = Nile city (the human nation of north-eastern Curmeah); elf = nature-woven, art nouveau curves in golden ratios; dwarf = carved into the Stone, symmetrical art deco fans and steps; orc = functional brutalist slabs; goblin = random and haphazard; viking = Argusund humans (ring fort, longhouses, boat sheds); gnome = halfling-style burrows (Boddendell); minotaur = a labyrinth city (Phocacia). Order of precedence: byName, then the longest matching byRealm entry (matched against the settlement's trail in the notes, e.g. 'Geas > Citadel'), then bySource (the map it came from), then default. Edit, then run towns.mjs.",
+  "_note": "Which people built each settlement, which sets its street plan (tools/towns.mjs). Races: human = medieval sprawl with a French radial plan; atma = Roman grid (Atman humans); egyptian = Nile city (the human nation of north-eastern Curmeah); elf = nature-woven, art nouveau curves in golden ratios; dwarf = carved into the Stone, symmetrical art deco fans and steps; orc = functional brutalist slabs; goblin = random and haphazard; viking = Argusund humans (ring fort, longhouses, boat sheds); gnome = halfling-style burrows (Boddendell); minotaur = a labyrinth city (Phocacia); pass = a city in a mountain pass (Drachenhorn). Order of precedence: byName, then the longest matching byRealm entry (matched against the settlement's trail in the notes, e.g. 'Geas > Citadel'), then bySource (the map it came from), then default. Edit, then run towns.mjs.",
   "default": "human",
   "bySource": {
     "tel-tenauril": "elf",
@@ -26,14 +26,17 @@
     "Settlement Ruins": "atma",
     "Atma": "atma",
     "Telos Ruins": "atma",
-    "Thanatos Ruins": "atma"
+    "Thanatos Ruins": "atma",
+    "Hearthden": "goblin",
+    "Drachenhorn": "pass"
   },
   "ruins": {
     "Settlement Ruins": 2,
     "Atma": 3,
     "Telos Ruins": 2,
     "Thanatos Ruins": 2,
-    "Rheulgrad": 2
+    "Rheulgrad": 2,
+    "Galiad": 2
   },
   "_ruins": "Ruined settlements that get a plan too (name: size, 1 village, 2 town, 3 city). Drawn broken: most houses gone, walls in pieces.",
   "ruinSites": [

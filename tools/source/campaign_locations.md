@@ -54,3 +54,7 @@ From the author's Google Docs (Drachenhorn arc; "3121 AA"; chapters 4, 6, 7, 8, 
 ## Elsewhere named
 - **Orovalis** — city of the paladin Vahjz Al'Thaarn (Thral-Tep), who studied in **El-Alahd of Aljidan**, "the city of wonders, greatest city in all the world". Atlas: Orovalis (a ruin, 610, 498), Aljidan (port, 606, 488), El-Alahd (city, 689, 456).
 - **Border Mountains**, **Borderwode**, **Gideon**, **Sellador**, **Tel-Tenauril** — all on the atlas.
+
+## Placed on the atlas (2026-11-01, guesses marked on the map)
+Lenarte Farmstead (89, 279), Hearthden (93, 278; gnoll plan), Caer Yar-Ahn-Og (97, 276), Aillfar (92, 344), Caer Ordaich-Uaine (94, 355), Galiad (96, 382; ruined plan), Castle McKrae (99, 372), Skellig Rath (86, 338; a new islet), Chaos Gate (98, 358, at Caer Fid-Nemith). Rivers: Highriver (new, from the Border Mountains through Drachenhorn into the Berhagen river network at 107, 271) and Thalweg Wyne (the Berhagen river at Alderford). Lochlainn's note carries Arandir. Drachenhorn now has its own pass-city plan.
+Still unplaced: Akanos / Stormtower / Aramantha (flying kingdom, far out in the western sea), the Collapse (under the sea-floor ruins of the Akanosi Library District), the Umbral Isle (far north), and the planar places (Shadowfell Alalomë and Unthelas, Feywild Kopuri).

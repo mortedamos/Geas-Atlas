@@ -115,6 +115,9 @@
   },
   "placed:place:Drachenhorn": {
    "note": "Older than the Selladorian occupation. When Sellador claimed lands to its east it took over Drachenhorn and installed its own governor."
+  },
+  "placed:region:Lochlainn": {
+   "note": "Its original elven name is Arandir. The elves known as the Arlantil founded it in 1453 AA. The Lonial Mountains divide the north from the south."
   }
  }
 }

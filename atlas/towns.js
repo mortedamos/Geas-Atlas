@@ -24,6 +24,7 @@ const startTowns = () => {
     norse: { house: ['#a87c4e', '#97693c', '#8f9a5c'], edge: '#3d2a16', civic: ['#7a4e2b', '#6a4223'], street: '#e8dcb0', casing: '#8a7340', wall: '#5a3d1e', tower: '#5a3d1e', plaza: '#e2d4a6' },
     burrow: { house: ['#c8a974', '#b99a63', '#d3b784'], edge: '#5b4a28', civic: ['#8ea35c', '#7a9150'], street: '#efe3b5', casing: '#a58f5a', wall: '#6b5a30', tower: '#6b5a30', plaza: '#cfe0a0' },
     maze: { house: ['#c9b18a', '#bda47c', '#d4bf9a'], edge: '#4a3826', civic: ['#a8553a', '#8a4a34'], street: '#efe3c4', casing: '#9c8660', wall: '#5a4a38', tower: '#5a4a38', plaza: '#eadfc0' },
+    pass: { house: ['#aaa393', '#9b9484', '#b8af9d'], edge: '#3c372d', civic: ['#a39f92', '#6f786d'], street: '#efe6cf', casing: '#8b8068', wall: '#4d4a42', tower: '#4d4a42', plaza: '#e9e0c6' },
     wander: { house: ['#a98b62', '#97794f', '#b79a70'], edge: '#4a3a22', civic: ['#7a5a35', '#6a4c2b'], street: '#d9c79a', casing: '#8c7448', wall: '#5a4326', tower: '#5a4326', plaza: '#cdb985' },
   };
   const byStyle = (fn) => ['match', ['get', 's'], ...Object.keys(PAL).filter((k) => k !== 'radial').flatMap((k) => [k, fn(PAL[k])]), fn(PAL.radial)];
@@ -53,6 +54,7 @@ const startTowns = () => {
     const poly = (flat) => { const ring = []; for (let i = 0; i < flat.length; i += 2) ring.push(ll(flat[i], flat[i + 1])); ring.push(ring[0]); return { type: 'Polygon', coordinates: [ring] }; };
     const line = (flat) => { const pts = []; for (let i = 0; i < flat.length; i += 2) pts.push(ll(flat[i], flat[i + 1])); return { type: 'LineString', coordinates: pts }; };
     const disc = (x, y, r, n = 10) => { const ring = []; for (let i = 0; i < n; i++) ring.push(ll(x + Math.cos((i / n) * 6.2832) * r, y + Math.sin((i / n) * 6.2832) * r)); ring.push(ring[0]); return { type: 'Polygon', coordinates: [ring] }; };
+    for (const c of T.cl || []) add('cliff', poly(c)); // mountain walls of a pass city
     for (const w of T.wa) add('water', poly(w));
     for (const p of T.pl) add('plaza', poly(p));
     for (const [cls, pts] of T.st) add('street', line(pts), { w: [26, 17, 11][cls], c: cls });
@@ -108,6 +110,7 @@ const startTowns = () => {
       // ruins are drawn fainter
       const fade = (op = 1) => ['interpolate', ['linear'], ['zoom'], mz, 0, mz + FADE, ['case', ['==', ['get', 'ru'], 1], op * 0.55, op]];
       const L = (id, type, filter, layout, paint) => map.addLayer({ id: `town${tier}-${id}`, type, source: SRC, minzoom: mz, filter: ['all', T, filter], layout, paint }, before);
+      L('cliff', 'fill', K('cliff'), {}, { 'fill-color': '#a3ab9b', 'fill-opacity': fade(0.95), 'fill-outline-color': '#4d5648' });
       L('water', 'fill', K('water'), {}, { 'fill-color': P.water, 'fill-opacity': fade() });
       L('plaza', 'fill', K('plaza'), {}, { 'fill-color': byStyle((p) => p.plaza), 'fill-opacity': fade(), 'fill-outline-color': '#b49a63' });
       L('street-casing', 'line', K('street'), { 'line-cap': 'round', 'line-join': 'round' }, { 'line-color': byStyle((p) => p.casing), 'line-opacity': fade(0.85), 'line-width': widthExpr('w', 1.3) });

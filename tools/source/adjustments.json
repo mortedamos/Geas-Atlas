@@ -977,6 +977,11 @@
       754.98,
       455.19,
       1.4
+    ],
+    [
+      86,
+      338,
+      1.3
     ]
   ],
   "straits": [
@@ -1327,6 +1332,16 @@
         -54,
         284
       ]
+    },
+    {
+      "name": "Skellig Rath",
+      "kind": "island",
+      "rank": 3,
+      "at": [
+        86,
+        338
+      ],
+      "note": "A bleak spire of rock in an angry sea, about a day's sail from Aillfar. Lair of the formorian Elgol."
     }
   ],
   "seaCuts": [
@@ -1448,6 +1463,166 @@
           318.52
         ]
       ]
+    }
+  ],
+  "riverLines": [
+    {
+      "name": "Highriver",
+      "w": 2,
+      "pts": [
+        [
+          87.6,
+          265.4
+        ],
+        [
+          90.1,
+          267.7
+        ],
+        [
+          92.8046,
+          269.8871
+        ],
+        [
+          92.9023,
+          269.9436
+        ],
+        [
+          92.9436,
+          269.9718
+        ],
+        [
+          92.9739,
+          269.9835
+        ],
+        [
+          93,
+          269.9891
+        ],
+        [
+          93.0261,
+          269.9922
+        ],
+        [
+          93.0564,
+          269.9974
+        ],
+        [
+          93.0868,
+          270.0013
+        ],
+        [
+          95.6,
+          270.45
+        ],
+        [
+          99.5,
+          270.7
+        ],
+        [
+          103,
+          270.9
+        ],
+        [
+          107,
+          271
+        ]
+      ]
+    }
+  ],
+  "riverNames": [
+    {
+      "at": [
+        91,
+        283
+      ],
+      "radius": 3,
+      "name": "Thalweg Wyne"
+    }
+  ],
+  "extraPlaces": [
+    {
+      "name": "Lenarte Farmstead",
+      "kind": "village",
+      "rank": 3,
+      "at": [
+        88.5,
+        279.5
+      ],
+      "guess": true,
+      "basis": "a few days north and west of Hagensport, at the edge of the woods, with the Border Mountains far to the west (campaign chapter 1)",
+      "note": "The farm of Alwin and Katheline Lenarte, a few days north and west of Hagensport at the edge of the woods; on a clear day the Border Mountains can be seen far to the west. Found abandoned in 3121 AA, its animals slaughtered; Alwin was killed by a gnoll vampire."
+    },
+    {
+      "name": "Hearthden",
+      "kind": "village",
+      "rank": 3,
+      "at": [
+        93.5,
+        278
+      ],
+      "guess": true,
+      "basis": "Silvermane gnoll village deep in the woods north of Hagensport (campaign chapter 1)",
+      "note": "A Silvermane gnoll village deep in the woods. The adventurers were exiled from here after the death of the elder Reka-Heh."
+    },
+    {
+      "name": "Caer Yar-Ahn-Og",
+      "kind": "ruin",
+      "rank": 3,
+      "at": [
+        97,
+        275.5
+      ],
+      "guess": true,
+      "basis": "a cave in the gnoll woods east of Hearthden (campaign chapter 1)",
+      "note": "The Bone Fields. An ancient cave of the Silvermane gnoll druids, where they bury their dead and honour their ancestors. It holds a portal to Faerie, which draws the plague-bringer Seth Cailyn. Inside are the Bone Fields, the Cistern Cave, the maze of the Anastomosing, and lush fey caverns."
+    },
+    {
+      "name": "Aillfar",
+      "kind": "port",
+      "rank": 2,
+      "at": [
+        91.5,
+        343.8
+      ],
+      "guess": true,
+      "basis": "port city on the north-west coast of Lochlainn, north-west of Caer Ordaich-Uaine (campaign chapters 6 and 8)",
+      "note": "Port city on the north-west coast of Lochlainn, north-west of Caer Ordaich-Uaine. Skellig Rath lies a day's sail away."
+    },
+    {
+      "name": "Caer Ordaich-Uaine",
+      "kind": "fort",
+      "rank": 2,
+      "at": [
+        94,
+        355
+      ],
+      "guess": true,
+      "basis": "the fortress at the centre of northern Lochlainn (campaign chapter 6)",
+      "note": "The fortress at the centre of northern Lochlainn, built in the ruins of the old fortress city Casadh-Abhainn. Headquarters of the Green Order, founded 75 years ago to heal the land after the Ruin. Its walls are overgrown with vines and trees, and it is the only safe place for many miles in any direction."
+    },
+    {
+      "name": "Galiad",
+      "kind": "ruin",
+      "rank": 3,
+      "at": [
+        96,
+        382
+      ],
+      "guess": true,
+      "basis": "a small city in central Lochlainn (campaign chapter 6)",
+      "note": "A small city in central Lochlainn, wiped out in 2978 AA during the Ruin."
+    },
+    {
+      "name": "Castle McKrae",
+      "kind": "ruin",
+      "rank": 3,
+      "at": [
+        98.5,
+        372
+      ],
+      "guess": true,
+      "basis": "on a mountain of the Lonial range, the old lands of Clan McKrae (campaign chapters 6 and 7)",
+      "note": "Also called the Devil's Ruin. The castle stood on a mountain of the Lonial range, in the old lands of Clan McKrae, both in this world and in hell. Its ruined halls lead down to an underground lake where the young green dragon Kozgoroth lived. The ruined streets of Daerunbrae lie below it. The first key to Storm Tower was kept here."
     }
   ]
 }

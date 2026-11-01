@@ -139,6 +139,7 @@ function bumps(kind, radius, amp) {
 const Mwide = boxBlur(mountM, 22, 3); // very wide blur: the slope of this points across a range
 const Pm = bumps('mountain', 3.2, 0.34), Ph = bumps('hills', 3.6, 0.1);
 
+const craters = (JSON.parse(fs.readFileSync('source/adjustments.json', 'utf8')).terrain || []).filter((t) => t.hole && t.ellipse).map((t) => t.ellipse); // [cx, cy, rx, ry] in world px
 // ---------- elevation ----------
 const H = new Float32Array(N);
 let hi = -9, lo = 9;
@@ -157,6 +158,7 @@ for (let j = 0; j < GH; j++) {
       h += 0.10 * Ib[k] + 0.04 * Wb[k];
       h += (0.012 + 0.03 * Hb[k]) * (fbm(x, y, 41, 9, 3) - 0.5) * 2;
       h = h * (1 - 0.85 * Sb[k]) + 0.012 * Sb[k]; // marsh lies flat, just above the sea
+      for (const c of craters) { const d = ((x - c[0]) / c[2]) ** 2 + ((y - c[1]) / c[3]) ** 2; if (d < 1) h -= 0.085 * (1 - d) ** 0.6; else if (d < 1.7) h += 0.03 * Math.sin(((d - 1) / 0.7) * Math.PI); } // the Akanos Crater
       if (lakeM[k]) h = 0.006; // lakes sit in basins
       h = Math.max(0.008, h);
     } else {

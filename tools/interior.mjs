@@ -359,6 +359,7 @@ const SIZE_RANGE = { mountain: [0.45, 1.3], hills: [0.55, 1.2], forest: [0.6, 1.
 // extra spacing for one kind on one map: Lochlainn is covered in forest, which needs a lot fewer trees than a small woodland
 const SPACING_KIND = { 'lochlainn:forest': 2.3 };
 const SPACING_SCALE = { curmeah: 1.9, lochlainn: 0.55, borderrange: 0.5, atma: 0.5, citadel: 0.55, range: 0.6, polar: 0.7, kharse: 0.8, valkith: 0.5, lehng: 1, shattered: 0.7, phocacia: 0.6, prios: 0.2, thanatos: 0.22, agrea: 0.2, umbral: 0.037, isle: 0.074, baratoria: 0.2 }; // Lochlainn is drawn small in world px, so its symbols pack closer
+const holes = (adj.terrain || []).filter((t) => t.hole && t.ellipse).map((t) => ({ x: (t.ellipse[0] - WORLD / 2) * DEG_PER_WORLD_PX, y: -(t.ellipse[1] - WORLD / 2) * DEG_PER_WORLD_PX, rx: t.ellipse[2] * DEG_PER_WORLD_PX, ry: t.ellipse[3] * DEG_PER_WORLD_PX }));
 const rand = rng(1337);
 const icons = [];
 const STAGES = {
@@ -403,6 +404,7 @@ for (const t of terrain) {
         if (!turf.booleanPointInPolygon([px, py], poly)) continue;
         if (lakes.some((l) => turf.booleanPointInPolygon([px, py], l))) continue;
         if (distToSegs(px, py, nearWater) < margin) continue;
+        if (holes.some((h) => ((px - h.x) / h.rx) ** 2 + ((py - h.y) / h.ry) ** 2 < 1)) continue; // e.g. the Akanos Crater: bare ground
         const k = key(px, py);
         if (!hash.has(k)) hash.set(k, []);
         hash.get(k).push([px, py]);

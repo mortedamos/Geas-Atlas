@@ -559,6 +559,19 @@
           290
         ]
       ]
+    },
+    {
+      "name": "Akanos Crater",
+      "kind": "waste",
+      "source": "akanos",
+      "ellipse": [
+        427.8,
+        302.4,
+        2.9,
+        2.7
+      ],
+      "hole": true,
+      "_why": "Where the floating island Akanos was torn out of the ground (author, 2026-11-01): about a fifth of the city of Atma, a round section of its north-eastern quarter. Atma's ruins cover about 135 px^2, so the crater is about 27 px^2 (about 50 miles across)."
     }
   ],
   "atmaMountains": {
@@ -1357,6 +1370,16 @@
         448.8
       ],
       "note": "A lonely island of lingering shadow, about three days' sailing north-west of Agrea. No animals or people live here. A cave guarded by two bronze dragon statues leads to The Three, who ask each visitor a truth in exchange for passage into Shadow."
+    },
+    {
+      "name": "Akanos Crater",
+      "kind": "region",
+      "rank": 3,
+      "at": [
+        427.8,
+        302.4
+      ],
+      "note": "Where the floating island Akanos was torn from the earth. About a fifth of the city of Atma, a round section of its north-eastern quarter, was lifted away and left this crater. Akanos does not stay anywhere: it drifts about the world, so it has no fixed place on this map."
     }
   ],
   "seaCuts": [

@@ -96,13 +96,17 @@ function edt(isSource) { // distance (cells) from every cell to the nearest cell
 // seeded value noise
 function hash(ix, iy, seed) { let h = (ix * 374761393 + iy * 668265263 + seed * 2147483647) | 0; h = (h ^ (h >>> 13)) * 1274126177; h = h ^ (h >>> 16); return ((h >>> 0) % 100000) / 100000; }
 const smooth = (t) => t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
 function vnoise(x, y, seed) {
   const ix = Math.floor(x), iy = Math.floor(y), fx = smooth(x - ix), fy = smooth(y - iy);
   const a = hash(ix, iy, seed), b = hash(ix + 1, iy, seed), c = hash(ix, iy + 1, seed), d = hash(ix + 1, iy + 1, seed);
   return a + (b - a) * fx + (c - a) * fy + (a - b - c + d) * fx * fy;
 }
-const fbm = (x, y, seed, wave, octaves = 4) => { let s = 0, a = 0.5, w = wave, n = 0; for (let o = 0; o < octaves; o++) { s += a * vnoise(x / w, y / w, seed + o * 17); n += a; a *= 0.5; w /= 2; } return s / n; }; // 0..1
-const ridged = (x, y, seed, wave) => { let s = 0, a = 0.55, w = wave, n = 0; for (let o = 0; o < 4; o++) { const v = 1 - Math.abs(2 * vnoise(x / w, y / w, seed + o * 31) - 1); s += a * v * v; n += a; a *= 0.5; w /= 2; } return s / n; }; // sharp crests, 0..1
+const ROT = Array.from({ length: 8 }, (_, o) => [Math.cos(0.83 * o + 0.4), Math.sin(0.83 * o + 0.4)]); // a different turn for each octave
+const fbm = (x, y, seed, wave, octaves = 4) => { let s = 0, a = 0.5, w = wave, n = 0; for (let o = 0; o < octaves; o++) { const [c, d] = ROT[o]; s += a * vnoise((x * c - y * d) / w + 31 * o, (x * d + y * c) / w - 17 * o, seed + o * 17); n += a; a *= 0.5; w /= 2; } return s / n; }; // 0..1
+const ridged = (x, y, seed, wave) => { let s = 0, a = 0.55, w = wave, n = 0; for (let o = 0; o < 4; o++) { const [c, d] = ROT[o]; const v = 1 - Math.abs(2 * vnoise((x * c - y * d) / w + 13 * o, (x * d + y * c) / w - 29 * o, seed + o * 31) - 1); s += a * v * v; n += a; a *= 0.5; w /= 2; } return s / n; }; // sharp crests, 0..1
+// the same, stretched along a direction (radians): crests run in lines along it, like a range (the paper's "skewed" spectrum)
+const ridgedAlong = (x, y, seed, wave, theta, stretch = 2.6) => { const c = Math.cos(theta), d = Math.sin(theta); return ridged((x * c + y * d) / stretch, -x * d + y * c, seed, wave); };
 
 // ---------- inputs ----------
 const land = rd('land.geojson'), terrain = rd('terrain.geojson'), lakes = rd('lakes.geojson'), icons = rd('icons.geojson');
@@ -132,6 +136,7 @@ function bumps(kind, radius, amp) {
   }
   return P;
 }
+const Mwide = boxBlur(mountM, 22, 3); // very wide blur: the slope of this points across a range
 const Pm = bumps('mountain', 3.2, 0.34), Ph = bumps('hills', 3.6, 0.1);
 
 // ---------- elevation ----------
@@ -144,7 +149,10 @@ for (let j = 0; j < GH; j++) {
     if (landM[k]) {
       const inland = 1 - Math.exp(-dSea[k] / 80);
       h = 0.03 + 0.10 * inland + 0.04 * (fbm(x, y, 3, 160, 3) - 0.5);
-      h += 0.36 * Mb[k] + Pm[k] * (0.3 + 0.7 * Mb[k]) + Mb[k] * 0.17 * ridged(x, y, 11, 38);
+      // crests run along the range where it has a clear direction, and are tangled where it has none
+      const g = 5, gx = Mwide[j * GW + Math.min(GW - 1, i + g)] - Mwide[j * GW + Math.max(0, i - g)], gy = Mwide[Math.min(GH - 1, j + g) * GW + i] - Mwide[Math.max(0, j - g) * GW + i], mag = Math.hypot(gx, gy), along = Math.min(1, mag / 0.02);
+      const crest = lerp(ridged(x, y, 11, 38), ridgedAlong(x, y, 11, 38, Math.atan2(gy, gx) + Math.PI / 2), along);
+      h += 0.36 * Mb[k] + Pm[k] * (0.3 + 0.7 * Mb[k]) + Mb[k] * 0.17 * crest;
       h += 0.11 * Hb[k] + Ph[k] * (0.4 + 0.6 * Hb[k]) + Hb[k] * 0.04 * fbm(x, y, 23, 14, 3);
       h += 0.10 * Ib[k] + 0.04 * Wb[k];
       h += (0.012 + 0.03 * Hb[k]) * (fbm(x, y, 41, 9, 3) - 0.5) * 2;

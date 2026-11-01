@@ -17,6 +17,8 @@
 // A hand-made city map can replace a generated one: list it in atlas/data/town_maps.json (see atlas/towns.js).
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
+const FC = createRequire(import.meta.url)('../atlas/fractalcoast.js'); // the same fractal coast the map draws
 
 const dataDir = path.resolve(process.argv[2] || '../atlas/data');
 const rd = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
@@ -49,8 +51,8 @@ const landPolys = (landG.type === 'Polygon' ? [landG.coordinates] : landG.coordi
 });
 const inRing = (r, x, y) => { let c = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++) { const [xi, yi] = r[i], [xj, yj] = r[j]; if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) c = !c; } return c; };
 const inLand = (x, y) => landPolys.some((P) => x >= P.bb[0] && x <= P.bb[2] && y >= P.bb[1] && y <= P.bb[3] && inRing(P.rings[0], x, y) && !P.rings.slice(1).some((h) => inRing(h, x, y)));
-const coastSegs = [];
-for (const P of landPolys) for (const r of P.rings) for (let i = 0; i < r.length - 1; i++) coastSegs.push([r[i][0], r[i][1], r[i + 1][0], r[i + 1][1], 0]);
+const coastSegs = [], ringList = [];
+for (const P of landPolys) for (const r of P.rings) { const rid = ringList.push(r) - 1; for (let i = 0; i < r.length - 1; i++) coastSegs.push([r[i][0], r[i][1], r[i + 1][0], r[i + 1][1], 0, rid, i]); }
 const riverSegs = [];
 for (const f of rd('rivers.geojson').features) {
   const lines = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.type === 'MultiLineString' ? f.geometry.coordinates : [];
@@ -58,10 +60,11 @@ for (const f of rd('rivers.geojson').features) {
 }
 function nearestSeg(segs, x, y) {
   let best = { d: Infinity };
-  for (const [ax, ay, bx, by, w] of segs) {
+  for (const sg of segs) {
+    const [ax, ay, bx, by, w] = sg;
     const dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy || 1e-12;
     const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / L2)), qx = ax + dx * t, qy = ay + dy * t, d = Math.hypot(qx - x, qy - y);
-    if (d < best.d) { const L = Math.sqrt(L2); best = { d, qx, qy, ux: dx / L, uy: dy / L, w }; }
+    if (d < best.d) { const L = Math.sqrt(L2); best = { d, qx, qy, ux: dx / L, uy: dy / L, w, ring: sg[5], idx: sg[6] }; }
   }
   return best;
 }
@@ -101,11 +104,12 @@ function layoutTown(f, all) {
       let n = [-t[1], t[0]];
       const probe = (nn) => inLand(cx + (q[0] + nn[0] * 100) / FT, cy - (q[1] + nn[1] * 100) / FT);
       if (probe(n)) n = [-n[0], -n[1]];
-      coast = { p: q, n, t };
+      coast = { p: q, n, t, ring: c.ring, idx: c.idx };
     } }
   { const c = nearestSeg(riverSegs, cx, cy);
     if (c.d * FT < 1.5 * R) river = { p: toL(c.qx, c.qy), t: [c.ux, -c.uy], W: { 1: 36, 2: 55, 3: 80, 4: 110 }[Math.max(1, Math.min(4, Math.round(c.w)))] }; }
-  const sea = (x, y) => coast && (x - coast.p[0]) * coast.n[0] + (y - coast.p[1]) * coast.n[1] > 0;
+  let seaMask = null; // the sea on the grid, from the fractal coast (below); until then the traced coast as a straight line
+  const sea = (x, y) => { if (!coast) return false; if (seaMask) { const i = gi(x), j = gi(y); if (i >= 0 && j >= 0 && i < N && j < N) return seaMask[j * N + i] === 1; } return (x - coast.p[0]) * coast.n[0] + (y - coast.p[1]) * coast.n[1] > 0; };
   const riverDist = (x, y) => (river ? Math.abs((x - river.p[0]) * river.t[1] - (y - river.p[1]) * river.t[0]) : 1e9);
   const water = (x, y) => sea(x, y) || riverDist(x, y) < river?.W / 2 + 4;
 
@@ -120,6 +124,29 @@ function layoutTown(f, all) {
   const occ = new Uint8Array(N * N); // 0 free, 1 water, 2 street, 3 building, 4 plaza, 5 wall, 6 tree
   const gi = (v) => Math.floor((v + half) / CELL);
   const cellC = (i) => -half + (i + 0.5) * CELL;
+  // the real coast near the town, with fractal detail: a polygon of sea on one side of it, filled into the grid
+  let foot = null, shoreAt = null;
+  if (coast) {
+    const ring = ringList[coast.ring], nR = ring.length - 1, lim = half + 400, md = (v) => ((v % nR) + nR) % nR;
+    const inBox = (q) => { const [x, y] = toL(q[0], q[1]); return Math.abs(x) < lim && Math.abs(y) < lim; };
+    let i0 = coast.idx, i1 = coast.idx + 1, k = 0;
+    while (k++ < 600 && inBox(ring[md(i0)])) i0--;
+    k = 0; while (k++ < 600 && inBox(ring[md(i1)])) i1++;
+    const base = []; for (let i = i0; i <= i1; i++) base.push(ring[md(i)]);
+    const chain = FC.refinePolyline(base, FT, 8).map(([x, y]) => toL(x, y)), far = 4 * R, last = chain[chain.length - 1];
+    const poly = [...chain, [last[0] + coast.n[0] * far, last[1] + coast.n[1] * far], [chain[0][0] + coast.n[0] * far, chain[0][1] + coast.n[1] * far]];
+    const mask = new Uint8Array(N * N);
+    for (let j = 0; j < N; j++) {
+      const y = cellC(j), xs = [];
+      for (let e = 0; e < poly.length; e++) { const [x1, y1] = poly[e], [x2, y2] = poly[(e + 1) % poly.length]; if ((y1 > y) !== (y2 > y)) xs.push(x1 + ((y - y1) * (x2 - x1)) / (y2 - y1)); }
+      xs.sort((a, b) => a - b);
+      for (let q = 0; q + 1 < xs.length; q += 2) for (let i = Math.max(0, Math.ceil((xs[q] + half) / CELL - 0.5)); i <= Math.min(N - 1, Math.floor((xs[q + 1] + half) / CELL - 0.5)); i++) mask[j * N + i] = 1;
+    }
+    seaMask = mask;
+    const s0 = (c0[0] - coast.p[0]) * coast.n[0] + (c0[1] - coast.p[1]) * coast.n[1]; // negative = inland, along the straight coast
+    foot = [c0[0] - coast.n[0] * s0, c0[1] - coast.n[1] * s0]; coast.inland = -s0;
+    shoreAt = (t) => { const bx = foot[0] + coast.t[0] * t, by = foot[1] + coast.t[1] * t; let d = -300; for (; d <= 400; d += 3) if (sea(bx + coast.n[0] * d, by + coast.n[1] * d)) break; return [bx + coast.n[0] * d, by + coast.n[1] * d]; }; // the shore on the line through foot + t along it
+  }
   for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) if (water(cellC(i), cellC(j))) occ[j * N + i] = 1;
   const stamp = (x, y, r, val) => { for (let j = Math.max(0, gi(y - r)); j <= Math.min(N - 1, gi(y + r)); j++) for (let i = Math.max(0, gi(x - r)); i <= Math.min(N - 1, gi(x + r)); i++) { if (occ[j * N + i] === 0 && Math.hypot(cellC(i) - x, cellC(j) - y) <= r) occ[j * N + i] = val; } };
   const rectCells = (x, y, w, d, a, margin, fn) => {
@@ -469,9 +496,9 @@ function layoutTown(f, all) {
         after() {
           civicAt(c0[0] + e2[0] * hs * 1.7, c0[1] + e2[1] * hs * 1.7, tier === 3 ? 130 : tier === 2 ? 100 : 80, 34, th, 0, 'Great Hall', false);
           if (coast) { // boat sheds along the shore
-            const s0 = (c0[0] - coast.p[0]) * coast.n[0] + (c0[1] - coast.p[1]) * coast.n[1], foot = [c0[0] - coast.n[0] * s0, c0[1] - coast.n[1] * s0], ang = Math.atan2(coast.t[1], coast.t[0]);
-            if (-s0 < 0.9 * R) for (let t = -0.6 * R; t <= 0.6 * R; t += 58) {
-              const x = foot[0] + coast.t[0] * t - coast.n[0] * 22, y = foot[1] + coast.t[1] * t - coast.n[1] * 22, w = lerp(32, 46, rng());
+            const ang = Math.atan2(coast.t[1], coast.t[0]);
+            if (coast.inland < 0.9 * R) for (let t = -0.6 * R; t <= 0.6 * R; t += 58) {
+              const sp = shoreAt(t), x = sp[0] - coast.n[0] * 22, y = sp[1] - coast.n[1] * 22, w = lerp(32, 46, rng());
               if (rng() < 0.8 && !water(x, y) && rectFree(x, y, w, 14, ang, 1)) { rectMark(x, y, w, 14, ang, 3); out.b.push([r0(x), r0(y), r0(w), 14, deg(ang), 2]); }
             }
           }
@@ -600,20 +627,19 @@ function layoutTown(f, all) {
 
   // harbour: a street along the shore, a quay and piers
   if (coast) {
-    const s0 = (c0[0] - coast.p[0]) * coast.n[0] + (c0[1] - coast.p[1]) * coast.n[1]; // negative = inland
-    const foot = [c0[0] - coast.n[0] * s0, c0[1] - coast.n[1] * s0];
-    if (-s0 < 0.9 * R) {
+    if (coast.inland < 0.9 * R) {
       const L = 0.65 * R, pts = [];
-      for (let t = -L; t <= L; t += 50) pts.push([foot[0] + coast.t[0] * t - coast.n[0] * 30, foot[1] + coast.t[1] * t - coast.n[1] * 30]);
+      for (let t = -L; t <= L; t += 50) { const sp = shoreAt(t); pts.push([sp[0] - coast.n[0] * 30, sp[1] - coast.n[1] * 30]); }
       addStreet('street', pts);
-      const ang = Math.atan2(coast.t[1], coast.t[0]);
-      out.dk.push([r0(foot[0] - coast.n[0] * 6), r0(foot[1] - coast.n[1] * 6), r0(1.1 * L), 12, deg(ang), 0]);
+      const ang = Math.atan2(coast.t[1], coast.t[0]), sp0 = shoreAt(0);
+      out.dk.push([r0(sp0[0] - coast.n[0] * 6), r0(sp0[1] - coast.n[1] * 6), r0(1.1 * L), 12, deg(ang), 0]);
       const np = tier === 3 ? 6 : tier === 2 ? 3 : 1;
       for (let k = 0; k < np; k++) {
         const t = np === 1 ? 0 : lerp(-0.7 * L, 0.7 * L, k / (np - 1)) + (rng() - 0.5) * 20, len = lerp(40, 90, rng());
-        out.dk.push([r0(foot[0] + coast.t[0] * t + coast.n[0] * (len / 2 - 6)), r0(foot[1] + coast.t[1] * t + coast.n[1] * (len / 2 - 6)), 12, r0(len), deg(ang), 1]);
+        const sp = shoreAt(t);
+        out.dk.push([r0(sp[0] + coast.n[0] * (len / 2 - 6)), r0(sp[1] + coast.n[1] * (len / 2 - 6)), 12, r0(len), deg(ang), 1]);
       }
-      label('Harbour', foot[0] + coast.n[0] * 70, foot[1] + coast.n[1] * 70);
+      label('Harbour', sp0[0] + coast.n[0] * 70, sp0[1] + coast.n[1] * 70);
     }
   }
   for (const s of streets) { for (let i = 0; i < s.pts.length - 1; i++) { const [ax, ay] = s.pts[i], [bx, by] = s.pts[i + 1], L = Math.hypot(bx - ax, by - ay), n = Math.max(1, Math.ceil(L / 3)); for (let k = 0; k <= n; k++) stamp(lerp(ax, bx, k / n), lerp(ay, by, k / n), s.w / 2 + 1, 2); } }

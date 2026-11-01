@@ -32,7 +32,8 @@
     "Settlement Ruins": 2,
     "Atma": 3,
     "Telos Ruins": 2,
-    "Thanatos Ruins": 2
+    "Thanatos Ruins": 2,
+    "Rheulgrad": 2
   },
   "_ruins": "Ruined settlements that get a plan too (name: size, 1 village, 2 town, 3 city). Drawn broken: most houses gone, walls in pieces.",
   "ruinSites": [

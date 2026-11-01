@@ -11,7 +11,7 @@
    "hidden": true
   },
   "berhagen:region:New Sellador": {
-   "hidden": true
+   "note": "Sellador's name for Berhagen. Some years ago, in a time of unrest in the Free Nations, Sellador claimed this land. To Sellador it is land to be settled, and they call it New Sellador. (Not to be confused with New Sellador Port, in Curmeah.)"
   },
   "curmeah:region:Curmeah": {
    "lng": 1.12337,
@@ -102,6 +102,19 @@
   "placed:place:Omara": {
    "lng": 2.78621,
    "lat": -0.16388
+  },
+  "berhagen:region:Berhagen": {
+   "note": "Claimed by Sellador from the Free Nations during a time of unrest. The Selladorians call it New Sellador and treat it as land to be settled."
+  },
+  "placed:place:Rheulgrad": {
+   "kind": "ruin",
+   "note": "Ruins. The village was destroyed in 3057 AA. Every night its tavern fills with ghosts drinking and revelling, and no one who tries to leave the village can. The tavern well draws on a sacred spring in the mountains."
+  },
+  "agrea:region:Mount Akamu": {
+   "note": "Agrea's great volcano. The Temple of Akamu lies within, and under it the Vivarium, where the Embrian was kept asleep with blood sacrifice. When it woke it broke out of the mountain, and Akamu became an erupting caldera."
+  },
+  "placed:place:Drachenhorn": {
+   "note": "Older than the Selladorian occupation. When Sellador claimed lands to its east it took over Drachenhorn and installed its own governor."
   }
  }
 }

@@ -486,7 +486,7 @@ window.atlas = { cardHook: null, hiddenKinds: new Set(), isGridOn: () => gridOn,
 (() => {
   const modeButtons = () => [...document.querySelectorAll('.modes button')];
   const loading = document.getElementById('globe-loading');
-  const LOADING = { globe: 'Raising the globe…', relief: 'Raising the land…' };
+  const LOADING = { globe: 'Raising the globe…', relief: 'Raising the land…', climate: 'Reading the weather…' };
   const loaded = {}; // the three.js views, each fetched and built the first time it is asked for
   let current = 'map';
   const setMode = async (mode) => {
@@ -499,7 +499,7 @@ window.atlas = { cardHook: null, hiddenKinds: new Set(), isGridOn: () => gridOn,
         loaded[mode] ??= await import(`./${mode}.js`);
         await loaded[mode].enter();
         if (current in loaded) loaded[current].leave();
-        document.body.classList.remove('globe', 'relief');
+        document.body.classList.remove('globe', 'relief', 'climate');
         document.body.classList.add(mode);
         current = mode;
         if (placing) placing = null;
@@ -509,7 +509,7 @@ window.atlas = { cardHook: null, hiddenKinds: new Set(), isGridOn: () => gridOn,
       }
       loading.style.display = 'none';
     } else {
-      document.body.classList.remove('globe', 'relief');
+      document.body.classList.remove('globe', 'relief', 'climate');
       if (current in loaded) loaded[current].leave();
       current = 'map';
       map.resize();

@@ -39,6 +39,23 @@
   body.relief #map, body.relief .scalebar, body.relief .coords, body.relief .maplibregl-ctrl-top-right, body.relief .layers, body.relief .trip, body.relief .placer, body.relief .vellum { display: none; }
   body.relief .frame { border-color: rgba(201, 162, 75, 0.55); }
   body.relief .ed-move { display: none; }
+  body.climate .layers, body.climate .trip, body.climate .placer { display: none; }
+  .climate-panel, .climate-read { display: none; }
+  body.climate .climate-panel { display: block; }
+  body.climate .climate-read:not([hidden]) { display: block; }
+  .climate-panel { position: absolute; top: 64px; left: 20px; z-index: 3; width: 236px; max-height: calc(100% - 130px); overflow-y: auto; padding: 8px 12px 10px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; box-shadow: 0 0 0 2px var(--vellum), 0 0 0 3px var(--rule); font-size: 14px; }
+  .climate-panel strong { font-family: var(--caps); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rubric); }
+  .climate-panel .cl-title { display: block; margin: 6px 0 4px; font-style: italic; font-size: 13px; }
+  .climate-panel .seg { display: flex; }
+  .climate-panel .seg button { flex: 1; font: inherit; font-size: 12px; padding: 3px 4px; border: 1px solid var(--rule); background: var(--vellum-deep); color: var(--ink); cursor: pointer; border-radius: 0; }
+  .climate-panel .seg button + button { border-left: 0; }
+  .climate-panel .seg button.on { background: var(--rubric); border-color: var(--rubric); color: #f6e9c6; }
+  .climate-panel h4 { margin: 8px 0 3px; font-family: var(--caps); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; }
+  .climate-panel ul { list-style: none; margin: 0; padding: 0; }
+  .climate-panel li { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 1.5; }
+  .climate-panel li i { width: 22px; height: 11px; border: 1px solid rgba(74,47,22,0.45); flex: none; }
+  .climate-panel .cl-note { margin: 6px 0 0; font-size: 12px; font-style: italic; color: var(--ink-soft); line-height: 1.35; }
+  .climate-read { position: absolute; left: 20px; bottom: 20px; z-index: 3; padding: 4px 10px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 13px; pointer-events: none; }
   .relief-panel, .relief-read, .relief-hint { display: none; }
   body.relief .relief-panel { display: grid; }
   body.relief .relief-read:not([hidden]), body.relief .relief-hint { display: block; }
@@ -266,10 +283,12 @@
 <div class="vellum"></div>
 <div class="frame"></div>
 <div class="globe-loading" id="globe-loading">Raising the globe&hellip;</div>
-<div class="modes modes-mini" id="modes-mini"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button></div>
+<div class="modes modes-mini" id="modes-mini"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button><button data-mode="climate">Climate</button></div>
 <div class="coords" id="coords" hidden></div>
 <div class="layers" id="layers"><strong>Layers</strong></div>
 <div class="globe-hint">Drag to turn &middot; scroll to zoom &middot; click a pin for details</div>
+<div class="climate-panel" id="climate-panel"><strong>Climate</strong><span class="cl-title"></span><div class="seg"></div><div class="cl-legend"></div><p class="cl-note">Bands are the model's, not the author's. Marked places have a climate set by magic; only Enaria's is applied to the bands.</p></div>
+<div class="climate-read" id="climate-read" hidden></div>
 <div class="relief-hint">Drag to turn &middot; right-drag or arrows to pan &middot; scroll to zoom</div>
 <div class="credit" id="credit" hidden></div>
 <div class="scalebar" id="scalebar" hidden><i></i><span></span></div>
@@ -278,7 +297,7 @@
   <header class="masthead">
     <h1><span class="cap">A</span>tlas of <span class="cap">G</span>eas</h1>
     <p>Draft &mdash; northwest only has interior detail</p>
-    <div class="modes" id="modes"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button></div>
+    <div class="modes" id="modes"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button><button data-mode="climate">Climate</button></div>
     <div class="finder"><input id="find" type="search" placeholder="Find a place or region&hellip;" autocomplete="off" spellcheck="false" aria-label="Find a place or region"><div class="find-results" id="find-results" hidden></div></div>
     <div class="orn">&#10086;</div>
   </header>

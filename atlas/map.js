@@ -377,6 +377,11 @@ async function showCard(feature) {
     // tracked in tools/source/climate_magic.json: climate shaped by magic, not latitude or currents
     html = html.replace('</strong>', `</strong><div class="magic magic-${esc(p.magicKind)}"><b>${esc(p.magicIcon || '')} ${esc(p.magicLabel)}</b>${p.magicFrom ? ` <span class="meta">(applies across ${esc(p.magicFrom)})</span>` : ''}<div>${esc(p.magicNote)}</div></div>`);
   }
+  if (p.magicMore) { // further climate tags on the same place: shown under the first
+    const more = (typeof p.magicMore === 'string' ? JSON.parse(p.magicMore) : p.magicMore).map((x) => `<div class="magic magic-${esc(x.kind)}"><b>${esc(x.icon || '')} ${esc(x.label)}</b><div>${esc(x.note)}</div></div>`).join('');
+    html = html.replace(/(<div class="magic magic-[^>]*>[\s\S]*?<\/div><\/div>)/, `$1${more}`);
+  }
+
   if (p.guess) html += `<p class="guess">Position is a first-pass guess${p.basis ? `: ${esc(p.basis)}` : ''}.</p>`;
   if (p.editNote) html += `<div class="editnote"><b>Note</b><p>${esc(p.editNote)}</p></div>`;
   const group = p.editKey ? p.editKey.split(':')[1] : null;

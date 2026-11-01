@@ -138,6 +138,7 @@ const style = {
     rivers: { type: 'geojson', data: 'data/rivers.geojson' },
     roads: { type: 'geojson', data: 'data/roads.geojson' },
     currents: { type: 'geojson', data: 'data/currents.geojson' },
+    lost: { type: 'geojson', data: 'data/lost.geojson' },
     lakes: { type: 'geojson', data: 'data/lakes.geojson' },
     places: { type: 'geojson', data: 'data/places.geojson' },
     regions: { type: 'geojson', data: 'data/regions.geojson' },
@@ -155,6 +156,12 @@ const style = {
     { id: 'currents-dash', type: 'line', source: 'currents', paint: { 'line-color': ['case', ['get', 'warm'], '#e6bd62', '#bfe3ef'], 'line-opacity': 0.85, 'line-dasharray': [3, 3], 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 0.8, 8, 1.6] } },
     { id: 'currents-arrows', type: 'symbol', source: 'currents', layout: { 'symbol-placement': 'line', 'symbol-spacing': 170, 'icon-image': ['case', ['get', 'warm'], 'arrow-0', 'arrow-1'], 'icon-size': ['interpolate', ['linear'], ['zoom'], 3, 0.45, 8, 0.8], 'icon-rotation-alignment': 'map', 'icon-allow-overlap': true, 'icon-ignore-placement': true } },
     { id: 'currents-name', type: 'symbol', source: 'currents', minzoom: 4.8, layout: { 'symbol-placement': 'line', 'symbol-spacing': 520, 'text-field': ['get', 'name'], 'text-font': ['IM Fell English Italic'], 'text-size': ['interpolate', ['linear'], ['zoom'], 5, 11, 9, 16], 'text-letter-spacing': 0.12, 'text-offset': [0, -1] }, paint: { 'text-color': ['case', ['get', 'warm'], '#f3dca0', '#d6eef7'], 'text-halo-color': ['case', ['get', 'warm'], '#5a1f12', '#12384f'], 'text-halo-width': 1.6 } },
+    // lost lands (Enaria): a faint ghost outline inside a swirl of time, never real coast
+    { id: 'lost-glow', type: 'fill', source: 'lost', filter: ['==', ['get', 'part'], 'glow'], paint: { 'fill-color': '#b9a8e6', 'fill-opacity': 0.16 } },
+    { id: 'lost-glow-edge', type: 'line', source: 'lost', filter: ['==', ['get', 'part'], 'glow'], paint: { 'line-color': '#d8cdf5', 'line-opacity': 0.35, 'line-width': 1.2, 'line-dasharray': [1, 3], 'line-blur': 0.6 } },
+    { id: 'lost-swirl', type: 'line', source: 'lost', filter: ['==', ['get', 'part'], 'swirl'], layout: { 'line-cap': 'round' }, paint: { 'line-color': '#e3dafb', 'line-opacity': 0.6, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 1, 7, 2.4], 'line-dasharray': [4, 3] } },
+    { id: 'lost-island', type: 'fill', source: 'lost', filter: ['==', ['get', 'part'], 'island'], paint: { 'fill-color': '#ddd3f6', 'fill-opacity': 0.3 } },
+    { id: 'lost-island-edge', type: 'line', source: 'lost', filter: ['==', ['get', 'part'], 'island'], paint: { 'line-color': '#f1ecff', 'line-opacity': 0.85, 'line-width': ['interpolate', ['linear'], ['zoom'], 3, 1, 7, 1.8], 'line-dasharray': [2, 2] } },
     { id: 'land-shadow', type: 'line', source: 'land', paint: { 'line-color': '#2a1a0c', 'line-opacity': 0.4, 'line-width': zoomSize(3, 8, 14), 'line-blur': 6 } },
     { id: 'land-fill', type: 'fill', source: 'land', paint: { 'fill-color': PALETTE.land } },
     ...Object.entries(TERRAIN_FILL).map(([kind, [color, opacity]]) => ({
@@ -535,6 +542,7 @@ const groups = {
   'Terrain symbols': (id) => id.startsWith('sym-'),
   'Rivers': (id) => id === 'rivers' || id === 'river-names',
   'Ocean currents': (id) => id.startsWith('currents'),
+  'Lost lands': (id) => id.startsWith('lost-'),
   'Roads': (id) => id.startsWith('roads'),
   'Settlements': (id) => id.startsWith('places-') || id === 'poi-icons',
   'Region names': (id) => id.startsWith('regions-'),

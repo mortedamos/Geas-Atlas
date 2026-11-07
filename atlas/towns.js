@@ -81,10 +81,10 @@ const startTowns = () => {
   let shown = '';
   function update() {
     if (!data || !map.getSource(SRC)) return;
-    const z = map.getZoom(), skip = skipKeys();
+    const z = AP.zoomOf(map), skip = skipKeys();
     let keys = [];
     if (z >= 13.8) {
-      const b = map.getBounds(), w = b.getWest(), e = b.getEast(), s = b.getSouth(), n = b.getNorth();
+      const b = map.getBounds(), [w, n] = AP.wToA([b.getWest(), b.getNorth()]), [e, s] = AP.wToA([b.getEast(), b.getSouth()]); // view in chart coordinates
       for (const [key, T] of Object.entries(data.towns)) {
         if (skip.has(key) || z < MIN_ZOOM[T.t] - 0.2) continue;
         const reach = (T.r * 1.4) / data.ft / 51.2, lng = (T.x - 512) / 51.2, lat = (512 - T.y) / 51.2;
@@ -137,7 +137,7 @@ const startTowns = () => {
     update();
   }
 
-  const go = async () => { if (map.getZoom() >= 13.5 || data) { await load(); addLayers(); update(); } };
+  const go = async () => { if (AP.zoomOf(map) >= 13.5 || data) { await load(); addLayers(); update(); } };
   const ready = async () => {
     try { FT = 5280 * (await (await fetch('data/scale.json', { cache: 'no-store' })).json()).milesPerWorldPx; } catch { /* keep the default */ }
     addLayers(); map.on('moveend', go); map.on('zoomend', go); go();

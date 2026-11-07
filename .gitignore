@@ -5,3 +5,4 @@ tools/_*.png
 tools/_*.bin
 *.log
 original_data/db/
+_backup_pre_maplibre5/

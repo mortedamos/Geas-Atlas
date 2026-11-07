@@ -31,9 +31,9 @@ const startCoast = () => {
 
   function update() {
     if (!polys || !map.getSource(SRC)) return;
-    const z = map.getZoom();
+    const z = AP.zoomOf(map);
     if (z < FROM) { if (last) { map.getSource(SRC).setData({ type: 'FeatureCollection', features: [] }); last = ''; } return; }
-    const b = map.getBounds(), [x0, y1] = px([b.getWest(), b.getSouth()]), [x1, y0] = px([b.getEast(), b.getNorth()]);
+    const b = map.getBounds(), [x0, y1] = AP.wToPx([b.getWest(), b.getSouth()]), [x1, y0] = AP.wToPx([b.getEast(), b.getNorth()]);
     const mx = (x1 - x0) * 0.3, my = (y1 - y0) * 0.3, X0 = x0 - mx, X1 = x1 + mx, Y0 = y0 - my, Y1 = y1 + my;
     const minFt = Math.max(12, Math.min(FC.COARSE, 4 / pxPerFt(z))); // a piece is about 4 screen pixels
     const sig = [Math.round(X0 * 20), Math.round(Y0 * 20), Math.round(X1 * 20), Math.round(Y1 * 20), Math.round(minFt)].join(',');

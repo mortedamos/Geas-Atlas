@@ -72,17 +72,16 @@
   .rp-note { font-size: 12px; font-style: italic; color: var(--ink-soft); line-height: 1.35; }
   .relief-read { position: absolute; left: 20px; bottom: 20px; z-index: 3; padding: 4px 10px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 13px; font-variant-numeric: tabular-nums; pointer-events: none; }
   .relief-hint { position: absolute; right: 20px; bottom: 20px; z-index: 3; padding: 4px 10px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 13px; font-style: italic; }
-  #globe { display: none; background: radial-gradient(ellipse at center, #2b2218 0%, #0f0b07 100%); cursor: grab; }
-  #globe canvas { display: block; }
-  body.globe #globe { display: block; }
-  /* on the globe the Layers panel keeps only its title and the grid switch */
-  body.globe .layers > :not(strong):not(.grid-row):not(.kind-filter) { display: none; }
-  body.globe #map, body.globe .scalebar, body.globe .coords, body.globe .maplibregl-ctrl-top-right { visibility: hidden; }
+  /* the flat map covers the whole stage; when it curls into a globe, this is the space behind it */
+  #map { background: radial-gradient(ellipse at center, #2b2218 0%, #0f0b07 100%); }
+  /* the scale bar and the chart-pixel readout mean nothing on a curved map */
+  body.globe .scalebar, body.globe .coords { visibility: hidden; }
 
   /* aged vellum over the map, and a ruled double border like a drawn page */
   .vellum { position: absolute; inset: 0; z-index: 1; pointer-events: none; mix-blend-mode: multiply;
     background: var(--grain), radial-gradient(ellipse at 50% 48%, rgba(255,255,255,0) 52%, rgba(150,104,46,0.30) 100%); }
-  body.globe .vellum { display: none; }
+  .vellum { transition: opacity 0.7s; }
+  body.globe .vellum { opacity: 0; }
   .frame { position: absolute; inset: 6px; z-index: 1; pointer-events: none; border: 3px double rgba(70, 48, 26, 0.7); }
   body.globe .frame { border-color: rgba(201, 162, 75, 0.55); }
 
@@ -175,6 +174,10 @@
   .credit { position: absolute; left: 50%; bottom: 9px; transform: translateX(-50%); z-index: 2; font-size: 11.5px; padding: 1px 8px; border-radius: 2px; background: var(--panel); opacity: 0.9; white-space: nowrap; }
   .credit a { color: inherit; }
   .layers strong { font-family: var(--caps); font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rubric); }
+  .layers strong { cursor: pointer; user-select: none; }
+  .layers strong::before { content: '\25BE'; display: inline-block; width: 1em; letter-spacing: 0; }
+  .layers.collapsed strong::before { content: '\25B8'; }
+  .layers.collapsed > :not(strong) { display: none !important; }
   .layers label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
   .pane .meta { font-size: 13px; color: var(--ink-soft); }
   .pane .card-title { font-family: var(--caps); font-weight: 600; font-size: 21px; display: block; line-height: 1.2; margin-bottom: 4px; color: var(--rubric); letter-spacing: 0.04em; }
@@ -237,6 +240,28 @@
   .kind-filter .kf-group { margin-top: 5px; font-family: var(--caps); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--rubric); }
   .kind-filter .kf-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; }
   .kind-filter .kf-grid label { font-size: 13.5px; text-transform: capitalize; }
+  /* the section through Citadel's mountain, on the cards of Citadel and its burroughs */
+  .pane .cit-fig { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--rule); }
+  .pane .cit-fig h4 { margin: 0 0 4px; font-family: var(--caps); font-weight: 400; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
+  .cit-svg { width: 100%; height: auto; display: block; border: 1px solid var(--rule); background: var(--vellum); }
+  .cit-svg .cit-n { fill: var(--vellum); stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; cursor: default; }
+  .cit-svg .cit-n.pin { cursor: pointer; fill: #f8efd2; }
+  .cit-svg .cit-n:hover { fill: var(--gilt-lite); }
+  .cit-svg .cit-n.here { fill: var(--gilt-lite); stroke: var(--rubric); stroke-width: 8; }
+  .cit-svg .cit-surface { fill: var(--vellum-deep); }
+  .cit-svg .cit-name { font-family: var(--caps); font-weight: 600; fill: var(--ink); letter-spacing: 0.06em; paint-order: stroke; stroke: var(--vellum); stroke-width: 7px; stroke-linejoin: round; pointer-events: none; }
+  .cit-svg .cit-sub, .cit-svg .cit-note { font-family: var(--serif); font-style: italic; font-size: 30px; fill: var(--ink-soft); paint-order: stroke; stroke: var(--vellum); stroke-width: 6px; pointer-events: none; }
+  .pane .cit-fig h4 { display: flex; justify-content: space-between; align-items: center; }
+  .cit-big { font: inherit; font-size: 12px; letter-spacing: 0; text-transform: none; padding: 1px 8px; border: 1px solid var(--rule); border-radius: 2px; background: var(--vellum-deep); color: var(--ink); cursor: pointer; }
+  .cit-big:hover { background: rgba(185,138,44,0.3); }
+  .cit-modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; background: rgba(40, 26, 12, 0.6); }
+  .cit-modal-in { position: relative; width: min(94vw, 1000px); max-height: 94vh; overflow-y: auto; overflow-x: hidden; padding: 14px 16px 10px; background: var(--vellum); border: 1px solid var(--rule); box-shadow: 0 0 0 3px var(--vellum), 0 0 0 4px var(--rule); }
+  .cit-modal .cit-cap { margin-top: 6px; font-size: 15px; font-style: italic; color: var(--ink-soft); line-height: 1.35; }
+  .cit-modal .cit-cap b { font-style: normal; color: var(--ink); }
+  .cit-modal .cit-svg { max-height: 80vh; }
+  .cit-x { position: absolute; top: 4px; right: 8px; font-size: 24px; line-height: 1; border: 0; background: none; color: var(--ink); cursor: pointer; }
+  .pane .cit-cap { margin-top: 6px; font-size: 13.5px; font-style: italic; color: var(--ink-soft); line-height: 1.35; }
+  .pane .cit-cap b { font-style: normal; color: var(--ink); }
   /* nearby list + journey buttons on a card */
   .pane .nearby { margin-top: 14px; padding-top: 8px; border-top: 1px solid var(--rule); }
   .pane .nearby h4 { margin: 0 0 4px; font-family: var(--caps); font-weight: 400; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); }
@@ -278,7 +303,6 @@
 <body>
 <div id="stage">
 <div id="map"></div>
-<div id="globe"></div>
 <div id="relief"></div>
 <div class="vellum"></div>
 <div class="frame"></div>
@@ -286,7 +310,7 @@
 <div class="modes modes-mini" id="modes-mini"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button><button data-mode="climate">Climate</button></div>
 <div class="coords" id="coords" hidden></div>
 <div class="layers" id="layers"><strong>Layers</strong></div>
-<div class="globe-hint">Drag to turn &middot; scroll to zoom &middot; click a pin for details</div>
+<div class="globe-hint">Drag to turn &middot; scroll to zoom &middot; zoom in to flatten it into the map &middot; click a pin for details</div>
 <div class="climate-panel" id="climate-panel"><strong>Climate</strong><span class="cl-title"></span><div class="seg"></div><div class="cl-legend"></div><p class="cl-note">Marked places have a climate set by the author (Tel-Tenauril, Valkith, Thanatos, Enaria, the Egypt-like desert of the north-east); the bands include it, as the notes give it.</p></div>
 <div class="climate-read" id="climate-read" hidden></div>
 <div class="relief-hint">Drag to turn &middot; right-drag or arrows to pan &middot; scroll to zoom</div>
@@ -319,8 +343,10 @@
 </script>
 <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js"}}</script>
 <script src="vendor/maplibre-gl.js"></script>
+<script src="proj.js"></script>
 <script src="map.js"></script>
 <script src="explore.js"></script>
+<script src="citadel.js"></script>
 <script src="towns.js"></script>
 <script src="fractalcoast.js"></script>
 <script src="coast.js"></script>

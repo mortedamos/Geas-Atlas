@@ -22,15 +22,16 @@ const TERRAIN_FILL = {
   desert: ['#e7c680', 0.85],
 };
 
-// icon-size at zoom 5 / 8 / 11 (1 = the symbol's natural on-screen size)
+// icon-size at SYMBOL_REF_ZOOM (1 = the symbol's natural on-screen size); at other zooms the symbols grow and shrink with the map
+const SYMBOL_REF_ZOOM = 8;
 const SYMBOL_SCALE = {
-  forest: [0.26, 0.46, 0.78],
-  newgrowth: [0.45, 0.8, 1.3],
-  ruins: [0.2, 0.38, 0.7],
-  marsh: [0.3, 0.55, 0.9],
-  desert: [0.28, 0.5, 0.85],
-  hills: [0.34, 0.62, 1.0],
-  mountain: [0.34, 0.62, 1.0],
+  forest: 0.46,
+  newgrowth: 0.8,
+  ruins: 0.38,
+  marsh: 0.55,
+  desert: 0.5,
+  hills: 0.62,
+  mountain: 0.62,
 };
 
 // settlement size 1 / 2 / 3 = village (small) / town (medium) / city (large); other kinds of place have none
@@ -42,24 +43,22 @@ const PLACE_TEXT = { 1: [13, 19, 25], 2: [10.5, 14, 18], 3: [9, 12.5, 16] }; // 
 const zoomSize = (a, b, c) => ['interpolate', ['linear'], ['zoom'], 5, a, 8, b, 11, c];
 
 // ---- latitude / longitude grid ----
-// The chart is read as Mercator (as on the globe): 1950 px (x -800..1150) is one full turn, Sellador's centre (y 262) is 49 N,
-// and longitude 0 is the chart's centre line, x 175. Parallels are spaced by Mercator, meridians evenly.
-const CHART = { X0: -800, W: 1950, Y49: 262, PRIME_X: 175 };
-CHART.R = CHART.W / (2 * Math.PI);
-const mercY = (latDeg) => Math.log(Math.tan(Math.PI / 4 + (latDeg * Math.PI) / 360));
-const latToY = (lat) => CHART.Y49 + (mercY(49) - mercY(lat)) * CHART.R;
-const lonToX = (lon) => CHART.PRIME_X + (lon / 360) * CHART.W;
-const pxToLngLat = (x, y) => [(x - 512) / 51.2, (512 - y) / 51.2];
+// The chart is read as Mercator (see proj.js): 1950 px (x -800..1150) is one full turn, Sellador's centre (y 262) is 49 N, and longitude 0
+// is the chart's centre line, x 175. So the grid is just real parallels (every 10 degrees) and meridians (every 15), already in world
+// coordinates, cut into short pieces so they bend round the globe.
 const hemi = (v, pos, neg) => (v === 0 ? '0°' : Math.abs(v) === 180 ? '180°' : `${Math.abs(v)}° ${v > 0 ? pos : neg}`);
 function buildGraticule() {
-  const features = [];
+  const features = [], GRID_TOP = 78, GRID_BOTTOM = -84; // the drawn world stops at about these latitudes
+  const along = (from, to, at, step) => { const out = []; for (let v = from; v < to; v += step) out.push(at(v)); out.push(at(to)); return out; };
+  // A parallel is cut into 30-degree pieces: drawn as one 360-degree line, MapLibre silently dropped every piece east of longitude 0.
   for (let lat = -80; lat <= 80; lat += 10) {
-    const y = latToY(lat), eq = lat === 0;
-    features.push({ type: 'Feature', properties: { kind: eq ? 'equator' : 'parallel', label: eq ? 'Equator' : hemi(lat, 'N', 'S'), major: lat % 30 === 0 }, geometry: { type: 'LineString', coordinates: [pxToLngLat(CHART.X0, y), pxToLngLat(CHART.X0 + CHART.W, y)] } });
+    const eq = lat === 0;
+    for (let a = -180; a < 180; a += 30) {
+      features.push({ type: 'Feature', properties: { kind: eq ? 'equator' : 'parallel', label: eq ? 'Equator' : hemi(lat, 'N', 'S'), major: lat % 30 === 0 }, geometry: { type: 'LineString', coordinates: along(a, a + 30, (lon) => [lon, lat], 5) } });
+    }
   }
   for (let lon = -180; lon <= 180; lon += 15) {
-    const x = lonToX(lon);
-    features.push({ type: 'Feature', properties: { kind: 'meridian', label: hemi(lon, 'E', 'W'), major: lon % 45 === 0 }, geometry: { type: 'LineString', coordinates: [pxToLngLat(x, 1350), pxToLngLat(x, -200)] } });
+    features.push({ type: 'Feature', properties: { kind: 'meridian', label: hemi(lon, 'E', 'W'), major: lon % 45 === 0 }, geometry: { type: 'LineString', coordinates: along(GRID_BOTTOM, GRID_TOP, (lat) => [lon, lat], 4) } });
   }
   return { type: 'FeatureCollection', features };
 }
@@ -188,10 +187,11 @@ const style = {
         filter: ['all', ['==', ['get', 'kind'], kind], ['==', ['get', 'tier'], tier]],
         layout: {
           'icon-image': ['concat', icon, '-', ['to-string', ['get', 'v']]],
-          'icon-size': ['interpolate', ['linear'], ['zoom'],
-            5, ['*', ['get', 's'], SYMBOL_SCALE[kind][0]],
-            8, ['*', ['get', 's'], SYMBOL_SCALE[kind][1]],
-            11, ['*', ['get', 's'], SYMBOL_SCALE[kind][2]]],
+          // fixed to the map: the size at SYMBOL_REF_ZOOM is SYMBOL_SCALE, and it doubles with every zoom step, like the map itself
+          // (exponential base 2 between two stops 6 zooms apart gives exactly size * 2^(zoom - ref))
+          'icon-size': ['interpolate', ['exponential', 2], ['zoom'],
+            SYMBOL_REF_ZOOM - 3, ['*', ['get', 's'], SYMBOL_SCALE[kind] / 8],
+            SYMBOL_REF_ZOOM + 3, ['*', ['get', 's'], SYMBOL_SCALE[kind] * 8]],
           'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'icon-ignore-placement': true,
           'symbol-sort-key': ['get', 'sk'],
         },
@@ -210,7 +210,7 @@ const style = {
         'text-field': ['get', 'name'],
         'text-font': [rank === 1 ? 'Cinzel SemiBold' : 'Cinzel Regular'],
         'text-transform': 'uppercase', 'text-letter-spacing': [0.34, 0.2, 0.1][rank - 1], 'text-max-width': 8,
-        'text-size': ['interpolate', ['linear'], ['zoom'], 4, [14, 10, 8][rank - 1], 8, [27, 17, 12][rank - 1], 11, [36, 24, 17][rank - 1]],
+        'text-size': ['interpolate', ['linear'], ['zoom'], 3.4, [8, 6, 5][rank - 1], 4, [14, 10, 8][rank - 1], 8, [27, 17, 12][rank - 1], 11, [36, 24, 17][rank - 1]],
       },
       paint: {
         'text-color': ['match', ['get', 'kind'], ['lake', 'island'], '#254e57', 'forest', '#3b5223', 'mountain', '#5b4a30', rank === 1 ? '#8a2a1a' : '#4a3220'],
@@ -262,7 +262,9 @@ function symbolFor(id) {
   return name && SYMBOLS.bitmaps[name] ? { bitmap: SYMBOLS.bitmaps[name], pixelRatio: SYMBOLS.images[name].pr || 2 } : null;
 }
 
-loadSymbols().then(() => {
+// the data files hold the chart's own coordinates; the map is given them placed on the world (proj.js)
+const loadGeo = Promise.all(Object.values(style.sources).filter((s) => typeof s.data === 'string').map(async (s) => { s.data = AP.geoToWorld(await (await fetch(s.data)).json()); }));
+Promise.all([loadSymbols(), loadGeo]).then(() => {
 if (SYMBOLS.credit) {
   const el = document.getElementById('credit');
   el.innerHTML = `<a href="${SYMBOLS.credit.url}" target="_blank" rel="noopener">${SYMBOLS.credit.text}</a>`;
@@ -270,32 +272,69 @@ if (SYMBOLS.credit) {
 }
 // Later symbol layers win label collisions: region names go last so they are never crowded out by town names.
 style.layers = [...style.layers.filter((l) => !l.id.startsWith('regions-')), ...style.layers.filter((l) => l.id.startsWith('regions-'))];
+style.layers = style.layers.map(AP.shiftLayer); // the layers' zoom numbers are chart zoom; MapLibre's zoom is Z_OFF lower (proj.js)
 
 // west edge: the far western isles; east edge: past Phocacia; south: below Curmeah; north: halfway into the arctic pole
-const WORLD_BOUNDS = [[-24, -16.2], [11, 12.2]];
+const WORLD_BOUNDS = [[-24, -16.2], [11, 12.2]]; // chart coordinates
+const WORLD_BOUNDS_W = WORLD_BOUNDS.map(AP.aToW);
+// The map is one view that changes shape with zoom: flat Mercator when zoomed in, a globe when zoomed far out, and a smooth curl
+// between the two (MapLibre blends the projections by zoom). `flatZoom` is the most zoomed-out the flat map goes (a little tighter than the whole
+// drawn world fitting the window); the curl runs from there down to the globe.
+const CURL = 0.6; // zoom steps from flat to fully round
+const FLAT_SLACK = 0.5; // the flat map stops this far in from "the whole drawn world fits", so that the globe it curls into is a good size
+const mercYw = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
+const flatZoomFor = (c) => {
+  const w1 = ((WORLD_BOUNDS_W[1][0] - WORLD_BOUNDS_W[0][0]) / 360) * 512;
+  const h1 = ((mercYw(WORLD_BOUNDS_W[1][1]) - mercYw(WORLD_BOUNDS_W[0][1])) / (2 * Math.PI)) * 512;
+  return Math.log2(Math.max(c.clientWidth / w1, c.clientHeight / h1)) + FLAT_SLACK;
+};
+let flatZoom = flatZoomFor(document.getElementById('map'));
+const projectionFor = (zFlat) => ({ type: ['interpolate', ['linear'], ['zoom'], zFlat - CURL, 'vertical-perspective', zFlat, 'mercator'] });
+style.projection = projectionFor(flatZoom);
+style.sky = { 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, flatZoom - CURL, 0.9, flatZoom, 0], 'sky-color': '#7fa6b8', 'horizon-color': '#d8c58a', 'fog-color': '#c9b98a' }; // a faint glow round the globe
 const map = new maplibregl.Map({
   container: 'map',
   style,
-  bounds: [[-10.5, -6.5], [7.1, 10.6]],
+  ...AP.cam({ bounds: [[-10.5, -6.5], [7.1, 10.6]] }),
   fitBoundsOptions: { padding: 40 },
-  minZoom: 4,
-  maxZoom: 20, // street plans (towns.js) are drawn at true scale and need the extra zoom
-  maxBounds: WORLD_BOUNDS,
+  minZoom: 0,
+  maxZoom: 20 - AP.Z_OFF, // street plans (towns.js) are drawn at true scale and need the extra zoom
   renderWorldCopies: false,
   attributionControl: false,
   dragRotate: false,
 });
 // The top of the map is cut through the arctic pole (the pole is stretched across the whole top edge, so only the
-// southern half of it is shown). Keep the zoom high enough that the view never goes past the cut and shows bare sea.
-function fitMinZoom() {
-  const mercY = (lat) => Math.log(Math.tan(Math.PI / 4 + (lat * Math.PI) / 360));
-  const w1 = ((WORLD_BOUNDS[1][0] - WORLD_BOUNDS[0][0]) / 360) * 512;
-  const h1 = ((mercY(WORLD_BOUNDS[1][1]) - mercY(WORLD_BOUNDS[0][1])) / (2 * Math.PI)) * 512;
+// southern half of it is shown). The flat map never goes further out than the whole drawn world.
+function fitFlatZoom() {
   const c = map.getContainer();
-  map.setMinZoom(Math.max(3, Math.log2(Math.max(c.clientWidth / w1, c.clientHeight / h1))));
+  if (!c.clientWidth || !c.clientHeight) return; // hidden behind the relief or climate view
+  flatZoom = flatZoomFor(c);
+  try { map.setProjection(projectionFor(flatZoom)); } catch { /* the style is still loading; it was created with this projection */ }
+  map.setMinZoom(flatZoom - CURL - 0.3);
 }
-fitMinZoom();
-map.on('resize', fitMinZoom);
+fitFlatZoom();
+if (map.getZoom() < flatZoom) map.jumpTo({ zoom: flatZoom }); // never open already curling
+map.on('resize', fitFlatZoom);
+// maxBounds does not work with the curling projection, so the flat map is kept over the drawn world by hand: after a move, if the view
+// has slid off the edge of the drawn world, it eases back. (The globe turns freely.)
+function clampFlat() {
+  if (map.getZoom() < flatZoom - 0.02) return;
+  const cv = map.getCanvas(), worldPx = 512 * 2 ** map.getZoom(), c = map.getCenter();
+  const halfH = (cv.clientHeight / 2 / worldPx) * 2 * Math.PI, halfW = (cv.clientWidth / 2 / worldPx) * 360;
+  const fit = (v, lo, hi) => (lo > hi ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, v)));
+  const my = fit(mercYw(c.lat), mercYw(WORLD_BOUNDS_W[0][1]) + halfH, mercYw(WORLD_BOUNDS_W[1][1]) - halfH);
+  const lng = fit(c.lng, WORLD_BOUNDS_W[0][0] + halfW, WORLD_BOUNDS_W[1][0] - halfW);
+  const lat = (2 * Math.atan(Math.exp(my)) - Math.PI / 2) * (180 / Math.PI);
+  if (Math.abs(lat - c.lat) > 1e-4 || Math.abs(lng - c.lng) > 1e-4) map.easeTo({ center: [lng, lat], duration: 280 });
+}
+map.on('moveend', clampFlat);
+// MapLibre's minimum zoom is not held while the projection is curling or round, so hold it here: the globe never shrinks past a good size
+let holding = false;
+map.on('zoom', () => {
+  const lowest = flatZoom - CURL - 0.3;
+  if (holding || map.getZoom() >= lowest - 1e-3) return;
+  holding = true; map.setZoom(lowest); holding = false;
+});
 map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 // Scale bar in miles. The map is flat, so one world pixel (1/51.2 degree of longitude) is the same distance everywhere;
 // data/scale.json holds the calibration (tools/calibrate.mjs).
@@ -307,8 +346,10 @@ map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-ri
   const nice = [0.0095, 0.019, 0.047, 0.095, 0.19, 0.47, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000]; // the small ones are 50, 100, 250, 500, 1000, 2500 feet
   const update = () => {
     const h = map.getContainer().clientHeight / 2;
-    const a = map.unproject([0, h]), b = map.unproject([100, h]);
-    const milesPer100 = Math.abs(b.lng - a.lng) * 51.2 * milesPerWorldPx;
+    // chart pixels across 100 screen pixels (the flat map is the same scale everywhere); only meaningful once the map is flat
+    const a = AP.wToPx(map.unproject([0, h]).toArray()), b = AP.wToPx(map.unproject([100, h]).toArray());
+    if (!(map.getZoom() >= flatZoom - 0.02)) { el.hidden = true; return; }
+    const milesPer100 = Math.abs(b[0] - a[0]) * milesPerWorldPx;
     const m = [...nice].reverse().find((n) => n <= milesPer100) || nice[0];
     el.querySelector('i').style.width = `${Math.max(8, (m / milesPer100) * 100)}px`;
     el.querySelector('span').textContent = m < 1 ? `${Math.round((m * 5280) / 50) * 50} ft` : `${m} mi`;
@@ -385,15 +426,55 @@ async function showCard(feature) {
   if (p.guess) html += `<p class="guess">Position is a first-pass guess${p.basis ? `: ${esc(p.basis)}` : ''}.</p>`;
   if (p.editNote) html += `<div class="editnote"><b>Note</b><p>${esc(p.editNote)}</p></div>`;
   const group = p.editKey ? p.editKey.split(':')[1] : null;
+  if (editing && p.dbId) html += articleEditorHtml(p, notes);
   if (editing && group) html += editorHtml(p, group);
   paneBody.innerHTML = html;
   document.body.classList.remove('pane-closed'); // a click on an entry opens the pane if it was slid shut
   paneBody.scrollTop = 0;
   paneClose.hidden = false;
   selected = feature;
-  selMarker.setLngLat(feature.geometry.coordinates).addTo(map);
+  selMarker.setLngLat(AP.aToW(feature.geometry.coordinates)).addTo(map);
   for (const fn of selectionListeners) fn(feature);
+  if (editing && p.dbId) bindArticleEditor(feature, notes);
   if (editing && group) bindEditor(feature, group);
+}
+
+// ---- article editor (local dev server only): the summary and long text shown on a card ----
+// Saved by old-notes id in tools/source/article_edits.json; the old-notes text is never overwritten, so "Restore original" is exact.
+let articleOpen = false;
+function articleEditorHtml(p, notes) {
+  const n = notes || { summary: '', text: '' };
+  return `<details class="editor article-editor"${articleOpen ? ' open' : ''}><summary>Edit article${notes && notes.edited ? ' (edited)' : ''}</summary>`
+    + `<div class="ed-col"><label>Summary</label><textarea class="ar-summary" rows="3" placeholder="A line or two, shown in italics under the title">${esc(n.summary || '')}</textarea></div>`
+    + `<div class="ed-col"><label>Article</label><textarea class="ar-text" rows="16" placeholder="Write the full entry here. A blank line starts a new paragraph.">${esc(n.text || '')}</textarea></div>`
+    + `<div class="ed-actions"><button type="button" class="ar-save">Save article</button>${notes && notes.edited ? '<button type="button" class="ar-reset">Restore original</button>' : ''}</div>`
+    + '<div class="ed-status ar-status" aria-live="polite"></div></details>';
+}
+function bindArticleEditor(feature, notes) {
+  const p = feature.properties, root = paneBody.querySelector('.article-editor');
+  if (!root) return;
+  const $ = (sel) => root.querySelector(sel);
+  const status = (t) => { $('.ar-status').textContent = t; };
+  root.addEventListener('toggle', () => { articleOpen = root.open; });
+  const save = async (body, msg) => {
+    status('Saving…');
+    root.querySelectorAll('button, textarea').forEach((e) => (e.disabled = true));
+    try {
+      const res = await api('/api/edit-article', { id: Number(p.dbId), ...body });
+      if (res.error) throw new Error(res.error);
+      const data = await refreshData();
+      const fresh = ['places', 'regions'].flatMap((g) => data[g].features).find((f) => f.properties.editKey === p.editKey) || feature;
+      await showCard(fresh);
+      const st = paneBody.querySelector('.ar-status');
+      if (st) st.textContent = res.ok ? msg : 'Saved, but the rebuild reported a problem.';
+    } catch (err) {
+      root.querySelectorAll('button, textarea').forEach((e) => (e.disabled = false));
+      status(`Could not save: ${err.message}`);
+    }
+  };
+  $('.ar-save').addEventListener('click', () => save({ summary: $('.ar-summary').value, text: $('.ar-text').value }, 'Article saved.'));
+  const reset = $('.ar-reset');
+  if (reset) reset.addEventListener('click', () => save({ reset: true }, 'Original text restored.'));
 }
 
 // ---- side-pane editor (local dev server only): rename, resize, retype, note, move, remove ----
@@ -416,7 +497,7 @@ function editorHtml(p, group) {
   return h + '<div class="ed-status" aria-live="polite"></div></details>';
 }
 function bindEditor(feature, group) {
-  const p = feature.properties, root = paneBody.querySelector('.editor');
+  const p = feature.properties, root = paneBody.querySelector('.editor:not(.article-editor)');
   if (!root) return;
   const $ = (sel) => root.querySelector(sel);
   const status = (t) => { $('.ed-status').textContent = t; };
@@ -428,7 +509,7 @@ function bindEditor(feature, group) {
     const res = await editApi(p.editKey, body);
     const data = await refreshData();
     const fresh = data[group === 'region' ? 'regions' : 'places'].features.find((f) => f.properties.editKey === p.editKey);
-    if (fresh) { await showCard(fresh); paneBody.querySelector('.ed-status').textContent = res.ok ? msg : 'Saved, but the rebuild reported a problem.'; }
+    if (fresh) { await showCard(fresh); paneBody.querySelector('.editor:not(.article-editor) .ed-status').textContent = res.ok ? msg : 'Saved, but the rebuild reported a problem.'; }
     else { clearPane(); }
     await refreshUnplaced(); await refreshRemoved();
   };
@@ -482,41 +563,61 @@ function bindEditor(feature, group) {
 // shared with the globe module (loaded on demand)
 window.atlas = { cardHook: null, hiddenKinds: new Set(), isGridOn: () => gridOn, dataListeners, map, showCard, clearPane, selectionListeners, getSelected: () => selected, esc, PALETTE, TERRAIN_FILL, SYMBOL_SCALE, symbolFor, drawIcon };
 
-// Map | Globe switch. The globe (three.js) is only fetched and built the first time it is asked for.
+// Map | Globe | Relief | Climate. Map and Globe are the same MapLibre view: zooming out curls the flat map into a globe and zooming in
+// flattens it again (see `projectionFor` above), so the two buttons simply zoom to where each looks right. Relief and Climate are
+// three.js views built the first time they are asked for.
 (() => {
   const modeButtons = () => [...document.querySelectorAll('.modes button')];
   const loading = document.getElementById('globe-loading');
-  const LOADING = { globe: 'Raising the globe…', relief: 'Raising the land…', climate: 'Reading the weather…' };
-  const loaded = {}; // the three.js views, each fetched and built the first time it is asked for
-  let current = 'map';
+  const LOADING = { relief: 'Raising the land…', climate: 'Reading the weather…' };
+  const loaded = {};
+  let current = 'map'; // 'map' covers both the flat map and the globe
+  const shape = () => (map.getZoom() < flatZoom - 0.05 ? 'globe' : 'map');
+  function syncShape() {
+    if (current !== 'map') return;
+    const s = shape();
+    document.body.classList.toggle('globe', s === 'globe');
+    for (const b of modeButtons()) b.classList.toggle('on', b.dataset.mode === (map.getZoom() < flatZoom - CURL * 0.5 ? 'globe' : 'map'));
+  }
+  map.on('zoom', syncShape);
+  map.on('resize', syncShape);
+  syncShape();
+
   const setMode = async (mode) => {
+    if (mode === 'map' || mode === 'globe') {
+      if (current !== 'map') { // leaving relief / climate
+        document.body.classList.remove('relief', 'climate');
+        if (current in loaded) loaded[current].leave();
+        current = 'map';
+        map.resize();
+      }
+      // fly to a view that is flat, or round, keeping the middle of the view where it is
+      const target = mode === 'globe' ? flatZoom - CURL - 0.05 : Math.max(map.getZoom(), flatZoom + 0.35);
+      map.easeTo({ zoom: target, duration: Math.min(3200, 1100 + 260 * Math.abs(target - map.getZoom())), easing: (t) => (t < 0.5 ? 2 * t * t : 1 - ((-2 * t + 2) ** 2) / 2) });
+      syncShape();
+      return;
+    }
     if (mode === current) return;
     for (const b of modeButtons()) b.classList.toggle('on', b.dataset.mode === mode);
-    if (mode in LOADING) {
-      loading.textContent = LOADING[mode];
-      loading.style.display = 'grid';
-      try {
-        loaded[mode] ??= await import(`./${mode}.js`);
-        await loaded[mode].enter();
-        if (current in loaded) loaded[current].leave();
-        document.body.classList.remove('globe', 'relief', 'climate');
-        document.body.classList.add(mode);
-        current = mode;
-        if (placing) placing = null;
-      } catch (e) {
-        console.error(`${mode} failed`, e);
-        for (const b of modeButtons()) b.classList.toggle('on', b.dataset.mode === current);
-      }
-      loading.style.display = 'none';
-    } else {
-      document.body.classList.remove('globe', 'relief', 'climate');
+    loading.textContent = LOADING[mode];
+    loading.style.display = 'grid';
+    try {
+      loaded[mode] ??= await import(`./${mode}.js`);
+      await loaded[mode].enter();
       if (current in loaded) loaded[current].leave();
-      current = 'map';
-      map.resize();
+      document.body.classList.remove('globe', 'relief', 'climate');
+      document.body.classList.add(mode);
+      current = mode;
+      if (placing) placing = null;
+    } catch (e) {
+      console.error(`${mode} failed`, e);
+      syncShape();
     }
+    loading.style.display = 'none';
   };
   document.addEventListener('click', (e) => { const b = e.target.closest('.modes button'); if (b) setMode(b.dataset.mode); });
 })();
+;
 let startPlacing = () => {};
 
 // ---- helpers for the editing API (present only on the local dev server) ----
@@ -537,7 +638,7 @@ async function refreshData() {
 let refreshUnplaced = async () => {};
 let refreshRemoved = async () => {};
 for (const layer of ['poi-icons', 'places-1', 'places-2', 'places-3', 'regions-1', 'regions-2', 'regions-3']) {
-  map.on('click', layer, (e) => showCard(e.features[0]));
+  map.on('click', layer, (e) => showCard(AP.featureBack(e.features[0])));
   map.on('mouseenter', layer, () => (map.getCanvas().style.cursor = 'pointer'));
   map.on('mouseleave', layer, () => (map.getCanvas().style.cursor = ''));
 }
@@ -554,6 +655,22 @@ const groups = {
   'Latitude & longitude grid': (id) => id.startsWith('grid-'),
 };
 const panel = document.getElementById('layers');
+// the panel's title folds the rest of it away, like "Show by kind"; the choice is remembered
+{
+  const title = panel.querySelector('strong');
+  const set = (shut) => {
+    panel.classList.toggle('collapsed', shut);
+    title.setAttribute('aria-expanded', String(!shut));
+    try { localStorage.setItem('atlas-layers-collapsed', shut ? '1' : '0'); } catch { /* ignore */ }
+  };
+  title.setAttribute('role', 'button');
+  title.tabIndex = 0;
+  title.addEventListener('click', () => set(!panel.classList.contains('collapsed')));
+  title.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); title.click(); } });
+  let shut = false;
+  try { shut = localStorage.getItem('atlas-layers-collapsed') === '1'; } catch { /* ignore */ }
+  set(shut);
+}
 for (const [label, test] of Object.entries(groups)) {
   const isGrid = label.startsWith('Latitude');
   const row = document.createElement('label');
@@ -573,8 +690,7 @@ for (const [label, test] of Object.entries(groups)) {
 // Readout in source-image pixel coordinates (1024px wide world map), handy while aligning other maps.
 const readout = document.getElementById('coords');
 map.on('mousemove', (e) => {
-  const x = e.lngLat.lng * (1024 / 20) + 512;
-  const y = 512 - e.lngLat.lat * (1024 / 20);
+  const [x, y] = AP.wToPx(e.lngLat.toArray());
   readout.hidden = false;
   readout.textContent = `x ${x.toFixed(0)}  y ${y.toFixed(0)}`;
 });
@@ -662,9 +778,10 @@ window.__map = map;
     if (!placing) return;
     const entry = placing; stop();
     hintEl.textContent = `Saving “${entry.name}”…`;
+    const [lng, lat] = AP.wToA(e.lngLat.toArray()); // the data keeps chart coordinates
     const res = entry.key
-      ? await editApi(entry.key, { set: { lng: e.lngLat.lng, lat: e.lngLat.lat } }) // a map-drawn pin or label: stored as a hand edit
-      : await api('/api/place', { dbId: entry.id, lng: e.lngLat.lng, lat: e.lngLat.lat, kind: entry.kind || kindEl.value, name: entry.name });
+      ? await editApi(entry.key, { set: { lng, lat } }) // a map-drawn pin or label: stored as a hand edit
+      : await api('/api/place', { dbId: entry.id, lng, lat, kind: entry.kind || kindEl.value, name: entry.name });
     await refreshData(); await refreshUnplaced();
     await refreshRemoved();
     hintEl.textContent = res.ok ? (entry.key || entry.kind ? `Moved “${entry.name}”.` : `Placed “${entry.name}”. Pick the next one.`) : 'Saved, but the rebuild reported a problem.';

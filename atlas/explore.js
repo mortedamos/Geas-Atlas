@@ -7,8 +7,8 @@ const startExplore = () => {
   let MPP = 8.724; // miles per world px; data/scale.json holds the calibration
   fetch('data/scale.json', { cache: 'no-store' }).then((r) => r.json()).then((s) => { if (s.milesPerWorldPx) MPP = s.milesPerWorldPx; }).catch(() => {});
 
-  const viewMode = () => (document.body.classList.contains('globe') ? 'globe' : document.body.classList.contains('relief') ? 'relief' : 'map');
-  const isGlobe = () => viewMode() !== 'map'; // true for either three.js view: the flat map's planner and clicks do not apply
+  const viewMode = () => (document.body.classList.contains('relief') ? 'relief' : 'map'); // the globe is the same MapLibre view as the flat map
+  const isGlobe = () => viewMode() !== 'map'; // true for the three.js relief view: the map's planner and clicks do not apply
   const norm = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   const KIND_LABEL = { village: 'village', town: 'town', city: 'city', port: 'port', fort: 'fort', tower: 'tower', temple: 'temple', mine: 'mine', ruin: 'ruin', region: 'region', forest: 'forest', island: 'island', lake: 'lake', mountain: 'mountains', marsh: 'marsh' };
 
@@ -20,9 +20,8 @@ const startExplore = () => {
 
   async function goTo(f) {
     atlas.showCard(f);
-    if (viewMode() === 'globe') { const g = await import('./globe.js'); g.debug.flyTo(f); return; }
     if (viewMode() === 'relief') { const r = await import('./relief.js'); r.flyTo(f); return; }
-    map.flyTo({ center: f.geometry.coordinates, zoom: Math.max(map.getZoom(), f.properties.rank === 1 ? 5 : 7.3), essential: true });
+    map.flyTo({ ...AP.cam({ center: f.geometry.coordinates, zoom: Math.max(AP.zoomOf(map), f.properties.rank === 1 ? 5 : 7.3) }), essential: true });
   }
 
   // ---------- search ----------
@@ -396,7 +395,7 @@ const startExplore = () => {
     if (!isOpen || isGlobe()) return;
     const r = 10;
     if (map.queryRenderedFeatures([[e.point.x - r, e.point.y - r], [e.point.x + r, e.point.y + r]], { layers: CLICK_LAYERS.filter((id) => map.getLayer(id)) }).length) return;
-    const [x, y] = px([e.lngLat.lng, e.lngLat.lat]);
+    const [x, y] = AP.wToPx(e.lngLat.toArray());
     let name = `(${Math.round(x)}, ${Math.round(y)})`, best = 60 / MPP * MPP;
     for (const f of places) { const [fx, fy] = px(f.geometry.coordinates); const d = Math.hypot(fx - x, fy - y); if (d < best / MPP * 1 && d * MPP < 60) { best = d * MPP; name = `near ${f.properties.name}`; } }
     trip.add({ name, x, y });

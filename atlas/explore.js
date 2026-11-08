@@ -128,13 +128,13 @@ const startExplore = () => {
   const stopOf = (f) => { const [x, y] = px(f.geometry.coordinates); return { name: f.properties.name, x, y }; };
   const B = { x0: -720, y0: -120, x1: 1080, y1: 1345 }; // the world, in px
   // terrain codes in the grid, and how much each slows a traveller (1 = open ground)
-  const CODE = { plain: 1, forest: 2, hills: 3, mountain: 4, marsh: 5, desert: 6, ice: 7, waste: 8, ruins: 9, newgrowth: 10, lake: 11 };
-  const NAME = { 1: 'open ground', 2: 'forest', 3: 'hills', 4: 'mountains', 5: 'marsh', 6: 'desert', 7: 'ice', 8: 'wasteland', 9: 'ruins', 10: 'woodland', 11: 'lake', 12: 'road' };
+  const CODE = { plain: 1, forest: 2, hills: 3, mountain: 4, marsh: 5, desert: 6, ice: 7, waste: 8, ruins: 9, newgrowth: 10, lake: 11, jungle: 13 }; // 12 is the road; painted plains are open ground (code 1), so they need no entry
+  const NAME = { 1: 'open ground', 2: 'forest', 3: 'hills', 4: 'mountains', 5: 'marsh', 6: 'desert', 7: 'ice', 8: 'wasteland', 9: 'ruins', 10: 'woodland', 11: 'lake', 12: 'road', 13: 'jungle' };
   const ROAD = 12, ROAD_MULT = 0.7;
   const PACES = [
-    { id: 'foot', label: 'On foot', mpd: 24, m: [0, 1, 1.5, 1.4, 2.6, 2.3, 1.7, 2.2, 1.6, 1.3, 1.2] },
-    { id: 'horse', label: 'On horseback', mpd: 48, m: [0, 1, 1.6, 1.5, 3, 2.6, 1.9, 2.6, 1.8, 1.4, 1.3] },
-    { id: 'wagon', label: 'By wagon', mpd: 15, m: [0, 1, 2.3, 1.9, 6, 3.2, 2.2, 3.5, 2.5, 1.5, 1.4] }, // 15 miles a day is the pace the map was calibrated on
+    { id: 'foot', label: 'On foot', mpd: 24, m: [0, 1, 1.5, 1.4, 2.6, 2.3, 1.7, 2.2, 1.6, 1.3, 1.2, 1, 1, 2.0] },
+    { id: 'horse', label: 'On horseback', mpd: 48, m: [0, 1, 1.6, 1.5, 3, 2.6, 1.9, 2.6, 1.8, 1.4, 1.3, 1, 1, 2.4] },
+    { id: 'wagon', label: 'By wagon', mpd: 15, m: [0, 1, 2.3, 1.9, 6, 3.2, 2.2, 3.5, 2.5, 1.5, 1.4, 1, 1, 3.4] }, // 15 miles a day is the pace the map was calibrated on
   ];
   const SHIP_MPD = 72; // 8.25 px a day in the calibration
 
@@ -164,9 +164,9 @@ const startExplore = () => {
       for (let i = 0; i < T.length; i++) if (a[i * 4 + 3] > 127) test(i);
     };
     paint(land.features, (i) => { T[i] = 1; });
-    for (const kind of ['forest', 'newgrowth', 'ruins', 'waste', 'ice', 'desert', 'hills', 'marsh', 'mountain']) {
+    for (const kind of ['forest', 'jungle', 'newgrowth', 'plains', 'ruins', 'waste', 'ice', 'desert', 'hills', 'marsh', 'mountain']) {
       const fs = terrain.features.filter((f) => f.properties.kind === kind);
-      if (fs.length) paint(fs, (i) => { if (T[i]) T[i] = CODE[kind]; });
+      if (fs.length) paint(fs, (i) => { if (T[i]) T[i] = CODE[kind] ?? CODE.plain; });
     }
     paint(lakes.features, (i) => { if (T[i]) T[i] = CODE.lake; });
     ctx.clearRect(0, 0, w, h); ctx.strokeStyle = '#000'; ctx.lineWidth = Math.max(1.6, 1.4 / cell); ctx.lineJoin = 'round';
@@ -297,7 +297,7 @@ const startExplore = () => {
   stage.appendChild(panel);
   const q = (s) => panel.querySelector(s);
   const toggle = document.createElement('button');
-  toggle.className = 'trip-toggle'; toggle.textContent = 'Plan a journey';
+  toggle.className = 'trip-toggle'; toggle.textContent = 'Plan a journey'; toggle.dataset.menu = 'journey';
   document.getElementById('layers').appendChild(toggle);
 
   const T_SRC = 'trip';
@@ -392,7 +392,7 @@ const startExplore = () => {
   // a click on open map adds a stop there (clicks on a place go through the card hook instead)
   const CLICK_LAYERS = ['poi-icons', 'places-1', 'places-2', 'places-3', 'regions-1', 'regions-2', 'regions-3'];
   map.on('click', (e) => {
-    if (!isOpen || isGlobe()) return;
+    if (!isOpen || isGlobe() || atlas.painting) return;
     const r = 10;
     if (map.queryRenderedFeatures([[e.point.x - r, e.point.y - r], [e.point.x + r, e.point.y + r]], { layers: CLICK_LAYERS.filter((id) => map.getLayer(id)) }).length) return;
     const [x, y] = AP.wToPx(e.lngLat.toArray());

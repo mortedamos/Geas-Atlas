@@ -1193,6 +1193,360 @@
    "h": 64,
    "pr": 1.136
   },
+  "grass-0": {
+   "file": "grass-0.png",
+   "w": 43,
+   "h": 13,
+   "pr": 1.368
+  },
+  "grass-1": {
+   "file": "grass-1.png",
+   "w": 47,
+   "h": 9,
+   "pr": 1.368
+  },
+  "grass-2": {
+   "file": "grass-2.png",
+   "w": 39,
+   "h": 13,
+   "pr": 1.368
+  },
+  "grass-3": {
+   "file": "grass-3.png",
+   "w": 34,
+   "h": 15,
+   "pr": 1.368
+  },
+  "grass-4": {
+   "file": "grass-4.png",
+   "w": 45,
+   "h": 9,
+   "pr": 1.368
+  },
+  "grass-5": {
+   "file": "grass-5.png",
+   "w": 56,
+   "h": 17,
+   "pr": 1.368
+  },
+  "grass-6": {
+   "file": "grass-6.png",
+   "w": 56,
+   "h": 15,
+   "pr": 1.368
+  },
+  "grass-7": {
+   "file": "grass-7.png",
+   "w": 55,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-8": {
+   "file": "grass-8.png",
+   "w": 54,
+   "h": 23,
+   "pr": 1.368
+  },
+  "grass-9": {
+   "file": "grass-9.png",
+   "w": 47,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-10": {
+   "file": "grass-10.png",
+   "w": 50,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-11": {
+   "file": "grass-11.png",
+   "w": 54,
+   "h": 17,
+   "pr": 1.368
+  },
+  "grass-12": {
+   "file": "grass-12.png",
+   "w": 43,
+   "h": 18,
+   "pr": 1.368
+  },
+  "grass-13": {
+   "file": "grass-13.png",
+   "w": 49,
+   "h": 16,
+   "pr": 1.368
+  },
+  "grass-14": {
+   "file": "grass-14.png",
+   "w": 51,
+   "h": 18,
+   "pr": 1.368
+  },
+  "grass-15": {
+   "file": "grass-15.png",
+   "w": 39,
+   "h": 16,
+   "pr": 1.368
+  },
+  "grass-16": {
+   "file": "grass-16.png",
+   "w": 55,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-17": {
+   "file": "grass-17.png",
+   "w": 52,
+   "h": 19,
+   "pr": 1.368
+  },
+  "grass-18": {
+   "file": "grass-18.png",
+   "w": 46,
+   "h": 20,
+   "pr": 1.368
+  },
+  "grass-19": {
+   "file": "grass-19.png",
+   "w": 51,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-20": {
+   "file": "grass-20.png",
+   "w": 45,
+   "h": 27,
+   "pr": 1.368
+  },
+  "grass-21": {
+   "file": "grass-21.png",
+   "w": 54,
+   "h": 13,
+   "pr": 1.368
+  },
+  "grass-22": {
+   "file": "grass-22.png",
+   "w": 52,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-23": {
+   "file": "grass-23.png",
+   "w": 58,
+   "h": 18,
+   "pr": 1.368
+  },
+  "grass-24": {
+   "file": "grass-24.png",
+   "w": 52,
+   "h": 21,
+   "pr": 1.368
+  },
+  "grass-25": {
+   "file": "grass-25.png",
+   "w": 52,
+   "h": 14,
+   "pr": 1.368
+  },
+  "grass-26": {
+   "file": "grass-26.png",
+   "w": 59,
+   "h": 16,
+   "pr": 1.368
+  },
+  "grass-27": {
+   "file": "grass-27.png",
+   "w": 53,
+   "h": 20,
+   "pr": 1.368
+  },
+  "grass-28": {
+   "file": "grass-28.png",
+   "w": 52,
+   "h": 19,
+   "pr": 1.368
+  },
+  "grass-29": {
+   "file": "grass-29.png",
+   "w": 60,
+   "h": 18,
+   "pr": 1.368
+  },
+  "jungle-0": {
+   "file": "jungle-0.png",
+   "w": 49,
+   "h": 49,
+   "pr": 1.32
+  },
+  "jungle-1": {
+   "file": "jungle-1.png",
+   "w": 66,
+   "h": 53,
+   "pr": 1.32
+  },
+  "jungle-2": {
+   "file": "jungle-2.png",
+   "w": 109,
+   "h": 92,
+   "pr": 1.32
+  },
+  "jungle-3": {
+   "file": "jungle-3.png",
+   "w": 75,
+   "h": 59,
+   "pr": 1.32
+  },
+  "jungle-4": {
+   "file": "jungle-4.png",
+   "w": 48,
+   "h": 49,
+   "pr": 1.32
+  },
+  "jungle-5": {
+   "file": "jungle-5.png",
+   "w": 93,
+   "h": 88,
+   "pr": 1.32
+  },
+  "jungle-6": {
+   "file": "jungle-6.png",
+   "w": 66,
+   "h": 62,
+   "pr": 1.32
+  },
+  "jungle-7": {
+   "file": "jungle-7.png",
+   "w": 51,
+   "h": 49,
+   "pr": 1.32
+  },
+  "jungle-8": {
+   "file": "jungle-8.png",
+   "w": 83,
+   "h": 84,
+   "pr": 1.32
+  },
+  "jungle-9": {
+   "file": "jungle-9.png",
+   "w": 61,
+   "h": 48,
+   "pr": 1.32
+  },
+  "jungle-10": {
+   "file": "jungle-10.png",
+   "w": 72,
+   "h": 53,
+   "pr": 1.32
+  },
+  "jungle-11": {
+   "file": "jungle-11.png",
+   "w": 96,
+   "h": 93,
+   "pr": 1.32
+  },
+  "jungle-12": {
+   "file": "jungle-12.png",
+   "w": 62,
+   "h": 78,
+   "pr": 1.32
+  },
+  "jungle-13": {
+   "file": "jungle-13.png",
+   "w": 58,
+   "h": 49,
+   "pr": 1.32
+  },
+  "jungle-14": {
+   "file": "jungle-14.png",
+   "w": 104,
+   "h": 91,
+   "pr": 1.32
+  },
+  "jungle-15": {
+   "file": "jungle-15.png",
+   "w": 51,
+   "h": 50,
+   "pr": 1.32
+  },
+  "jungle-16": {
+   "file": "jungle-16.png",
+   "w": 54,
+   "h": 70,
+   "pr": 1.32
+  },
+  "jungle-17": {
+   "file": "jungle-17.png",
+   "w": 105,
+   "h": 73,
+   "pr": 1.32
+  },
+  "jungle-18": {
+   "file": "jungle-18.png",
+   "w": 58,
+   "h": 53,
+   "pr": 1.32
+  },
+  "jungle-19": {
+   "file": "jungle-19.png",
+   "w": 60,
+   "h": 63,
+   "pr": 1.32
+  },
+  "jungle-20": {
+   "file": "jungle-20.png",
+   "w": 98,
+   "h": 106,
+   "pr": 1.32
+  },
+  "jungle-21": {
+   "file": "jungle-21.png",
+   "w": 49,
+   "h": 65,
+   "pr": 1.32
+  },
+  "jungle-22": {
+   "file": "jungle-22.png",
+   "w": 88,
+   "h": 39,
+   "pr": 1.32
+  },
+  "jungle-23": {
+   "file": "jungle-23.png",
+   "w": 125,
+   "h": 99,
+   "pr": 1.32
+  },
+  "jungle-24": {
+   "file": "jungle-24.png",
+   "w": 48,
+   "h": 50,
+   "pr": 1.32
+  },
+  "jungle-25": {
+   "file": "jungle-25.png",
+   "w": 50,
+   "h": 44,
+   "pr": 1.32
+  },
+  "jungle-26": {
+   "file": "jungle-26.png",
+   "w": 117,
+   "h": 101,
+   "pr": 1.32
+  },
+  "jungle-27": {
+   "file": "jungle-27.png",
+   "w": 26,
+   "h": 62,
+   "pr": 1.32
+  },
+  "jungle-28": {
+   "file": "jungle-28.png",
+   "w": 53,
+   "h": 53,
+   "pr": 1.32
+  },
   "poi-hamlet": {
    "file": "poi-hamlet.png",
    "w": 144,
@@ -1478,6 +1832,69 @@
    "desert-27",
    "desert-28",
    "desert-29"
+  ],
+  "grass": [
+   "grass-0",
+   "grass-1",
+   "grass-2",
+   "grass-3",
+   "grass-4",
+   "grass-5",
+   "grass-6",
+   "grass-7",
+   "grass-8",
+   "grass-9",
+   "grass-10",
+   "grass-11",
+   "grass-12",
+   "grass-13",
+   "grass-14",
+   "grass-15",
+   "grass-16",
+   "grass-17",
+   "grass-18",
+   "grass-19",
+   "grass-20",
+   "grass-21",
+   "grass-22",
+   "grass-23",
+   "grass-24",
+   "grass-25",
+   "grass-26",
+   "grass-27",
+   "grass-28",
+   "grass-29"
+  ],
+  "jungle": [
+   "jungle-0",
+   "jungle-1",
+   "jungle-2",
+   "jungle-3",
+   "jungle-4",
+   "jungle-5",
+   "jungle-6",
+   "jungle-7",
+   "jungle-8",
+   "jungle-9",
+   "jungle-10",
+   "jungle-11",
+   "jungle-12",
+   "jungle-13",
+   "jungle-14",
+   "jungle-15",
+   "jungle-16",
+   "jungle-17",
+   "jungle-18",
+   "jungle-19",
+   "jungle-20",
+   "jungle-21",
+   "jungle-22",
+   "jungle-23",
+   "jungle-24",
+   "jungle-25",
+   "jungle-26",
+   "jungle-27",
+   "jungle-28"
   ]
  }
 }

@@ -28,9 +28,9 @@
     --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .26 0 0 0 0 .12 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   html, body { margin: 0; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 16px; }
-  :root { --pane-w: 33.333vw; --pane: var(--pane-w); }
+  :root { --pane-w: 33.333vw; --pane: var(--pane-w); --bar: 40px; }
   body.pane-closed { --pane: 0px; }
-  #stage { position: absolute; top: 0; bottom: 0; left: 0; right: var(--pane); overflow: hidden; transition: right 0.25s ease; }
+  #stage { position: absolute; top: var(--bar); bottom: 0; left: 0; right: var(--pane); overflow: hidden; transition: right 0.25s ease; }
   #map, #globe, #relief { position: absolute; inset: 0; }
   #relief { display: none; background: radial-gradient(ellipse at center, #3a2f22 0%, #120e09 100%); cursor: grab; outline: none; }
   #relief canvas { display: block; }
@@ -98,10 +98,28 @@
   .modes button + button { border-left: 1px solid var(--rule); }
   .modes button:hover { background: rgba(185, 138, 44, 0.18); }
   .modes button.on { background: var(--rubric); color: #f6e9c6; text-shadow: 0 1px 0 rgba(0,0,0,0.3); }
-  /* shown over the map only while the side pane is slid shut */
-  .modes-mini { display: none; position: absolute; top: 18px; left: 18px; z-index: 3; margin: 0; }
-  body.pane-closed .modes-mini { display: inline-flex; }
-  .modes-mini button { padding: 5px 14px; font-size: 11px; }
+  /* the menu band across the top: Layers, tools, and the View menu (Map | Globe | Relief | Climate) */
+  .menubar { position: fixed; top: 0; left: 0; right: 0; height: var(--bar); z-index: 30; box-sizing: border-box; display: flex; align-items: stretch; padding: 0 10px; background: linear-gradient(var(--vellum), var(--vellum-deep)); border-bottom: 3px double var(--rule); box-shadow: 0 2px 8px rgba(40,24,8,0.25); user-select: none; }
+  .menubar .mb-item { position: relative; display: flex; align-items: stretch; }
+  .menubar .mb-btn { font-family: var(--caps); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; padding: 0 16px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+  .menubar .mb-btn:hover { background: rgba(185,138,44,0.2); }
+  .menubar .mb-btn.on, .menubar .mb-item.open > .mb-btn { background: var(--rubric); color: #f6e9c6; text-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+  .menubar .mb-btn:focus-visible { outline: 2px solid var(--gilt); outline-offset: -3px; }
+  .menubar .mb-btn:disabled { opacity: 0.4; cursor: default; background: none; color: var(--ink); }
+  .menubar [hidden] { display: none; }
+  .menubar .mb-caret::after { content: '\25BE'; margin-left: 6px; letter-spacing: 0; }
+  .menubar .mb-drop { display: none; position: absolute; top: 100%; left: 0; min-width: 170px; margin-top: 3px; background: var(--vellum); border: 1px solid var(--rule); box-shadow: 0 0 0 2px var(--vellum), 0 0 0 3px var(--rule), 0 8px 18px rgba(40,24,8,0.35); border-radius: 2px; }
+  .menubar .mb-item.open .mb-drop { display: block; }
+  /* the Map | Globe | Relief | Climate buttons (map.js looks for ".modes button") */
+  .menubar .modes button { display: block; width: 100%; text-align: left; padding: 8px 16px 8px 30px; font-size: 12px; letter-spacing: 0.16em; position: relative; }
+  .menubar .modes button + button { border-left: 0; border-top: 1px solid rgba(70,48,26,0.2); }
+  .menubar .modes button.on::before { content: '\2713'; position: absolute; left: 11px; color: inherit; }
+  /* tools that only work on the flat map */
+  body.relief .mb-btn[data-needs], body.climate .mb-btn[data-needs] { opacity: 0.4; pointer-events: none; }
+  body.globe .mb-btn[data-needs="flat"] { opacity: 0.4; pointer-events: none; }
+  /* the tool buttons now live in the band, not in the Layers panel */
+  .layers [data-menu] { display: none; }
+  body.layers-hidden .layers { display: none; }
 
   .globe-hint { position: absolute; left: 20px; bottom: 20px; padding: 4px 10px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 13px; font-style: italic; display: none; }
   body.globe .globe-hint { display: block; }
@@ -128,9 +146,9 @@
   .gl:hover span { text-decoration: underline; }
   .globe-ring { position: absolute; left: 0; top: 0; }
 
-  .pane { position: absolute; top: 0; bottom: 0; right: 0; width: var(--pane-w); box-sizing: border-box; display: flex; transition: transform 0.25s ease; flex-direction: column; background: var(--grain), var(--vellum); color: var(--ink); border-left: 3px double var(--rule); box-shadow: -2px 0 10px rgba(40,24,8,0.28); }
+  .pane { position: absolute; top: var(--bar); bottom: 0; right: 0; width: var(--pane-w); box-sizing: border-box; display: flex; transition: transform 0.25s ease; flex-direction: column; background: var(--grain), var(--vellum); color: var(--ink); border-left: 3px double var(--rule); box-shadow: -2px 0 10px rgba(40,24,8,0.28); }
   body.pane-closed .pane { transform: translateX(100%); box-shadow: none; }
-  .pane-tab { position: absolute; top: 50%; right: var(--pane); transform: translateY(-50%); z-index: 6; width: 20px; height: 68px; padding: 0; border: 1px solid var(--rule); border-right: 0; border-radius: 3px 0 0 3px; background: var(--vellum); color: var(--rubric); cursor: pointer; font-size: 18px; line-height: 1; box-shadow: -2px 0 6px rgba(40,24,8,0.25); transition: right 0.25s ease; }
+  .pane-tab { position: absolute; top: calc(50% + var(--bar) / 2); right: var(--pane); transform: translateY(-50%); z-index: 6; width: 20px; height: 68px; padding: 0; border: 1px solid var(--rule); border-right: 0; border-radius: 3px 0 0 3px; background: var(--vellum); color: var(--rubric); cursor: pointer; font-size: 18px; line-height: 1; box-shadow: -2px 0 6px rgba(40,24,8,0.25); transition: right 0.25s ease; }
   .pane-tab:hover { background: var(--vellum-deep); }
   .pane-tab::before { content: '›'; }
   body.pane-closed .pane-tab::before { content: '‹'; }
@@ -138,7 +156,7 @@
   .pane-close { border: 0; background: none; color: inherit; font-size: 20px; cursor: pointer; line-height: 1; padding: 0 2px; }
   .pane-body { flex: 1; overflow: auto; padding: 14px 20px 26px; font-size: 16.5px; }
   .pane-empty { color: var(--ink-soft); font-style: italic; line-height: 1.5; }
-  @media (max-width: 720px) { :root { --pane: 0px; --pane-w: 100vw; } .pane { top: auto; height: 42%; width: auto; left: 0; border-left: 0; border-top: 3px double var(--rule); } #stage { bottom: 42%; right: 0; } .pane-tab { display: none; } .masthead { padding: 8px 12px 6px; } .masthead h1 { font-size: 18px; } .masthead p, .orn { display: none; } .modes { margin-top: 6px; } }
+  @media (max-width: 720px) { :root { --pane: 0px; --pane-w: 100vw; } .pane { top: auto; height: 42%; width: auto; left: 0; border-left: 0; border-top: 3px double var(--rule); } #stage { bottom: 42%; right: 0; } .pane-tab { display: none; } .masthead { padding: 8px 12px 6px; } .masthead h1 { font-size: 18px; } .masthead p, .orn { display: none; } .menubar { overflow-x: auto; padding: 0 2px; } .menubar .mb-btn { padding: 0 10px; font-size: 11px; letter-spacing: 0.1em; white-space: nowrap; } }
 
   .coords {
     position: absolute; left: 20px; bottom: 20px; padding: 4px 10px; background: var(--panel); border: 1px solid var(--rule);
@@ -155,7 +173,7 @@
   .pin-actions { display: flex; gap: 6px; flex-wrap: wrap; }
   .pin-actions button { font: inherit; font-size: 13px; padding: 3px 8px; border-radius: 2px; border: 1px solid var(--rule); background: var(--vellum-deep); color: var(--ink); cursor: pointer; }
   .placer-toggle { margin-top: 4px; padding: 5px 8px; font: inherit; font-size: 13px; cursor: pointer; border-radius: 2px; border: 1px solid var(--rule); background: var(--vellum); color: var(--ink); }
-  .placer { position: absolute; top: 16px; right: 60px; bottom: 16px; width: 300px; display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 14px; z-index: 3; }
+  .placer { position: absolute; top: calc(var(--bar) + 16px); right: calc(var(--pane) + 60px); bottom: 16px; width: 300px; display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--rule); border-radius: 2px; font-size: 14px; z-index: 3; }
   .placer[hidden] { display: none; }
   .placer-head { display: flex; justify-content: space-between; align-items: center; }
   .placer-close { border: 0; background: none; color: inherit; font-size: 20px; cursor: pointer; line-height: 1; }
@@ -219,6 +237,30 @@
   .ed-actions .ed-remove.armed { background: var(--rubric); color: #f6e9c6; }
   .ed-status { min-height: 1.2em; margin-top: 6px; font-style: italic; color: var(--ink-soft); font-size: 13px; }
   body.globe .ed-move { display: none; }
+  /* while painting or placing entries, that tool's panel takes the place of the details pane, so the whole map stays clear to paint on */
+  .docked { z-index: 8; top: var(--bar); right: 0; bottom: 0; width: var(--pane-w); box-sizing: border-box; padding: 14px 20px; border-radius: 0; border-width: 0 0 0 3px; border-style: double; border-color: var(--rule); background: var(--grain), var(--vellum); overflow-y: auto; gap: 10px; box-shadow: -2px 0 10px rgba(40,24,8,0.28); font-size: 15px; }
+  .docked .placer-head strong { font-family: var(--caps); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rubric); }
+  body:is(.painting-tool, .placing-tool):not(.globe):not(.relief):not(.climate) { --pane: var(--pane-w); }
+  body:is(.painting-tool, .placing-tool):not(.globe):not(.relief):not(.climate) .pane { transform: none; }
+  body:is(.painting-tool, .placing-tool):not(.globe):not(.relief):not(.climate) .pane-tab { display: none; }
+  @media (max-width: 720px) { .docked { top: auto; height: 42%; width: auto; left: 0; border-width: 3px 0 0; } }
+  .painter-kinds { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .painter-kinds button, .painter-row button, .painter-saved button { font: inherit; font-size: 13px; padding: 4px 6px; cursor: pointer; border-radius: 2px; border: 1px solid var(--rule); background: var(--vellum); color: var(--ink); text-align: left; display: flex; align-items: center; gap: 6px; }
+  .painter-kinds button.on { background: rgba(185,138,44,0.4); border-color: var(--rubric); }
+  .painter-kinds i { width: 14px; height: 14px; border-radius: 2px; border: 1px solid rgba(58,42,28,0.6); flex: none; }
+  .painter-brush { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .painter-brush input { flex: 1; }
+  .painter-brush span { min-width: 44px; text-align: right; }
+  .painter-row { display: flex; gap: 6px; }
+  .painter-row button { flex: 1; justify-content: center; text-align: center; }
+  .painter-fill:not(:disabled) { background: var(--rubric); color: #f8f0d8; border-color: var(--rubric); }
+  .painter-row button:disabled { opacity: 0.5; cursor: default; }
+  .painter-saved { font-size: 12px; opacity: 0.85; display: flex; flex-wrap: wrap; gap: 4px 6px; align-items: center; }
+  .painter-saved button { padding: 2px 5px; font-size: 12px; }
+  .painter-status { font-size: 12px; min-height: 1em; opacity: 0.85; }
+  .paint-canvas { position: absolute; left: 0; top: 0; z-index: 1; opacity: 0.8; }
+  .brush-cursor { position: absolute; left: 0; top: 0; z-index: 2; border: 1.5px solid; border-radius: 50%; pointer-events: none; box-shadow: 0 0 0 1px rgba(255,250,230,0.7); }
+  body.relief .painter, body.climate .painter, body.globe .painter { display: none; }
   .placer-removed { border-top: 1px solid var(--rule); padding-top: 4px; }
   .placer-removed[hidden] { display: none; }
   .placer-removed summary { cursor: pointer; font-size: 13px; }
@@ -301,13 +343,21 @@
 </style>
 </head>
 <body>
+<nav class="menubar" id="menubar" aria-label="Menus">
+  <div class="mb-item"><button type="button" class="mb-btn" data-act="layers" data-needs="map" aria-pressed="true">Layers</button></div>
+  <div class="mb-item"><button type="button" class="mb-btn" data-act="journey" data-needs="flat">Plan a journey</button></div>
+  <div class="mb-item" hidden><button type="button" class="mb-btn" data-act="place" data-needs="map">Place entries</button></div>
+  <div class="mb-item" hidden><button type="button" class="mb-btn" data-act="paint" data-needs="flat">Paint terrain</button></div>
+  <div class="mb-item" id="mb-view"><button type="button" class="mb-btn mb-caret" aria-haspopup="true" aria-expanded="false">View</button>
+    <div class="mb-drop modes" id="modes"><button type="button" data-mode="map" class="mb-btn on">Map</button><button type="button" data-mode="globe" class="mb-btn">Globe</button><button type="button" data-mode="relief" class="mb-btn">Relief</button><button type="button" data-mode="climate" class="mb-btn">Climate</button></div>
+  </div>
+</nav>
 <div id="stage">
 <div id="map"></div>
 <div id="relief"></div>
 <div class="vellum"></div>
 <div class="frame"></div>
 <div class="globe-loading" id="globe-loading">Raising the globe&hellip;</div>
-<div class="modes modes-mini" id="modes-mini"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button><button data-mode="climate">Climate</button></div>
 <div class="coords" id="coords" hidden></div>
 <div class="layers" id="layers"><strong>Layers</strong></div>
 <div class="globe-hint">Drag to turn &middot; scroll to zoom &middot; zoom in to flatten it into the map &middot; click a pin for details</div>
@@ -321,7 +371,6 @@
   <header class="masthead">
     <h1><span class="cap">A</span>tlas of <span class="cap">G</span>eas</h1>
     <p>Draft &mdash; northwest only has interior detail</p>
-    <div class="modes" id="modes"><button data-mode="map" class="on">Map</button><button data-mode="globe">Globe</button><button data-mode="relief">Relief</button><button data-mode="climate">Climate</button></div>
     <div class="finder"><input id="find" type="search" placeholder="Find a place or region&hellip;" autocomplete="off" spellcheck="false" aria-label="Find a place or region"><div class="find-results" id="find-results" hidden></div></div>
     <div class="orn">&#10086;</div>
   </header>
@@ -344,11 +393,13 @@
 <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js"}}</script>
 <script src="vendor/maplibre-gl.js"></script>
 <script src="proj.js"></script>
+<script src="menubar.js"></script>
 <script src="map.js"></script>
 <script src="explore.js"></script>
 <script src="citadel.js"></script>
 <script src="towns.js"></script>
 <script src="fractalcoast.js"></script>
 <script src="coast.js"></script>
+<script src="paint.js"></script>
 </body>
 </html>

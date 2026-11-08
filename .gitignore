@@ -1,8 +1,18 @@
+# Only what the published map needs goes to GitHub: the atlas/ folder (the viewer, its data, symbols, fonts, glyphs and vendor
+# libraries) plus the Pages workflow in .github/. GitHub Pages serves atlas/ and nothing else, so the rest stays on this computer.
+
+# the map-building toolchain, its hand-made source data and the author's original material (kept locally, not published)
+/tools/
+/original_data/
+/_backup_*/
+
+# editor / assistant settings and scratch
+/.claude/
 node_modules/
-_backup_pre_fn/
-original_data/web/
-tools/_*.png
-tools/_*.bin
 *.log
-original_data/db/
-_backup_pre_maplibre5/
+
+# build leftovers inside atlas/ that the viewer never loads (alternative climate runs written by tools/climate.mjs)
+/atlas/data/climate_natural.json
+/atlas/data/climate_northeast.json
+/atlas/data/climate_wall.json
+/atlas/data/climate_west.json

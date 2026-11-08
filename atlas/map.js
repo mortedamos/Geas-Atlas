@@ -20,6 +20,8 @@ const TERRAIN_FILL = {
   ruins: ['#a99f94', 0.5],
   ice: ['#e6eeea', 0.85],
   desert: ['#e7c680', 0.85],
+  plains: ['#cdd68c', 0.5],
+  jungle: ['#5f8d4c', 0.6],
 };
 
 // icon-size at SYMBOL_REF_ZOOM (1 = the symbol's natural on-screen size); at other zooms the symbols grow and shrink with the map
@@ -32,6 +34,8 @@ const SYMBOL_SCALE = {
   desert: 0.5,
   hills: 0.62,
   mountain: 0.62,
+  plains: 0.5,
+  jungle: 0.46,
 };
 
 // settlement size 1 / 2 / 3 = village (small) / town (medium) / city (large); other kinds of place have none
@@ -75,7 +79,7 @@ function drawIcon(name) {
   g.scale(px, px);
   g.lineJoin = 'round'; g.lineCap = 'round';
   const [rawKind, vs] = name.split('-');
-  const kind = rawKind === 'sapling' ? 'tree' : rawKind; // code-drawn fallback: a sapling is just a tree
+  const kind = rawKind === 'sapling' || rawKind === 'jungle' ? 'tree' : rawKind; // code-drawn fallback: a sapling or a jungle tree is just a tree
   const v = Number(vs) || 0;
   const ink = PALETTE.ink;
 
@@ -109,6 +113,11 @@ function drawIcon(name) {
     g.strokeStyle = '#3f5a2c'; g.lineWidth = 2;
     const tufts = [[[20, 48], [32, 48], [44, 48]], [[18, 48], [30, 48], [46, 48]], [[24, 48], [36, 48], [42, 48]]][v % 3];
     for (const [tx, ty] of tufts) for (const dx of [-4, 0, 4]) { g.beginPath(); g.moveTo(tx + dx * 0.4, ty); g.lineTo(tx + dx, ty - (dx === 0 ? 20 : 14)); g.stroke(); }
+  } else if (kind === 'grass') {
+    // a few blades of grass along a short ground line
+    g.strokeStyle = '#5b6b34'; g.lineWidth = 2;
+    const tufts = [[[22, 50], [36, 50]], [[18, 50], [32, 50], [46, 50]], [[26, 50], [42, 50]]][v % 3];
+    for (const [tx, ty] of tufts) for (const dx of [-5, 0, 5]) { g.beginPath(); g.moveTo(tx + dx * 0.3, ty); g.lineTo(tx + dx, ty - (dx === 0 ? 14 : 10)); g.stroke(); }
   } else if (kind === 'poi') {
     const type = vs;
     g.strokeStyle = ink; g.fillStyle = ink; g.lineWidth = 2.4;
@@ -181,7 +190,7 @@ const style = {
     { id: 'grid-hover', type: 'line', source: 'graticule', filter: ['==', ['get', 'label'], ''], layout: { visibility: gridVis }, paint: { 'line-color': '#9a2f1c', 'line-opacity': 0.9, 'line-width': 2.4 } },
 
     // symbols: three density tiers fade in as you zoom
-    ...[['forest', 'tree'], ['newgrowth', 'sapling'], ['ruins', 'ruinfield'], ['marsh', 'marsh'], ['desert', 'desert'], ['hills', 'hill'], ['mountain', 'mtn']].flatMap(([kind, icon]) =>
+    ...[['forest', 'tree'], ['jungle', 'jungle'], ['newgrowth', 'sapling'], ['plains', 'grass'], ['ruins', 'ruinfield'], ['marsh', 'marsh'], ['desert', 'desert'], ['hills', 'hill'], ['mountain', 'mtn']].flatMap(([kind, icon]) =>
       [[0, 5.2], [1, 6.2], [2, 7.0], [3, 9.8], [4, 10.2], [5, 10.6]].map(([tier, minzoom]) => ({
         id: `sym-${kind}-${tier}`, type: 'symbol', source: 'icons', minzoom,
         filter: ['all', ['==', ['get', 'kind'], kind], ['==', ['get', 'tier'], tier]],
@@ -195,7 +204,7 @@ const style = {
           'icon-anchor': 'bottom', 'icon-allow-overlap': true, 'icon-ignore-placement': true,
           'symbol-sort-key': ['get', 'sk'],
         },
-        paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], 12.5, kind === 'forest' ? 0.92 : kind === 'ruins' ? 0.55 : 1, 14, 0] }, // gone before street plans fade in
+        paint: { 'icon-opacity': ['interpolate', ['linear'], ['zoom'], 12.5, kind === 'forest' || kind === 'jungle' ? 0.92 : kind === 'ruins' ? 0.55 : 1, 14, 0] }, // gone before street plans fade in
       })),
     ),
 
@@ -358,10 +367,17 @@ map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-ri
   map.on('move', update); update();
 })();
 
+function bitmapPixels(bm) {
+  const c = document.createElement('canvas');
+  c.width = bm.width; c.height = bm.height;
+  const g = c.getContext('2d');
+  g.drawImage(bm, 0, 0);
+  return g.getImageData(0, 0, c.width, c.height);
+}
 map.on('styleimagemissing', (e) => {
   if (map.hasImage(e.id)) return;
   const sym = symbolFor(e.id);
-  if (sym) { map.addImage(e.id, sym.bitmap, { pixelRatio: sym.pixelRatio }); return; }
+  if (sym) { map.addImage(e.id, bitmapPixels(sym.bitmap), { pixelRatio: sym.pixelRatio }); return; } // raw pixels: MapLibre 5 darkens a transparent ImageBitmap
   const { data, pixelRatio } = drawIcon(e.id);
   map.addImage(e.id, data, { pixelRatio });
 });
@@ -638,7 +654,7 @@ async function refreshData() {
 let refreshUnplaced = async () => {};
 let refreshRemoved = async () => {};
 for (const layer of ['poi-icons', 'places-1', 'places-2', 'places-3', 'regions-1', 'regions-2', 'regions-3']) {
-  map.on('click', layer, (e) => showCard(AP.featureBack(e.features[0])));
+  map.on('click', layer, (e) => { if (window.atlas.painting) return; showCard(AP.featureBack(e.features[0])); });
   map.on('mouseenter', layer, () => (map.getCanvas().style.cursor = 'pointer'));
   map.on('mouseleave', layer, () => (map.getCanvas().style.cursor = ''));
 }
@@ -720,7 +736,9 @@ window.__map = map;
   const KINDS = ['town', 'city', 'village', 'port', 'fort', 'tower', 'temple', 'mine', 'ruin', 'region', 'forest', 'mountain', 'lake', 'island'];
 
   const panel = document.createElement('div');
-  panel.className = 'placer'; panel.hidden = true;
+  panel.className = 'placer docked'; panel.hidden = true;
+  // like Paint terrain, the panel takes the details pane's place while open (index.html), so the map stays clear
+  new MutationObserver(() => document.body.classList.toggle('placing-tool', !panel.hidden)).observe(panel, { attributes: true, attributeFilter: ['hidden'] });
   panel.innerHTML = `<div class="placer-head"><strong>Place entries</strong><button class="placer-close" title="Close">×</button></div>
     <div class="placer-hint">Pick an entry, then click the map where it belongs.</div>
     <div class="placer-row"><label>Symbol <select class="placer-kind">${KINDS.map((k) => `<option>${k}</option>`).join('')}</select></label></div>
@@ -729,7 +747,7 @@ window.__map = map;
     <div class="placer-list"></div>`;
   document.body.appendChild(panel);
   const toggle = document.createElement('button');
-  toggle.className = 'placer-toggle';
+  toggle.className = 'placer-toggle'; toggle.dataset.menu = 'place';
   const listEl = panel.querySelector('.placer-list'), searchEl = panel.querySelector('.placer-search'), kindEl = panel.querySelector('.placer-kind'), hintEl = panel.querySelector('.placer-hint');
 
   function render() {
